@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Obstacle Avoiding Car | ROBOVATIVE Projects</title>
+<meta name="description" content="An obstacle avoiding car built on a 4WD acrylic chassis with a servo-mounted ultrasonic sensor, motor driver and Arduino Uno. Components, wiring notes and an example Arduino sketch from ROBOVATIVE.">
+<link rel="canonical" href="https://robovative.in/projects/obstacle-avoiding-car.html">
+<link rel="icon" type="image/png" href="../assets/logo.png">
+<link rel="apple-touch-icon" href="../assets/logo.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<!-- ============================== NAVBAR ============================== -->
+<header class="navbar" id="navbar">
+  <div class="container nav-inner">
+    <a href="../index.html" class="logo">
+      <span class="logo-mark"><img src="../assets/logo.png" alt="ROBOVATIVE logo" width="40" height="40"></span>
+      <span class="logo-text">ROBO<span>VATIVE</span></span>
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      <div class="nav-item"><a href="../index.html#home" class="nav-link">Home</a></div>
+      <div class="nav-item"><a href="../index.html#about" class="nav-link">About</a></div>
+      <div class="nav-item"><a href="../index.html#services" class="nav-link">Services</a></div>
+      <div class="nav-item"><a href="../index.html#training" class="nav-link">Training</a></div>
+      <div class="nav-item"><a href="../index.html#solutions" class="nav-link">Solutions</a></div>
+      <div class="nav-item"><a href="../index.html#prototyping" class="nav-link">Prototyping</a></div>
+      <div class="nav-item"><a href="../index.html#projects" class="nav-link">Projects</a></div>
+      <div class="nav-item"><a href="../index.html#gallery" class="nav-link">Gallery</a></div>
+      <div class="nav-item"><a href="../index.html#contact" class="nav-link">Contact</a></div>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="../index.html#contact" class="btn btn-primary">Start a Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+  <a href="../index.html#home">Home</a>
+  <a href="../index.html#about">About</a>
+  <a href="../index.html#services">Services</a>
+  <a href="../index.html#training">Training</a>
+  <a href="../index.html#solutions">Solutions</a>
+  <a href="../index.html#prototyping">Prototyping</a>
+  <a href="../index.html#projects">Projects</a>
+  <a href="../index.html#gallery">Gallery</a>
+  <a href="../index.html#contact">Contact</a>
+  <a href="../index.html#contact" class="btn btn-primary btn-block">Start a Project</a>
+</nav>
+
+<main>
+
+<!-- ============================== PROJECT HERO ============================== -->
+<section class="project-hero">
+  <div class="bg-grid"></div>
+  <div class="container">
+    <a href="../index.html#projects" class="breadcrumb reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      Back to Projects
+    </a>
+
+    <div class="project-detail-grid">
+      <div class="reveal">
+        <p class="eyebrow">Robotics</p>
+        <h1 class="section-title" style="max-width:15ch">OBSTACLE AVOIDING CAR.</h1>
+        <p class="section-sub" style="max-width:52ch">A 4WD robot that senses what's ahead with an ultrasonic sensor and steers around it, scanning left and right with a servo to pick the clearer path.</p>
+        <div class="hero-ctas" style="margin-top:30px">
+          <a href="#components" class="btn btn-secondary">View Components</a>
+          <a href="#code" class="btn btn-secondary">View Code</a>
+        </div>
+      </div>
+      <div class="project-detail-photo reveal">
+        <img src="../assets/projects/obstacle-avoiding-car.jpg" alt="Obstacle avoiding car on a 4WD acrylic chassis with a servo-mounted ultrasonic sensor, motor driver and jumper wiring" loading="eager" fetchpriority="high" decoding="async">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== OVERVIEW ============================== -->
+<section class="section-pad" style="padding-top:60px">
+  <div class="container">
+    <div class="reveal" style="max-width:70ch">
+      <h2 class="section-title" style="font-size:clamp(1.6rem,3vw,2.2rem)">How it works</h2>
+      <p class="section-sub" style="max-width:70ch">An ultrasonic sensor mounted at the front sends out a short pulse and times how long it takes to bounce back off whatever is ahead, which the Arduino converts into a distance in centimeters. While the path is clear, the car drives forward. When something gets closer than a set threshold, it stops, sweeps the sensor left and right on a servo to check which side has more open space, then turns toward the clearer side and continues.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== COMPONENTS ============================== -->
+<section class="section-pad" id="components" style="padding-top:0">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-head-text">
+        <h2 class="section-title">Components used</h2>
+      </div>
+      <p class="section-sub">Identified from the build shown above. Exact part models may vary by supplier.</p>
+    </div>
+
+    <div class="training-grid" data-stagger>
+      <div class="training-item reveal">
+        <div class="training-item-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg><h4>Arduino Uno (or compatible board)</h4></div>
+        <p class="item-desc">Runs the control logic: reads the sensor, drives the servo and controls all four motors.</p>
+      </div>
+      <div class="training-item reveal">
+        <div class="training-item-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12a10 10 0 0 1 20 0M6 12a6 6 0 0 1 12 0M10 12a2 2 0 0 1 4 0"/><circle cx="12" cy="19" r="2"/></svg><h4>Ultrasonic distance sensor (HC-SR04 style)</h4></div>
+        <p class="item-desc">Measures distance to whatever is directly ahead by timing a reflected pulse.</p>
+      </div>
+      <div class="training-item reveal">
+        <div class="training-item-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg><h4>Servo motor</h4></div>
+        <p class="item-desc">Pans the ultrasonic sensor left and right so the car can scan for the clearer direction after stopping.</p>
+      </div>
+      <div class="training-item reveal">
+        <div class="training-item-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="9" width="16" height="11" rx="2"/><path d="M12 9V5"/><circle cx="12" cy="3.5" r="1.5"/></svg><h4>Motor driver module (H-bridge)</h4></div>
+        <p class="item-desc">Lets the Arduino's low-power signal pins control the higher-current drive motors.</p>
+      </div>
+      <div class="training-item reveal">
+        <div class="training-item-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><path d="M6 16V8h9l3 8"/></svg><h4>4x DC gear motors and wheels</h4></div>
+        <p class="item-desc">A 4WD drivetrain, with the left and right sides driven independently to turn.</p>
+      </div>
+      <div class="training-item reveal">
+        <div class="training-item-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="6" width="16" height="4" rx="1"/><rect x="4" y="14" width="16" height="4" rx="1"/><path d="M8 10v4M16 10v4"/></svg><h4>Two-layer acrylic chassis</h4></div>
+        <p class="item-desc">The structural base, with the electronics deck raised on standoffs above the motor layer.</p>
+      </div>
+    </div>
+
+    <div class="notice reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+      <span>This component list is identified from the photo above. If you're sourcing parts for your own build, confirm exact models and ratings against your supplier's datasheet before wiring anything up. A battery pack is required but isn't clearly visible in this photo, likely mounted underneath the chassis.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CODE ============================== -->
+<section class="section-pad" id="code" style="padding-top:0">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-head-text">
+        <h2 class="section-title">Example Arduino sketch</h2>
+      </div>
+      <p class="section-sub">A representative implementation of the control logic described above, using an ultrasonic sensor, a scanning servo and a standard H-bridge motor driver.</p>
+    </div>
+
+    <div class="reveal">
+      <div class="code-block"><pre><code>// ROBOVATIVE - Example Obstacle Avoiding Car Sketch
+// Ultrasonic sensor (HC-SR04) + scanning servo + H-bridge motor driver
+// Pin numbers below are illustrative - match them to your own wiring.
+
+#include &lt;Servo.h&gt;
+
+const int trigPin  = 9;
+const int echoPin  = 10;
+const int servoPin = 11;
+
+const int leftMotorForward   = 5;   // PWM
+const int leftMotorReverse   = 6;   // PWM
+const int rightMotorForward  = 3;   // PWM
+const int rightMotorReverse  = 4;   // PWM
+
+const int stopDistanceCm = 20;
+const int driveSpeed     = 150;  // 0-255
+
+Servo scanServo;
+
+void setup() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+
+  pinMode(leftMotorForward, OUTPUT);
+  pinMode(leftMotorReverse, OUTPUT);
+  pinMode(rightMotorForward, OUTPUT);
+  pinMode(rightMotorReverse, OUTPUT);
+
+  scanServo.attach(servoPin);
+  scanServo.write(90);  // facing forward
+}
+
+void loop() {
+  long distance = readDistanceCm();
+
+  if (distance > stopDistanceCm) {
+    drive(driveSpeed, driveSpeed);   // path clear, go forward
+    return;
+  }
+
+  drive(0, 0);  // obstacle ahead, stop and look around
+
+  int rightClearance = scanAt(30);
+  int leftClearance  = scanAt(150);
+  scanServo.write(90);  // return to center
+
+  if (leftClearance > rightClearance) {
+    turnLeft();
+  } else {
+    turnRight();
+  }
+}
+
+long readDistanceCm() {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  long duration = pulseIn(echoPin, HIGH);
+  return duration * 0.034 / 2;  // speed of sound, round trip
+}
+
+int scanAt(int angle) {
+  scanServo.write(angle);
+  delay(300);  // let the servo settle before reading
+  return readDistanceCm();
+}
+
+void turnLeft() {
+  drive(0, driveSpeed);
+  delay(300);
+}
+
+void turnRight() {
+  drive(driveSpeed, 0);
+  delay(300);
+}
+
+void drive(int leftSpeed, int rightSpeed) {
+  analogWrite(leftMotorForward, leftSpeed);
+  digitalWrite(leftMotorReverse, LOW);
+  analogWrite(rightMotorForward, rightSpeed);
+  digitalWrite(rightMotorReverse, LOW);
+}</code></pre></div>
+
+      <div class="notice">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+        <span>This is an example sketch showing one standard way to wire the logic together, not the exact firmware running on the robot pictured above. Pin numbers, distance threshold and servo angles should be calibrated to your specific build before use.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CTA ============================== -->
+<section class="section-pad" style="padding-top:0">
+  <div class="container reveal">
+    <div class="cta-banner">
+      <div class="bg-grid"></div>
+      <div class="bg-glow g1"></div>
+      <div class="bg-glow g2"></div>
+      <h2 style="font-size:clamp(1.8rem,4vw,2.8rem)">WANT TO BUILD<br><span class="gradient-text">SOMETHING LIKE THIS?</span></h2>
+      <p>Obstacle avoiding cars are a common step up from line following robots in school and college robotics programs. We can help you build one, or something more advanced.</p>
+      <div class="cta-actions">
+        <a href="../index.html#contact" class="btn btn-primary">Start a Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="../index.html#projects" class="btn btn-secondary">See More Projects</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================== FOOTER ============================== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo">
+          <span class="logo-mark"><img src="../assets/logo.png" alt="ROBOVATIVE logo" width="36" height="36"></span>
+          <span class="logo-text">ROBO<span>VATIVE</span></span>
+        </a>
+        <p>Robotics. Engineering. Innovation.</p>
+      </div>
+      <div class="footer-col">
+        <h5>COMPANY</h5>
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#services">Services</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#gallery">Gallery</a>
+        <a href="../index.html#research">Research</a>
+        <a href="../index.html#contact">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h5>SOLUTIONS</h5>
+        <a href="../index.html#schools">Schools</a>
+        <a href="../index.html#colleges">Colleges</a>
+        <a href="../index.html#corporate">Companies</a>
+        <a href="../index.html#corporate">Startups</a>
+      </div>
+      <div class="footer-col">
+        <h5>TRAINING</h5>
+        <a href="../index.html#training">Robotics</a>
+        <a href="../index.html#training">AI/ML</a>
+        <a href="../index.html#training">IoT</a>
+        <a href="../index.html#training">Embedded</a>
+        <a href="../index.html#training">3D Printing</a>
+      </div>
+      <div class="footer-col">
+        <h5>CONNECT</h5>
+        <a href="#" data-social-instagram target="_blank" rel="noopener">Instagram</a>
+        <a href="#" data-social-linkedin target="_blank" rel="noopener">LinkedIn</a>
+        <a href="#" data-social-youtube target="_blank" rel="noopener">YouTube</a>
+        <a href="#" data-wa-link target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year>2026</span> ROBOVATIVE. All Rights Reserved.</span>
+      <span>Built for Innovation.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp quick-view chat preview -->
+<div class="wa-preview" id="waPreview">
+  <div class="wa-preview-head">
+    <div class="wa-preview-avatar">RV</div>
+    <div class="wa-preview-head-text">
+      <strong>ROBOVATIVE</strong>
+      <span data-phone>+91 83410 57568</span>
+    </div>
+    <button class="wa-preview-close" id="waPreviewClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="wa-preview-body">
+    <div class="wa-preview-day">Today</div>
+    <div class="wa-preview-bubble" data-wa-message>Hello ROBOVATIVE, I would like to know more about your services.</div>
+    <div class="wa-preview-meta">
+      <span>Ready to send</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 12l4 4L18 4M8 12l4 4L24 4"/></svg>
+    </div>
+  </div>
+  <a href="#" data-wa-link target="_blank" rel="noopener" class="wa-preview-cta">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.5.1-.2 0-.4 0-.5C10 9 9.5 7.7 9.3 7.2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.5-.3Z"/><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .9.9-2.9-.2-.3A8 8 0 1 1 12 20Z"/></svg>
+    Open Chat &amp; Send
+  </a>
+</div>
+
+<button type="button" data-wa-toggle class="wa-float" aria-label="Chat with ROBOVATIVE on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.5.1-.2 0-.4 0-.5C10 9 9.5 7.7 9.3 7.2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.5-.3Z"/><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .9.9-2.9-.2-.3A8 8 0 1 1 12 20Z"/></svg>
+</button>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+<script src="../script.js" defer></script>
+</body>
+</html>

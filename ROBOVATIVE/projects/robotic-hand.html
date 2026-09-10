@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robotic Hand | ROBOVATIVE Projects</title>
+<meta name="description" content="A 3D-printed robotic hand controlled in real time by a Python computer-vision hand-tracking script, driving five servos over serial. Components, wiring notes and example code from ROBOVATIVE.">
+<link rel="canonical" href="https://robovative.in/projects/robotic-hand.html">
+<link rel="icon" type="image/png" href="../assets/logo.png">
+<link rel="apple-touch-icon" href="../assets/logo.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<!-- ============================== NAVBAR ============================== -->
+<header class="navbar" id="navbar">
+  <div class="container nav-inner">
+    <a href="../index.html" class="logo">
+      <span class="logo-mark"><img src="../assets/logo.png" alt="ROBOVATIVE logo" width="40" height="40"></span>
+      <span class="logo-text">ROBO<span>VATIVE</span></span>
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      <div class="nav-item"><a href="../index.html#home" class="nav-link">Home</a></div>
+      <div class="nav-item"><a href="../index.html#about" class="nav-link">About</a></div>
+      <div class="nav-item"><a href="../index.html#services" class="nav-link">Services</a></div>
+      <div class="nav-item"><a href="../index.html#training" class="nav-link">Training</a></div>
+      <div class="nav-item"><a href="../index.html#solutions" class="nav-link">Solutions</a></div>
+      <div class="nav-item"><a href="../index.html#prototyping" class="nav-link">Prototyping</a></div>
+      <div class="nav-item"><a href="../index.html#projects" class="nav-link">Projects</a></div>
+      <div class="nav-item"><a href="../index.html#gallery" class="nav-link">Gallery</a></div>
+      <div class="nav-item"><a href="../index.html#contact" class="nav-link">Contact</a></div>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="../index.html#contact" class="btn btn-primary">Start a Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+  <a href="../index.html#home">Home</a>
+  <a href="../index.html#about">About</a>
+  <a href="../index.html#services">Services</a>
+  <a href="../index.html#training">Training</a>
+  <a href="../index.html#solutions">Solutions</a>
+  <a href="../index.html#prototyping">Prototyping</a>
+  <a href="../index.html#projects">Projects</a>
+  <a href="../index.html#gallery">Gallery</a>
+  <a href="../index.html#contact">Contact</a>
+  <a href="../index.html#contact" class="btn btn-primary btn-block">Start a Project</a>
+</nav>
+
+<main>
+
+<!-- ============================== PROJECT HERO ============================== -->
+<section class="project-hero">
+  <div class="bg-grid"></div>
+  <div class="container">
+    <a href="../index.html#projects" class="breadcrumb reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      Back to Projects
+    </a>
+
+    <div class="project-detail-grid">
+      <div class="reveal">
+        <p class="eyebrow">AI / Robotics</p>
+        <h1 class="section-title" style="max-width:13ch">ROBOTIC HAND.</h1>
+        <p class="section-sub" style="max-width:52ch">A 3D-printed robotic hand that mirrors your hand in real time. A webcam and a Python computer-vision script track which fingers are raised and drive five servos to match, over a serial link.</p>
+        <div class="hero-ctas" style="margin-top:30px">
+          <a href="#components" class="btn btn-secondary">View Components</a>
+          <a href="#code" class="btn btn-secondary">View Code</a>
+          <a href="https://www.instagram.com/reel/DUjxCN2krKG/" target="_blank" rel="noopener" class="btn btn-secondary">Watch on Instagram</a>
+        </div>
+      </div>
+      <div class="project-detail-photo reveal">
+        <img src="../assets/projects/robotic-arm.jpg" alt="3D-printed robotic hand on a desk next to a monitor running a Python hand-tracking script in VS Code, with the finger count overlaid on the webcam feed" style="aspect-ratio:4/5;object-fit:cover;object-position:center 38%" loading="eager" fetchpriority="high" decoding="async">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== OVERVIEW ============================== -->
+<section class="section-pad" style="padding-top:60px">
+  <div class="container">
+    <div class="reveal" style="max-width:70ch">
+      <h2 class="section-title" style="font-size:clamp(1.6rem,3vw,2.2rem)">How it works</h2>
+      <p class="section-sub" style="max-width:70ch">A webcam feeds video into a Python script running in VS Code. A hand-tracking model built on computer vision locates the hand in each frame and works out which of the five fingers are extended and which are curled. That five-value state is sent over a serial (USB) connection to a microcontroller, which moves one servo per finger, pulling or releasing the tendon strings threaded through the 3D-printed fingers so the hand mirrors the gesture almost instantly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== COMPONENTS ============================== -->
+<section class="section-pad" id="components" style="padding-top:0">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-head-text">
+        <h2 class="section-title">Components used</h2>
+      </div>
+      <p class="section-sub">Identified from the build shown above. Exact part models may vary by supplier.</p>
+    </div>
+
+    <div class="training-grid" data-stagger>
+      <div class="training-item reveal">
+        <div class="training-item-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M6 14V8a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v9a8 8 0 0 0 8 8h2a8 8 0 0 0 8-8v-4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2"/></svg><h4>3D-printed robotic hand</h4></div>
+        <p class="item-desc">A custom-prototyped articulated hand with fingers pulled by tendon strings routed through each joint.</p>
+      </div>
+      <div class="training-item reveal">
+        <div class="training-item-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg><h4>5x micro servo motors</h4></div>
+        <p class="item-desc">One servo per finger, each pulling or releasing its tendon string to curl or extend that finger.</p>
+      </div>
+      <div class="training-item reveal">
+        <div class="training-item-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg><h4>Arduino (or compatible microcontroller)</h4></div>
+        <p class="item-desc">Receives the finger state over serial from the PC and drives all five servos.</p>
+      </div>
+      <div class="training-item reveal">
+        <div class="training-item-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="13" rx="2"/><path d="M8 21h8M12 18v3"/><circle cx="12" cy="11" r="3"/></svg><h4>Webcam</h4></div>
+        <p class="item-desc">Captures the live hand feed that the Python script processes frame by frame.</p>
+      </div>
+      <div class="training-item reveal">
+        <div class="training-item-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9.5 2A6.5 6.5 0 1 0 16 8.5"/><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="1.6"/></svg><h4>Python computer-vision hand tracking</h4></div>
+        <p class="item-desc">A hand-tracking model (OpenCV plus a landmark-detection library) running in VS Code, working out which fingers are up in each frame.</p>
+      </div>
+      <div class="training-item reveal">
+        <div class="training-item-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg><h4>USB serial link</h4></div>
+        <p class="item-desc">Carries the finger state from the PC running the Python script to the microcontroller driving the servos.</p>
+      </div>
+    </div>
+
+    <div class="notice reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+      <span>This component list is identified from the photo above. If you're sourcing parts for your own build, confirm exact models and ratings against your supplier's datasheet before wiring anything up.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CODE ============================== -->
+<section class="section-pad" id="code" style="padding-top:0">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-head-text">
+        <h2 class="section-title">Example code</h2>
+      </div>
+      <p class="section-sub">Two parts: a Python script that tracks the hand and talks over serial, and an Arduino sketch that turns that data into servo movement.</p>
+    </div>
+
+    <div class="reveal">
+      <p style="font-weight:700;font-size:14px;color:var(--text-secondary);margin-bottom:0">1. Python: hand tracking (runs on the PC, in VS Code)</p>
+      <div class="code-block"><pre><code># ROBOVATIVE - Example Hand-Tracking Control Script
+# Requires: opencv-python, cvzone, pyserial
+# Tracks a hand with a webcam and sends the state of each finger
+# (thumb, index, middle, ring, pinky) to the robotic hand over serial.
+
+import cv2
+from cvzone.HandTrackingModule import HandDetector
+import serial
+import time
+
+arduino = serial.Serial('COM5', 9600)   # match to your board's port
+time.sleep(2)  # let the connection settle
+
+cap = cv2.VideoCapture(0)
+detector = HandDetector(detectionCon=0.8, maxHands=1)
+
+while True:
+    success, img = cap.read()
+    hands, img = detector.findHands(img)
+
+    if hands:
+        fingers = detector.fingersUp(hands[0])          # e.g. [0,1,1,1,0]
+        command = ''.join(str(f) for f in fingers)       # e.g. "01110"
+        arduino.write((command + '\n').encode())
+
+        cv2.putText(img, f'Fingers Up: {sum(fingers)}', (20, 60),
+                    cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+
+    cv2.imshow("Hand Tracking", img)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()</code></pre></div>
+    </div>
+
+    <div class="reveal" style="margin-top:36px">
+      <p style="font-weight:700;font-size:14px;color:var(--text-secondary);margin-bottom:0">2. Arduino: servo control (runs on the microcontroller)</p>
+      <div class="code-block"><pre><code>// ROBOVATIVE - Example Robotic Hand Sketch
+// Receives a 5-character finger state string over serial
+// ("1" = extended, "0" = curled) and moves one servo per finger.
+// Pin numbers below are illustrative - match them to your own wiring.
+
+#include &lt;Servo.h&gt;
+
+Servo fingerServo[5];
+const int servoPins[5] = {3, 5, 6, 9, 10};   // thumb, index, middle, ring, pinky
+
+const int extendedAngle = 0;
+const int curledAngle   = 90;
+
+void setup() {
+  Serial.begin(9600);
+  for (int i = 0; i &lt; 5; i++) {
+    fingerServo[i].attach(servoPins[i]);
+    fingerServo[i].write(curledAngle);
+  }
+}
+
+void loop() {
+  if (Serial.available() > 0) {
+    String state = Serial.readStringUntil('\n');
+    if (state.length() == 5) {
+      for (int i = 0; i &lt; 5; i++) {
+        int angle = (state[i] == '1') ? extendedAngle : curledAngle;
+        fingerServo[i].write(angle);
+      }
+    }
+  }
+}</code></pre></div>
+
+      <div class="notice">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+        <span>These are example scripts showing one standard way to wire a hand-tracking pipeline to a servo-driven hand, not the exact code running on the build pictured above. The serial port, pin numbers and servo angles should be matched to your specific setup before use.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CTA ============================== -->
+<section class="section-pad" style="padding-top:0">
+  <div class="container reveal">
+    <div class="cta-banner">
+      <div class="bg-grid"></div>
+      <div class="bg-glow g1"></div>
+      <div class="bg-glow g2"></div>
+      <h2 style="font-size:clamp(1.8rem,4vw,2.8rem)">WANT TO BUILD<br><span class="gradient-text">SOMETHING LIKE THIS?</span></h2>
+      <p>Gesture-controlled robotics is a strong project for students moving from basic Arduino builds into computer vision and AI. We can help you build one, or something more advanced.</p>
+      <div class="cta-actions">
+        <a href="../index.html#contact" class="btn btn-primary">Start a Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="../index.html#projects" class="btn btn-secondary">See More Projects</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================== FOOTER ============================== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo">
+          <span class="logo-mark"><img src="../assets/logo.png" alt="ROBOVATIVE logo" width="36" height="36"></span>
+          <span class="logo-text">ROBO<span>VATIVE</span></span>
+        </a>
+        <p>Robotics. Engineering. Innovation.</p>
+      </div>
+      <div class="footer-col">
+        <h5>COMPANY</h5>
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#services">Services</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#gallery">Gallery</a>
+        <a href="../index.html#research">Research</a>
+        <a href="../index.html#contact">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h5>SOLUTIONS</h5>
+        <a href="../index.html#schools">Schools</a>
+        <a href="../index.html#colleges">Colleges</a>
+        <a href="../index.html#corporate">Companies</a>
+        <a href="../index.html#corporate">Startups</a>
+      </div>
+      <div class="footer-col">
+        <h5>TRAINING</h5>
+        <a href="../index.html#training">Robotics</a>
+        <a href="../index.html#training">AI/ML</a>
+        <a href="../index.html#training">IoT</a>
+        <a href="../index.html#training">Embedded</a>
+        <a href="../index.html#training">3D Printing</a>
+      </div>
+      <div class="footer-col">
+        <h5>CONNECT</h5>
+        <a href="#" data-social-instagram target="_blank" rel="noopener">Instagram</a>
+        <a href="#" data-social-linkedin target="_blank" rel="noopener">LinkedIn</a>
+        <a href="#" data-social-youtube target="_blank" rel="noopener">YouTube</a>
+        <a href="#" data-wa-link target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year>2026</span> ROBOVATIVE. All Rights Reserved.</span>
+      <span>Built for Innovation.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp quick-view chat preview -->
+<div class="wa-preview" id="waPreview">
+  <div class="wa-preview-head">
+    <div class="wa-preview-avatar">RV</div>
+    <div class="wa-preview-head-text">
+      <strong>ROBOVATIVE</strong>
+      <span data-phone>+91 83410 57568</span>
+    </div>
+    <button class="wa-preview-close" id="waPreviewClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="wa-preview-body">
+    <div class="wa-preview-day">Today</div>
+    <div class="wa-preview-bubble" data-wa-message>Hello ROBOVATIVE, I would like to know more about your services.</div>
+    <div class="wa-preview-meta">
+      <span>Ready to send</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 12l4 4L18 4M8 12l4 4L24 4"/></svg>
+    </div>
+  </div>
+  <a href="#" data-wa-link target="_blank" rel="noopener" class="wa-preview-cta">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.5.1-.2 0-.4 0-.5C10 9 9.5 7.7 9.3 7.2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.5-.3Z"/><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .9.9-2.9-.2-.3A8 8 0 1 1 12 20Z"/></svg>
+    Open Chat &amp; Send
+  </a>
+</div>
+
+<button type="button" data-wa-toggle class="wa-float" aria-label="Chat with ROBOVATIVE on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.5.1-.2 0-.4 0-.5C10 9 9.5 7.7 9.3 7.2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.5-.3Z"/><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .9.9-2.9-.2-.3A8 8 0 1 1 12 20Z"/></svg>
+</button>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+<script src="../script.js" defer></script>
+</body>
+</html>

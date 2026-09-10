@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Line Following Robot | ROBOVATIVE Projects</title>
+<meta name="description" content="A line following robot built on a 3D-printed 2WD chassis with an Arduino Uno, IR line sensors and a motor driver. Components, wiring notes and an example Arduino sketch from ROBOVATIVE.">
+<link rel="canonical" href="https://robovative.in/projects/line-following-robot.html">
+<link rel="icon" type="image/png" href="../assets/logo.png">
+<link rel="apple-touch-icon" href="../assets/logo.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<!-- ============================== NAVBAR ============================== -->
+<header class="navbar" id="navbar">
+  <div class="container nav-inner">
+    <a href="../index.html" class="logo">
+      <span class="logo-mark"><img src="../assets/logo.png" alt="ROBOVATIVE logo" width="40" height="40"></span>
+      <span class="logo-text">ROBO<span>VATIVE</span></span>
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      <div class="nav-item"><a href="../index.html#home" class="nav-link">Home</a></div>
+      <div class="nav-item"><a href="../index.html#about" class="nav-link">About</a></div>
+      <div class="nav-item"><a href="../index.html#services" class="nav-link">Services</a></div>
+      <div class="nav-item"><a href="../index.html#training" class="nav-link">Training</a></div>
+      <div class="nav-item"><a href="../index.html#solutions" class="nav-link">Solutions</a></div>
+      <div class="nav-item"><a href="../index.html#prototyping" class="nav-link">Prototyping</a></div>
+      <div class="nav-item"><a href="../index.html#projects" class="nav-link">Projects</a></div>
+      <div class="nav-item"><a href="../index.html#gallery" class="nav-link">Gallery</a></div>
+      <div class="nav-item"><a href="../index.html#contact" class="nav-link">Contact</a></div>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="../index.html#contact" class="btn btn-primary">Start a Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+  <a href="../index.html#home">Home</a>
+  <a href="../index.html#about">About</a>
+  <a href="../index.html#services">Services</a>
+  <a href="../index.html#training">Training</a>
+  <a href="../index.html#solutions">Solutions</a>
+  <a href="../index.html#prototyping">Prototyping</a>
+  <a href="../index.html#projects">Projects</a>
+  <a href="../index.html#gallery">Gallery</a>
+  <a href="../index.html#contact">Contact</a>
+  <a href="../index.html#contact" class="btn btn-primary btn-block">Start a Project</a>
+</nav>
+
+<main>
+
+<!-- ============================== PROJECT HERO ============================== -->
+<section class="project-hero">
+  <div class="bg-grid"></div>
+  <div class="container">
+    <a href="../index.html#projects" class="breadcrumb reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      Back to Projects
+    </a>
+
+    <div class="project-detail-grid">
+      <div class="reveal">
+        <p class="eyebrow">Robotics</p>
+        <h1 class="section-title" style="max-width:14ch">LINE FOLLOWING ROBOT.</h1>
+        <p class="section-sub" style="max-width:52ch">A 2WD robot that tracks a black line on a light surface using a pair of IR sensors, built on a 3D-printed chassis and driven by an Arduino Uno.</p>
+        <div class="hero-ctas" style="margin-top:30px">
+          <a href="#components" class="btn btn-secondary">View Components</a>
+          <a href="#code" class="btn btn-secondary">View Code</a>
+        </div>
+      </div>
+      <div class="project-detail-photo reveal">
+        <img src="../assets/projects/line-following-robot.jpg" alt="Line following robot on a 3D-printed 2WD chassis with an Arduino Uno, IR line sensors, motor driver and a 3xAA battery pack" loading="eager" fetchpriority="high" decoding="async">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== OVERVIEW ============================== -->
+<section class="section-pad" style="padding-top:60px">
+  <div class="container">
+    <div class="reveal" style="max-width:70ch">
+      <h2 class="section-title" style="font-size:clamp(1.6rem,3vw,2.2rem)">How it works</h2>
+      <p class="section-sub" style="max-width:70ch">Two infrared sensors sit at the front of the chassis, angled at the ground just ahead of the wheels. Each sensor shines infrared light at the surface and reads how much bounces back: a dark line reflects less than the light surface around it, so each sensor reports whether it is currently over the line or off it. The Arduino reads both sensors on every loop and adjusts the two drive motors accordingly: both sensors on the line drives straight, one sensor drifting off the line slows that side down to steer back onto it, and both sensors off the line stops the robot.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== COMPONENTS ============================== -->
+<section class="section-pad" id="components" style="padding-top:0">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-head-text">
+        <h2 class="section-title">Components used</h2>
+      </div>
+      <p class="section-sub">Identified from the build shown above. Exact part models may vary by supplier.</p>
+    </div>
+
+    <div class="training-grid" data-stagger>
+      <div class="training-item reveal">
+        <div class="training-item-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg><h4>Arduino Uno (or compatible board)</h4></div>
+        <p class="item-desc">Runs the control logic: reads both line sensors and drives the motors in response.</p>
+      </div>
+      <div class="training-item reveal">
+        <div class="training-item-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="9" width="16" height="11" rx="2"/><path d="M12 9V5"/><circle cx="12" cy="3.5" r="1.5"/></svg><h4>Motor driver module (H-bridge)</h4></div>
+        <p class="item-desc">An L298N / L293D-style driver board that lets the Arduino's low-power signal pins control the higher-current drive motors.</p>
+      </div>
+      <div class="training-item reveal">
+        <div class="training-item-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><path d="M6 16V8h9l3 8"/></svg><h4>2x TT gear motors and wheels</h4></div>
+        <p class="item-desc">The 2WD drivetrain. Each side is driven independently, which is what allows the robot to steer by varying left/right speed.</p>
+      </div>
+      <div class="training-item reveal">
+        <div class="training-item-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M2 12h4M18 12h4M12 2v4M12 18v4"/></svg><h4>2x IR line-tracking sensors</h4></div>
+        <p class="item-desc">Adjustable-threshold infrared modules mounted at the front, one over each edge of the line.</p>
+      </div>
+      <div class="training-item reveal">
+        <div class="training-item-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="7" y="5" width="10" height="16" rx="2"/><path d="M10 2h4"/></svg><h4>3x AA battery holder with switch</h4></div>
+        <p class="item-desc">Onboard power for the electronics and motors, with a physical on/off switch.</p>
+      </div>
+      <div class="training-item reveal">
+        <div class="training-item-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 20V10M12 20V4M18 20v-7"/></svg><h4>3D-printed chassis</h4></div>
+        <p class="item-desc">The structural base holding every component, printed in-house rather than a bought plastic kit chassis.</p>
+      </div>
+    </div>
+
+    <div class="notice reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+      <span>This component list is identified from the photo above. If you're sourcing parts for your own build, confirm exact models and ratings against your supplier's datasheet before wiring anything up.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CODE ============================== -->
+<section class="section-pad" id="code" style="padding-top:0">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-head-text">
+        <h2 class="section-title">Example Arduino sketch</h2>
+      </div>
+      <p class="section-sub">A representative implementation of the control logic described above, using two digital line sensors and a standard H-bridge motor driver.</p>
+    </div>
+
+    <div class="reveal">
+      <div class="code-block"><pre><code>// ROBOVATIVE - Example Line Following Robot Sketch
+// Two IR line sensors + H-bridge motor driver (L298N / L293D style)
+// Pin numbers below are illustrative - match them to your own wiring.
+
+const int leftSensorPin  = 2;
+const int rightSensorPin = 3;
+
+const int leftMotorForward   = 5;   // PWM
+const int leftMotorReverse   = 6;   // PWM
+const int rightMotorForward  = 9;   // PWM
+const int rightMotorReverse  = 10;  // PWM
+
+const int baseSpeed = 150;  // 0-255
+const int turnSpeed = 70;   // slower side speed while correcting
+
+void setup() {
+  pinMode(leftSensorPin, INPUT);
+  pinMode(rightSensorPin, INPUT);
+
+  pinMode(leftMotorForward, OUTPUT);
+  pinMode(leftMotorReverse, OUTPUT);
+  pinMode(rightMotorForward, OUTPUT);
+  pinMode(rightMotorReverse, OUTPUT);
+}
+
+void loop() {
+  // HIGH = sensor is over the line on most modules.
+  // If your robot steers backwards, swap HIGH/LOW below or
+  // check the sensor's own calibration trimmer first.
+  bool leftOnLine  = digitalRead(leftSensorPin)  == HIGH;
+  bool rightOnLine = digitalRead(rightSensorPin) == HIGH;
+
+  if (leftOnLine && rightOnLine) {
+    drive(baseSpeed, baseSpeed);       // centered on the line
+  } else if (leftOnLine && !rightOnLine) {
+    drive(turnSpeed, baseSpeed);       // drifting right, correct left
+  } else if (!leftOnLine && rightOnLine) {
+    drive(baseSpeed, turnSpeed);       // drifting left, correct right
+  } else {
+    drive(0, 0);                       // line lost, stop
+  }
+}
+
+void drive(int leftSpeed, int rightSpeed) {
+  analogWrite(leftMotorForward, leftSpeed);
+  digitalWrite(leftMotorReverse, LOW);
+  analogWrite(rightMotorForward, rightSpeed);
+  digitalWrite(rightMotorReverse, LOW);
+}</code></pre></div>
+
+      <div class="notice">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+        <span>This is an example sketch showing one standard way to wire the logic together, not the exact firmware running on the robot pictured above. Pin numbers, sensor polarity and speed values should be calibrated to your specific build before use.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CTA ============================== -->
+<section class="section-pad" style="padding-top:0">
+  <div class="container reveal">
+    <div class="cta-banner">
+      <div class="bg-grid"></div>
+      <div class="bg-glow g1"></div>
+      <div class="bg-glow g2"></div>
+      <h2 style="font-size:clamp(1.8rem,4vw,2.8rem)">WANT TO BUILD<br><span class="gradient-text">SOMETHING LIKE THIS?</span></h2>
+      <p>Line following robots are a common starting project for school and college robotics programs. We can help you build one, or something more advanced.</p>
+      <div class="cta-actions">
+        <a href="../index.html#contact" class="btn btn-primary">Start a Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="../index.html#projects" class="btn btn-secondary">See More Projects</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================== FOOTER ============================== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo">
+          <span class="logo-mark"><img src="../assets/logo.png" alt="ROBOVATIVE logo" width="36" height="36"></span>
+          <span class="logo-text">ROBO<span>VATIVE</span></span>
+        </a>
+        <p>Robotics. Engineering. Innovation.</p>
+      </div>
+      <div class="footer-col">
+        <h5>COMPANY</h5>
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#services">Services</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#gallery">Gallery</a>
+        <a href="../index.html#research">Research</a>
+        <a href="../index.html#contact">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h5>SOLUTIONS</h5>
+        <a href="../index.html#schools">Schools</a>
+        <a href="../index.html#colleges">Colleges</a>
+        <a href="../index.html#corporate">Companies</a>
+        <a href="../index.html#corporate">Startups</a>
+      </div>
+      <div class="footer-col">
+        <h5>TRAINING</h5>
+        <a href="../index.html#training">Robotics</a>
+        <a href="../index.html#training">AI/ML</a>
+        <a href="../index.html#training">IoT</a>
+        <a href="../index.html#training">Embedded</a>
+        <a href="../index.html#training">3D Printing</a>
+      </div>
+      <div class="footer-col">
+        <h5>CONNECT</h5>
+        <a href="#" data-social-instagram target="_blank" rel="noopener">Instagram</a>
+        <a href="#" data-social-linkedin target="_blank" rel="noopener">LinkedIn</a>
+        <a href="#" data-social-youtube target="_blank" rel="noopener">YouTube</a>
+        <a href="#" data-wa-link target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year>2026</span> ROBOVATIVE. All Rights Reserved.</span>
+      <span>Built for Innovation.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp quick-view chat preview -->
+<div class="wa-preview" id="waPreview">
+  <div class="wa-preview-head">
+    <div class="wa-preview-avatar">RV</div>
+    <div class="wa-preview-head-text">
+      <strong>ROBOVATIVE</strong>
+      <span data-phone>+91 83410 57568</span>
+    </div>
+    <button class="wa-preview-close" id="waPreviewClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="wa-preview-body">
+    <div class="wa-preview-day">Today</div>
+    <div class="wa-preview-bubble" data-wa-message>Hello ROBOVATIVE, I would like to know more about your services.</div>
+    <div class="wa-preview-meta">
+      <span>Ready to send</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 12l4 4L18 4M8 12l4 4L24 4"/></svg>
+    </div>
+  </div>
+  <a href="#" data-wa-link target="_blank" rel="noopener" class="wa-preview-cta">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.5.1-.2 0-.4 0-.5C10 9 9.5 7.7 9.3 7.2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.5-.3Z"/><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .9.9-2.9-.2-.3A8 8 0 1 1 12 20Z"/></svg>
+    Open Chat &amp; Send
+  </a>
+</div>
+
+<button type="button" data-wa-toggle class="wa-float" aria-label="Chat with ROBOVATIVE on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.5.1-.2 0-.4 0-.5C10 9 9.5 7.7 9.3 7.2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.5-.3Z"/><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .9.9-2.9-.2-.3A8 8 0 1 1 12 20Z"/></svg>
+</button>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+<script src="../script.js" defer></script>
+</body>
+</html>
