@@ -1,0 +1,202 @@
+/* ==========================================================================
+   ROBOVATIVE — 3D world layer
+   --------------------------------------------------------------------------
+   Loaded after style.css. Everything here is scoped to `body.world-ready`,
+   so if WebGL is missing or the engine throws, the original flat site is
+   what renders — no blank page, no half-styled fallback.
+   ========================================================================== */
+
+/* ---- The canvas sits behind everything, fixed to the viewport ---- */
+#webgl-root{
+  position:fixed;inset:0;z-index:0;
+  pointer-events:none;
+}
+#webgl{display:block;width:100%;height:100%}
+
+/* ---- Loading veil ---- */
+#world-loader{
+  position:fixed;inset:0;z-index:9999;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;
+  background:var(--bg-primary);
+  transition:opacity .7s var(--ease), visibility .7s;
+}
+#world-loader.done{opacity:0;visibility:hidden}
+.world-loader-mark{
+  width:64px;height:64px;border-radius:18px;overflow:hidden;
+  box-shadow:0 0 50px -8px rgba(255,138,0,.5);
+  animation:worldPulse 1.6s var(--ease) infinite;
+}
+.world-loader-mark img{width:100%;height:100%;object-fit:cover;display:block}
+.world-loader-text{
+  font-size:12px;font-weight:700;letter-spacing:.22em;
+  color:var(--text-secondary);text-transform:uppercase;
+}
+.world-loader-bar{
+  width:180px;height:2px;border-radius:2px;overflow:hidden;
+  background:var(--border-subtle);
+}
+.world-loader-bar span{
+  display:block;height:100%;width:40%;border-radius:2px;
+  background:var(--gradient);
+  animation:worldSlide 1.3s var(--ease) infinite;
+}
+@keyframes worldPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+@keyframes worldSlide{0%{transform:translateX(-120%)}100%{transform:translateX(320%)}}
+
+/* ==========================================================================
+   Content over the world
+   Only applies once the engine has started successfully.
+   ========================================================================== */
+/* Near-black base behind the canvas, so the world sits in real darkness
+   rather than on a tinted page. */
+body.world-ready{background:#030406}
+body.world-ready #webgl-root{background:#030406}
+/* Hold the ambient washes right back in 3D mode — the scenes supply the
+   colour now, and doubling it up greys out the blacks. */
+body.world-ready .bg-glow{opacity:.12}
+body.world-ready .bg-grid{opacity:.45}
+
+/* The page itself becomes see-through so the corridor shows between panels. */
+body.world-ready main,
+body.world-ready .section-pad,
+body.world-ready .hero,
+body.world-ready #solutions{background:transparent}
+
+body.world-ready main{position:relative;z-index:2}
+body.world-ready .navbar{z-index:1000}
+
+/* Every section gets breathing room so the world is visible between them. */
+body.world-ready .section-pad{
+  padding-top:clamp(120px, 16vh, 200px);
+  padding-bottom:clamp(120px, 16vh, 200px);
+}
+
+/* ---- Content panels: frosted glass floating in the scene ---- */
+body.world-ready .section-head,
+body.world-ready .card,
+body.world-ready .project-card,
+body.world-ready .training-item,
+body.world-ready .why-item,
+body.world-ready .kit-card,
+body.world-ready .review-card,
+body.world-ready .stat-cell,
+body.world-ready .contact-form,
+body.world-ready .dashboard-panel,
+body.world-ready .timeline-item{
+  background:rgba(11,15,20,.62);
+  -webkit-backdrop-filter:blur(16px) saturate(1.2);
+  backdrop-filter:blur(16px) saturate(1.2);
+  border:1px solid rgba(167,175,186,.18);
+  box-shadow:0 20px 60px -24px rgba(0,0,0,.85);
+}
+
+/* Give the glass panels real depth on a perspective stage. */
+body.world-ready .grid-3,
+body.world-ready .project-grid,
+body.world-ready .training-grid,
+body.world-ready .why-grid{
+  perspective:1400px;
+  transform-style:preserve-3d;
+}
+body.world-ready .card,
+body.world-ready .project-card,
+body.world-ready .training-item,
+body.world-ready .kit-card{
+  transition:transform .5s var(--ease), box-shadow .5s var(--ease), border-color .3s;
+  will-change:transform;
+}
+body.world-ready .card:hover,
+body.world-ready .project-card:hover,
+body.world-ready .training-item:hover,
+body.world-ready .kit-card:hover{
+  transform:translateZ(40px) rotateX(3deg) rotateY(-3deg);
+  box-shadow:0 40px 90px -30px rgba(255,138,0,.4);
+  border-color:rgba(255,138,0,.45);
+}
+
+/* The hero text sits forward of everything, with no panel behind it. */
+body.world-ready .hero{min-height:100vh}
+body.world-ready .hero-bg{display:none}          /* the 3D robot replaces the photo */
+body.world-ready .hero-visual{opacity:0;pointer-events:none}
+body.world-ready .hero h1,
+body.world-ready .hero-sub,
+body.world-ready .hero-eyebrow{
+  text-shadow:0 2px 30px rgba(5,7,10,.95), 0 0 70px rgba(5,7,10,.8);
+}
+body.world-ready .hero-grid{grid-template-columns:minmax(0,620px)}
+
+/* Keep solid, readable chrome where the content is dense. */
+body.world-ready .footer,
+body.world-ready .strip{
+  background:rgba(5,7,10,.9);
+  -webkit-backdrop-filter:blur(14px);
+  backdrop-filter:blur(14px);
+  position:relative;z-index:2;
+}
+
+/* Section-level depth cue: panels rise as they enter. */
+body.world-ready .reveal{
+  transform:translateY(46px) translateZ(-60px);
+  transition:opacity .9s var(--ease), transform .9s var(--ease);
+}
+body.world-ready .reveal.in{transform:translateY(0) translateZ(0)}
+
+/* ---- Scroll hint on the hero ---- */
+body.world-ready .world-scroll-hint{
+  position:absolute;bottom:34px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  font-size:10.5px;font-weight:700;letter-spacing:.2em;
+  color:var(--text-secondary);text-transform:uppercase;
+  z-index:3;pointer-events:none;
+}
+.world-scroll-hint-rail{
+  width:1px;height:46px;border-radius:1px;
+  background:linear-gradient(180deg, var(--accent-orange), transparent);
+  animation:worldHint 2s var(--ease) infinite;
+}
+@keyframes worldHint{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+body:not(.world-ready) .world-scroll-hint{display:none}
+
+/* ==========================================================================
+   Mobile — the world stays, but lighter and further back
+   ========================================================================== */
+@media (max-width:860px){
+  body.world-ready .section-pad{
+    padding-top:clamp(90px, 11vh, 130px);
+    padding-bottom:clamp(90px, 11vh, 130px);
+  }
+  /* Denser glass on small screens so text never fights the scene behind it. */
+  body.world-ready .section-head,
+  body.world-ready .card,
+  body.world-ready .project-card,
+  body.world-ready .training-item,
+  body.world-ready .why-item,
+  body.world-ready .kit-card,
+  body.world-ready .review-card,
+  body.world-ready .stat-cell,
+  body.world-ready .contact-form{
+    background:rgba(11,15,20,.84);
+  }
+  body.world-ready .card:hover,
+  body.world-ready .project-card:hover,
+  body.world-ready .training-item:hover,
+  body.world-ready .kit-card:hover{transform:none}
+}
+
+/* ==========================================================================
+   Respect reduced motion — the world renders one static frame and stops.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce){
+  body.world-ready .reveal{transform:none}
+  .world-loader-mark,.world-loader-bar span,.world-scroll-hint-rail{animation:none}
+  body.world-ready .card:hover,
+  body.world-ready .project-card:hover,
+  body.world-ready .training-item:hover,
+  body.world-ready .kit-card:hover{transform:none}
+}
+
+/* ==========================================================================
+   No WebGL — strip every 3D affordance so the flat site is untouched.
+   ========================================================================== */
+body.no-webgl #webgl-root,
+body.no-webgl .world-scroll-hint{display:none}
