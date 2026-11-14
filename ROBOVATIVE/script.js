@@ -94,11 +94,23 @@ function initMobileNav(){
   const menu = document.querySelector(".mobile-nav");
   if (!btn || !menu) return;
 
+  // Each toggle pairs with the panel named in its aria-controls.
+  const subs = Array.from(menu.querySelectorAll(".mobile-sub-toggle")).map(toggle => ({
+    toggle,
+    panel: document.getElementById(toggle.getAttribute("aria-controls"))
+  })).filter(s => s.panel);
+
+  const closeSubs = () => subs.forEach(s => {
+    s.toggle.setAttribute("aria-expanded", "false");
+    s.panel.hidden = true;
+  });
+
   const close = () => {
     btn.classList.remove("open");
     menu.classList.remove("open");
     btn.setAttribute("aria-expanded", "false");
     document.body.style.overflow = "";
+    closeSubs();
   };
   const toggle = () => {
     const open = btn.classList.toggle("open");
@@ -110,18 +122,45 @@ function initMobileNav(){
   btn.addEventListener("click", toggle);
   menu.querySelectorAll("a").forEach(a => a.addEventListener("click", close));
   window.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+
+  // Accordion: opening one group closes the others so the menu stays short.
+  subs.forEach(({ toggle, panel }) => {
+    toggle.addEventListener("click", () => {
+      const open = toggle.getAttribute("aria-expanded") !== "true";
+      closeSubs();
+      if (open) {
+        toggle.setAttribute("aria-expanded", "true");
+        panel.hidden = false;
+        panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    });
+  });
 }
 
-/* ---- Mega menu keyboard accessibility ---- */
+/* ---- Dropdowns: click/keyboard toggle (hover handled in CSS) ---- */
 function initMegaMenuA11y(){
   document.querySelectorAll(".nav-item").forEach(item => {
     const trigger = item.querySelector(".nav-link");
-    const mega = item.querySelector(".mega");
+    const mega = item.querySelector(".mega, .submenu");
     if (!trigger || !mega) return;
-    trigger.addEventListener("focus", () => mega.style.opacity = "1");
-    item.addEventListener("focusout", (e) => {
-      if (!item.contains(e.relatedTarget)) mega.style.opacity = "";
+
+    const setOpen = (open) => {
+      item.classList.toggle("open", open);
+      trigger.setAttribute("aria-expanded", String(open));
+    };
+
+    trigger.addEventListener("click", (e) => {
+      e.preventDefault();
+      setOpen(!item.classList.contains("open"));
     });
+    item.addEventListener("focusout", (e) => {
+      if (!item.contains(e.relatedTarget)) setOpen(false);
+    });
+    mega.querySelectorAll("a").forEach(a => a.addEventListener("click", () => setOpen(false)));
+    document.addEventListener("click", (e) => {
+      if (!item.contains(e.target)) setOpen(false);
+    });
+    window.addEventListener("keydown", (e) => { if (e.key === "Escape") setOpen(false); });
   });
 }
 

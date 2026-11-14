@@ -27,7 +27,9 @@
 <link rel="preconnect" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=6">
+<link rel="stylesheet" href="css/world.css?v=6">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
 
 <script type="application/ld+json">
 {
@@ -52,6 +54,14 @@
 </head>
 <body>
 
+<!-- ============================== 3D WORLD ============================== -->
+<div id="world-loader">
+  <span class="world-loader-mark"><img src="assets/logo.png" alt="" aria-hidden="true" width="64" height="64"></span>
+  <span class="world-loader-text">Building the world</span>
+  <span class="world-loader-bar"><span></span></span>
+</div>
+<div id="webgl-root" aria-hidden="true"><canvas id="webgl"></canvas></div>
+
 <!-- ============================== NAVBAR ============================== -->
 <header class="navbar" id="navbar">
   <div class="container nav-inner">
@@ -64,10 +74,19 @@
 
     <nav class="nav-links" aria-label="Primary">
       <div class="nav-item"><a href="#home" class="nav-link">Home</a></div>
-      <div class="nav-item"><a href="#about" class="nav-link">About</a></div>
 
       <div class="nav-item">
-        <a href="#services" class="nav-link">Services <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></a>
+        <button type="button" class="nav-link mega-trigger" aria-haspopup="true" aria-expanded="false">About <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="submenu">
+          <a href="#about">About Us</a>
+          <a href="#lab">Our Lab</a>
+          <a href="#research">Research &amp; Development</a>
+          <a href="#reviews">Reviews</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <button type="button" class="nav-link mega-trigger" aria-haspopup="true" aria-expanded="false">Services <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></button>
         <div class="mega">
           <div class="mega-col">
             <div class="mega-col-title">ENGINEERING SOLUTIONS</div>
@@ -102,13 +121,16 @@
         </div>
       </div>
 
-      <div class="nav-item"><a href="#training" class="nav-link">Training</a></div>
-      <div class="nav-item"><a href="#solutions" class="nav-link">Solutions</a></div>
-      <div class="nav-item"><a href="#prototyping" class="nav-link">Prototyping</a></div>
-      <div class="nav-item"><a href="#projects" class="nav-link">Projects</a></div>
-      <div class="nav-item"><a href="#gallery" class="nav-link">Gallery</a></div>
-      <div class="nav-item"><a href="#kits" class="nav-link">Kits</a></div>
-      <div class="nav-item"><a href="#reviews" class="nav-link">Reviews</a></div>
+      <div class="nav-item">
+        <button type="button" class="nav-link mega-trigger" aria-haspopup="true" aria-expanded="false">Work <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="submenu">
+          <a href="#projects">Projects</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#kits">Kits</a>
+          <a href="#workshops">Workshops</a>
+        </div>
+      </div>
+
       <div class="nav-item"><a href="#contact" class="nav-link">Contact</a></div>
     </nav>
 
@@ -123,15 +145,61 @@
 
 <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
   <a href="#home">Home</a>
-  <a href="#about">About</a>
-  <a href="#services">Services</a>
-  <a href="#training">Training</a>
-  <a href="#solutions">Solutions</a>
-  <a href="#prototyping">Prototyping</a>
-  <a href="#projects">Projects</a>
-  <a href="#gallery">Gallery</a>
-  <a href="#kits">Kits</a>
-  <a href="#reviews">Reviews</a>
+
+  <button type="button" class="mobile-sub-toggle" aria-expanded="false" aria-controls="mobileAbout">About <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></button>
+  <div class="mobile-sub" id="mobileAbout" hidden>
+    <div class="mobile-sub-group">
+      <a href="#about">About Us</a>
+      <a href="#lab">Our Lab</a>
+      <a href="#research">Research &amp; Development</a>
+      <a href="#reviews">Reviews</a>
+    </div>
+  </div>
+
+  <button type="button" class="mobile-sub-toggle" aria-expanded="false" aria-controls="mobileServices">Services <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></button>
+  <div class="mobile-sub" id="mobileServices" hidden>
+    <div class="mobile-sub-group">
+      <div class="mobile-sub-title">ENGINEERING SOLUTIONS</div>
+      <a href="#services">Engineering Projects</a>
+      <a href="#corporate">Automation Solutions</a>
+      <a href="#services">Embedded Systems</a>
+      <a href="#services">IoT Solutions</a>
+      <a href="#services">Robotics Solutions</a>
+    </div>
+    <div class="mobile-sub-group">
+      <div class="mobile-sub-title">TRAINING</div>
+      <a href="#training">Robotics Training</a>
+      <a href="#training">AI / ML</a>
+      <a href="#training">IoT</a>
+      <a href="#training">Embedded Systems</a>
+      <a href="#training">Programming</a>
+      <a href="#training">3D Printing</a>
+    </div>
+    <div class="mobile-sub-group">
+      <div class="mobile-sub-title">SOLUTIONS</div>
+      <a href="#schools">Schools</a>
+      <a href="#colleges">Colleges</a>
+      <a href="#corporate">Companies</a>
+    </div>
+    <div class="mobile-sub-group">
+      <div class="mobile-sub-title">PROTOTYPING</div>
+      <a href="#prototyping">3D Printing</a>
+      <a href="#prototyping">Rapid Prototyping</a>
+      <a href="#prototyping">Product Development</a>
+      <a href="#prototyping">PCB / Electronics Prototyping</a>
+    </div>
+  </div>
+
+  <button type="button" class="mobile-sub-toggle" aria-expanded="false" aria-controls="mobileWork">Work <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></button>
+  <div class="mobile-sub" id="mobileWork" hidden>
+    <div class="mobile-sub-group">
+      <a href="#projects">Projects</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#kits">Kits</a>
+      <a href="#workshops">Workshops</a>
+    </div>
+  </div>
+
   <a href="#contact">Contact</a>
   <a href="#contact" class="btn btn-primary btn-block">Start a Project</a>
 </nav>
@@ -140,6 +208,10 @@
 
 <!-- ============================== HERO ============================== -->
 <section class="hero" id="home">
+  <div class="hero-bg">
+    <img class="hero-photo" src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=2400&h=1200&q=80" alt="" aria-hidden="true" loading="eager" fetchpriority="high" decoding="async">
+    <div class="hero-bg-wash"></div>
+  </div>
   <div class="bg-grid"></div>
   <div class="bg-glow" style="width:44%;height:60%;top:-10%;left:-6%;background:var(--accent-orange)"></div>
   <div class="bg-glow" style="width:40%;height:55%;bottom:-14%;right:-4%;background:var(--accent-pink)"></div>
@@ -161,13 +233,8 @@
     </div>
 
     <div class="hero-visual">
-      <div class="hero-visual-frame">
-        <img class="hero-photo" src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1400&q=80" alt="Close-up of an interactive robot, representing ROBOVATIVE's robotics work" loading="eager" fetchpriority="high" decoding="async">
-        <div class="photo-wash"></div>
-        <div class="bg-grid"></div>
-        <div class="hero-orbit orbit-1"></div>
-        <div class="hero-orbit orbit-2"></div>
-      </div>
+      <div class="hero-orbit orbit-1"></div>
+      <div class="hero-orbit orbit-2"></div>
 
       <span class="float-chip c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="4" y="9" width="16" height="11" rx="2"/><path d="M12 9V5"/></svg>ROBOTICS</span>
       <span class="float-chip c2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9.5 2A6.5 6.5 0 0 0 6 14"/><circle cx="12" cy="12" r="9"/></svg>AI</span>
@@ -175,6 +242,11 @@
       <span class="float-chip c4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 3H5a2 2 0 0 0-2 2v4M15 3h4a2 2 0 0 1 2 2v4M9 21H5a2 2 0 0 1-2-2v-4M15 21h4a2 2 0 0 0 2-2v-4"/></svg>R&amp;D</span>
       <span class="float-chip c5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 20a8 8 0 1 0-8-8"/></svg>AUTOMATION</span>
     </div>
+  </div>
+
+  <div class="world-scroll-hint" aria-hidden="true">
+    <span class="world-scroll-hint-rail"></span>
+    Scroll to explore
   </div>
 </section>
 
@@ -642,14 +714,39 @@
         <div class="project-content"><div class="project-category">ROBOTICS</div><h3 class="project-title">Obstacle Avoidance Robot</h3><a href="projects/obstacle-avoiding-car.html" class="project-link">View Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="width:14px;height:14px"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </article>
       <article class="project-card reveal" data-category="iot">
-        <div class="project-visual"><div class="bg-grid"></div><div class="project-visual-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="5" cy="12" r="2.5"/><circle cx="19" cy="6" r="2.5"/><circle cx="19" cy="18" r="2.5"/></svg></div></div>
+        <div class="project-visual"><img src="assets/projects/bluetooth-controlled-robot.jpg" alt="Bluetooth controlled robot car with an Arduino Uno, Bluetooth module and dual gear motors" loading="lazy" decoding="async"></div>
         <div class="project-overlay"></div>
         <div class="project-content"><div class="project-category">IOT</div><h3 class="project-title">Bluetooth Controlled Robot</h3><a href="#contact" class="project-link">View Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="width:14px;height:14px"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </article>
       <article class="project-card reveal" data-category="mechanical">
-        <div class="project-visual"><div class="bg-grid"></div><div class="project-visual-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><path d="M6 16V8h9l3 8"/></svg></div></div>
+        <div class="project-visual"><img src="assets/projects/mecanum-wheel-robot.jpg" alt="Mecanum wheel robot chassis with an Arduino Uno and dual motor driver boards" loading="lazy" decoding="async"></div>
         <div class="project-overlay"></div>
         <div class="project-content"><div class="project-category">MECHANICAL</div><h3 class="project-title">Mecanum Wheel Robot</h3><a href="#contact" class="project-link">View Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="width:14px;height:14px"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      </article>
+      <article class="project-card reveal" data-category="robotics">
+        <div class="project-visual"><img src="assets/projects/otto-robot.jpg" alt="OTTO robot, a laser-cut wooden walking robot with ultrasonic sensor eyes" loading="lazy" decoding="async"></div>
+        <div class="project-overlay"></div>
+        <div class="project-content"><div class="project-category">ROBOTICS</div><h3 class="project-title">OTTO Robot</h3><a href="#contact" class="project-link">View Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="width:14px;height:14px"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      </article>
+      <article class="project-card reveal" data-category="mechanical">
+        <div class="project-visual"><img src="assets/projects/tetris-game.jpg" alt="Arduino-driven LED matrix display playing a Tetris-style game with pushbutton controls" loading="lazy" decoding="async"></div>
+        <div class="project-overlay"></div>
+        <div class="project-content"><div class="project-category">MECHANICAL</div><h3 class="project-title">LED Matrix Tetris Game</h3><a href="#contact" class="project-link">View Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="width:14px;height:14px"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      </article>
+      <article class="project-card reveal" data-category="iot">
+        <div class="project-visual"><img src="assets/projects/heart-rate-monitor.jpg" alt="Arduino heart rate monitor with a pulse sensor and an LCD display showing BPM" loading="lazy" decoding="async"></div>
+        <div class="project-overlay"></div>
+        <div class="project-content"><div class="project-category">IOT</div><h3 class="project-title">Heart Rate Monitor</h3><a href="#contact" class="project-link">View Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="width:14px;height:14px"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      </article>
+      <article class="project-card reveal" data-category="iot">
+        <div class="project-visual"><img src="assets/projects/food-adulteration-detection.jpg" alt="ESP32 food adulteration detection device with a gas sensor" loading="lazy" decoding="async"></div>
+        <div class="project-overlay"></div>
+        <div class="project-content"><div class="project-category">IOT</div><h3 class="project-title">Food Adulteration Detection</h3><a href="#contact" class="project-link">View Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="width:14px;height:14px"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      </article>
+      <article class="project-card reveal" data-category="automation">
+        <div class="project-visual"><img src="assets/projects/smart-umbrella.jpg" alt="Smart umbrella project with a rain sensor, DHT sensor, LCD display and automatic deployment mechanism" loading="lazy" decoding="async"></div>
+        <div class="project-overlay"></div>
+        <div class="project-content"><div class="project-category">AUTOMATION</div><h3 class="project-title">Smart Umbrella</h3><a href="#contact" class="project-link">View Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="width:14px;height:14px"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </article>
       <article class="project-card reveal" data-category="automation">
         <div class="project-visual"><img src="assets/projects/smart-irrigation-system.jpg" alt="3D-printed smart irrigation system enclosure next to a potted plant with a soil moisture probe" loading="lazy"></div>
@@ -1097,7 +1194,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© <span data-year>2026</span> ROBOVATIVE. All Rights Reserved.</span>
+      <span>© <span data-year>2026</span> ROBOVATIVE. All Rights Reserved. <span class="footer-legal-links">&middot; <a href="privacy-policy.html">Privacy Policy</a> &middot; <a href="terms-conditions.html">Terms &amp; Conditions</a></span></span>
       <span>Built for Innovation.</span>
     </div>
   </div>
@@ -1151,7 +1248,18 @@
   </button>
 </div>
 
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
-<script src="script.js" defer></script>
+<script src="https://unpkg.com/lucide@1.47.0/dist/umd/lucide.js" integrity="sha384-L0vkqT/Xajy/BJR61WFLBDKJc60ZKKigF3gXZcWzQvDyEcwwCWK8vA3lcppKlbmE" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+<script src="script.js?v=6" defer></script>
+
+<!-- 3D world. Pinned to an exact version: the jsDelivr path is immutable,
+     which is the integrity guarantee available for ES modules. -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.187.0/build/three.module.js"
+  }
+}
+</script>
+<script type="module" src="js/three-world.js?v=6"></script>
 </body>
 </html>

@@ -213,12 +213,14 @@ section{ position:relative; }
   background-size:26px 26px;
   pointer-events:none;
 }
+/* Ambient colour wash. Kept low so the page reads as a genuinely dark
+   theme — the accents should tint the dark, not light it up. */
 .bg-glow{
   position:absolute;
   border-radius:50%;
-  filter:blur(120px);
+  filter:blur(140px);
   pointer-events:none;
-  opacity:.5;
+  opacity:.22;
 }
 .bg-noise{
   position:absolute;inset:0;
@@ -278,6 +280,7 @@ section{ position:relative; }
   position:relative;
 }
 .nav-link svg{width:14px;height:14px;transition:transform .2s var(--ease)}
+.mega-trigger{font-family:inherit;text-align:left}
 .nav-item:hover .nav-link{color:var(--text-primary)}
 .nav-item:hover .nav-link svg{transform:rotate(180deg)}
 .nav-link::after{
@@ -304,7 +307,10 @@ section{ position:relative; }
   transition:opacity .22s var(--ease), transform .22s var(--ease), visibility .22s;
   box-shadow:var(--shadow-lift);
 }
-.nav-item:hover .mega{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.nav-item:hover .mega,
+.nav-item.open .mega{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.nav-item.open .nav-link{color:var(--text-primary)}
+.nav-item.open .nav-link svg{transform:rotate(180deg)}
 .mega-col-title{
   font-size:11px;font-weight:700;letter-spacing:.1em;
   color:var(--accent-orange);margin-bottom:14px;
@@ -314,6 +320,28 @@ section{ position:relative; }
   transition:var(--transition-fast);
 }
 .mega-col a:hover{color:var(--text-primary);transform:translateX(3px)}
+
+/* Compact single-column dropdown (About, Work) */
+.submenu{
+  position:absolute;top:calc(100% + 14px);left:50%;
+  transform:translateX(-50%) translateY(8px);
+  min-width:220px;
+  background:var(--bg-secondary);
+  border:1px solid var(--border-subtle);
+  border-radius:var(--radius-card);
+  padding:14px;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .22s var(--ease), transform .22s var(--ease), visibility .22s;
+  box-shadow:var(--shadow-lift);
+}
+.nav-item:hover .submenu,
+.nav-item.open .submenu{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.submenu a{
+  display:block;padding:9px 12px;font-size:13.5px;font-weight:500;
+  color:var(--text-secondary);border-radius:8px;white-space:nowrap;
+  transition:var(--transition-fast);
+}
+.submenu a:hover{color:var(--text-primary);background:var(--bg-primary)}
 
 /* Mobile nav */
 .hamburger{
@@ -345,6 +373,30 @@ section{ position:relative; }
   border-bottom:1px solid var(--border-subtle);
 }
 .mobile-nav .btn{margin-top:28px}
+
+/* Mobile services menu (same links as the desktop mega menu) */
+.mobile-sub-toggle{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  width:100%;font-size:1.6rem;font-weight:700;padding:14px 0;
+  border-bottom:1px solid var(--border-subtle);
+  color:var(--text-primary);
+}
+.mobile-sub-toggle svg{width:20px;height:20px;flex:none;transition:transform .25s var(--ease)}
+.mobile-sub-toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
+.mobile-sub{
+  padding:18px 0 6px;
+  border-bottom:1px solid var(--border-subtle);
+  display:grid;gap:22px;
+}
+.mobile-sub[hidden]{display:none}
+.mobile-sub-title{
+  font-size:11px;font-weight:700;letter-spacing:.1em;
+  color:var(--accent-orange);margin-bottom:6px;
+}
+.mobile-nav .mobile-sub a{
+  font-size:1.05rem;font-weight:600;padding:9px 0;
+  color:var(--text-secondary);border-bottom:none;
+}
 
 /* ==========================================================================
    Hero
@@ -389,28 +441,30 @@ section{ position:relative; }
   aspect-ratio:1/1.05;
   display:flex;align-items:center;justify-content:center;
 }
-.hero-visual-frame{
-  position:relative;width:100%;height:100%;
-  border-radius:var(--radius-card-lg);
-  border:1px solid var(--border-subtle);
-  background:
-    radial-gradient(circle at 30% 20%, rgba(255,138,0,.18), transparent 55%),
-    radial-gradient(circle at 75% 75%, rgba(255,45,141,.16), transparent 55%),
-    var(--bg-secondary);
-  overflow:hidden;
-  box-shadow:var(--shadow-lift);
-}
-.hero-visual-frame .bg-grid{mask-image:radial-gradient(circle at 50% 50%, #000 30%, transparent 75%)}
+/* The photo is the hero's single full-bleed background — there is no card,
+   no frame and no edge. Text sits over the darkened left side. */
+.hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+/* Sits well back: a background, not a subject. Pushed right so the robot
+   clears the headline column. */
 .hero-photo{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  opacity:.92;filter:contrast(1.06) saturate(1.05);
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:78% center;
+  opacity:.3;filter:contrast(1.04) saturate(.78) brightness(.72);
 }
-.hero-visual-frame .photo-wash{
+/* Horizontal ramp keeps the headline readable and lets the robot show on the
+   right; vertical ramp sinks the photo under the navbar and into the next
+   section, so the hero has no visible boundary anywhere. */
+.hero-bg-wash{
   position:absolute;inset:0;
   background:
-    radial-gradient(circle at 22% 14%, rgba(255,138,0,.32), transparent 45%),
-    radial-gradient(circle at 82% 86%, rgba(255,45,141,.28), transparent 45%),
-    linear-gradient(180deg, rgba(5,7,10,.05) 0%, rgba(5,7,10,.05) 55%, rgba(5,7,10,.6) 100%);
+    linear-gradient(90deg,
+      var(--bg-primary) 0%, rgba(5,7,10,.98) 32%, rgba(5,7,10,.92) 50%,
+      rgba(5,7,10,.74) 70%, rgba(5,7,10,.56) 88%, rgba(5,7,10,.48) 100%),
+    linear-gradient(180deg,
+      rgba(5,7,10,.94) 0%, rgba(5,7,10,.55) 16%, rgba(5,7,10,.25) 38%,
+      rgba(5,7,10,.32) 62%, rgba(5,7,10,.85) 88%, var(--bg-primary) 100%),
+    radial-gradient(circle at 16% 24%, rgba(255,138,0,.1), transparent 55%),
+    radial-gradient(circle at 86% 76%, rgba(255,45,141,.08), transparent 55%);
 }
 .hero-orbit{
   position:absolute;border:1px dashed rgba(255,255,255,.16);border-radius:50%;
@@ -434,11 +488,13 @@ section{ position:relative; }
   white-space:nowrap;
 }
 .float-chip svg{width:13px;height:13px;color:var(--accent-orange);flex-shrink:0}
-.float-chip.c1{top:8%;left:-8%;animation-delay:0s}
-.float-chip.c2{top:32%;right:-10%;animation-delay:.6s}
-.float-chip.c3{bottom:34%;left:-10%;animation-delay:1.2s}
-.float-chip.c4{bottom:10%;right:-6%;animation-delay:1.8s}
-.float-chip.c5{bottom:-5%;left:36%;animation-delay:2.4s}
+/* Pulled inward from the old card-edge positions so they sit over the
+   visible part of the photo, not the faded-out margin. */
+.float-chip.c1{top:9%;left:0%;animation-delay:0s}
+.float-chip.c2{top:32%;right:-2%;animation-delay:.6s}
+.float-chip.c3{bottom:34%;left:-2%;animation-delay:1.2s}
+.float-chip.c4{bottom:12%;right:2%;animation-delay:1.8s}
+.float-chip.c5{bottom:3%;left:34%;animation-delay:2.4s}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
 /* ==========================================================================
@@ -947,6 +1003,24 @@ section{ position:relative; }
 }
 
 /* ==========================================================================
+   Legal pages (Privacy / Terms)
+   ========================================================================== */
+.legal-content h2{
+  font-size:1.3rem;font-weight:800;letter-spacing:-.01em;
+  margin-top:44px;margin-bottom:14px;
+}
+.legal-content h2:first-child{margin-top:0}
+.legal-content p{color:var(--text-secondary);line-height:1.75;font-size:15px;margin-bottom:14px}
+.legal-content ul{margin:14px 0 14px 4px;display:flex;flex-direction:column;gap:10px}
+.legal-content li{
+  list-style:disc;margin-left:20px;color:var(--text-secondary);line-height:1.7;font-size:15px;
+}
+.legal-content a{color:var(--accent-orange);text-decoration:underline;text-underline-offset:2px}
+.legal-content strong{color:var(--text-primary)}
+.footer-legal-links a{color:var(--text-muted);text-decoration:underline;text-underline-offset:2px}
+.footer-legal-links a:hover{color:var(--text-primary)}
+
+/* ==========================================================================
    Google reviews
    ========================================================================== */
 .reviews-head{display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-bottom:34px}
@@ -1188,6 +1262,17 @@ footer{border-top:1px solid var(--border-subtle);padding:80px 0 0;background:var
 @media (max-width:1024px){
   .hero-grid{grid-template-columns:1fr}
   .hero-visual{max-width:460px;margin:50px auto 0}
+  /* Single column: the text no longer sits to the left of the robot, so the
+     wash becomes mostly vertical and the photo shifts to keep it in frame. */
+  .hero-photo{object-position:70% center;opacity:.34}
+  .hero-bg-wash{
+    background:
+      linear-gradient(180deg,
+        rgba(5,7,10,.95) 0%, rgba(5,7,10,.8) 30%, rgba(5,7,10,.55) 55%,
+        rgba(5,7,10,.78) 78%, var(--bg-primary) 100%),
+      radial-gradient(circle at 16% 18%, rgba(255,138,0,.2), transparent 55%),
+      radial-gradient(circle at 86% 80%, rgba(255,45,141,.16), transparent 55%);
+  }
   .about-grid,.research-grid,.lab-grid,.project-detail-grid{grid-template-columns:1fr;gap:44px}
   .solution-block,.solution-block.reverse{grid-template-columns:1fr}
   .solution-block .solution-visual,.solution-block.reverse .solution-visual{order:-1}
@@ -1244,9 +1329,9 @@ footer{border-top:1px solid var(--border-subtle);padding:80px 0 0;background:var
   .lightbox-prev{left:10px}
   .lightbox-next{right:10px}
   .lightbox-close{top:-14px;right:6px}
-  .hero-visual{flex-wrap:wrap;justify-content:center;gap:10px;height:auto;aspect-ratio:auto}
-  .hero-visual-frame{flex:1 1 100%;width:100%;height:auto;aspect-ratio:1/1.05}
+  .hero-visual{flex-wrap:wrap;justify-content:center;gap:10px;height:auto;aspect-ratio:auto;margin-top:36px}
   .float-chip{position:static;animation:none;padding:7px 11px;font-size:11px}
+  .hero-orbit{display:none}
 }
 @media (max-width:560px){
   .stats-grid{grid-template-columns:1fr;border:none;gap:12px}
