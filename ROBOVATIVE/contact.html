@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact &amp; Appointments — Skin Shine, Mehdipatnam</title>
+<meta name="description" content="Book an appointment at Skin Shine. Opp. Pillar No. 100, Moghal Nagar, Attapur Chowrasta, Mehdipatnam, Hyderabad. +91 90524 46842. Mon–Sat 3–5 PM.">
+<meta name="theme-color" content="#0F4C81">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='19' fill='%23fff'/%3E%3Cpath d='M26.06 9.5A7 7 0 1 0 20 20' fill='none' stroke='%231E88D0' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M20 20A7 7 0 1 1 13.94 30.5' fill='none' stroke='%230F4C81' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   SKIN SHINE — clinic website (blue from the clinic signboard, warm rose accent)
+   ========================================================= */
+:root{
+  --blue-900:#0B2B4A; --blue-800:#0F3D66; --blue-700:#0F4C81; --blue-600:#1565A8; --blue-500:#1E88D0; --blue-300:#8CC3EC; --blue-100:#DCEBF8; --blue-50:#F0F7FD;
+  --rose-600:#B9483A; --rose-500:#D9614C; --rose-100:#FBE3DC; --rose-50:#FDF3EF;
+  --ink:#0E2236; --ink-2:#36506A; --muted:#5A6F82; --line:#E1E9F0; --soft:#F5F9FC; --white:#fff; --success:#13795B; --danger:#C2362B;
+  --grad:linear-gradient(135deg,#1565A8 0%,#1E88D0 100%);
+  --radius:16px; --radius-lg:24px; --radius-xl:32px;
+  --shadow-sm:0 1px 2px rgba(14,34,54,.06),0 1px 3px rgba(14,34,54,.05);
+  --shadow:0 4px 12px rgba(14,34,54,.06),0 12px 32px rgba(14,34,54,.08);
+  --shadow-lg:0 20px 60px rgba(14,34,54,.16);
+  --header-h:72px;
+  --font:"Plus Jakarta Sans",Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h) + 16px)}
+body{margin:0;font-family:var(--font);color:var(--ink);background:#fff;line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:var(--blue-600);text-decoration:none}
+a:hover{color:var(--blue-700)}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3,h4{line-height:1.2;margin:0 0 .5em;letter-spacing:-.02em;color:var(--ink);text-wrap:balance}
+h1{font-size:clamp(2.1rem,4.6vw,3.5rem);font-weight:800}
+h2{font-size:clamp(1.7rem,3.2vw,2.5rem);font-weight:800}
+h3{font-size:1.15rem;font-weight:700}
+p{margin:0 0 1em}
+.container{width:100%;max-width:1200px;margin:0 auto;padding:0 16px}
+@media(min-width:768px){.container{padding:0 24px}}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip-link{position:absolute;left:12px;top:-60px;background:var(--ink);color:#fff;padding:10px 16px;border-radius:8px;z-index:1000}
+.skip-link:focus{top:12px;color:#fff}
+:focus-visible{outline:3px solid var(--rose-500);outline-offset:2px;border-radius:6px}
+.icon{width:24px;height:24px;flex:none;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.icon-sm{width:18px;height:18px}.icon-xs{width:14px;height:14px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;border-radius:999px;font-weight:700;font-size:.95rem;border:2px solid transparent;cursor:pointer;transition:transform .15s,box-shadow .2s,background .2s,color .2s;white-space:nowrap;line-height:1.2}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--blue-600);color:#fff;box-shadow:0 6px 18px rgba(21,101,168,.28)}
+.btn-primary:hover{background:var(--blue-700);color:#fff}
+.btn-rose{background:var(--rose-500);color:#fff;box-shadow:0 6px 18px rgba(217,97,76,.28)}
+.btn-rose:hover{background:var(--rose-600);color:#fff}
+.btn-outline{background:#fff;border-color:var(--blue-100);color:var(--blue-700)}
+.btn-outline:hover{border-color:var(--blue-500);color:var(--blue-700)}
+.btn-ghost{background:transparent;color:var(--ink-2)}
+.btn-ghost:hover{color:var(--blue-700);background:var(--blue-50)}
+.btn-white{background:#fff;color:var(--blue-700)}
+.btn-white:hover{color:var(--blue-800);box-shadow:var(--shadow)}
+.btn-lg{padding:15px 28px;font-size:1rem}
+.btn-block{width:100%}
+.link-arrow{display:inline-flex;align-items:center;gap:6px;font-weight:700;color:var(--blue-600)}
+.link-arrow .icon{transition:transform .2s}
+.link-arrow:hover .icon{transform:translateX(3px)}
+
+/* top info bar */
+.topbar{background:var(--blue-900);color:#D6E6F5;font-size:.86rem}
+.topbar .container{display:flex;justify-content:space-between;align-items:center;gap:8px 20px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+.topbar span,.topbar a{display:inline-flex;align-items:center;gap:6px;color:#D6E6F5}
+.topbar a:hover{color:#fff}
+.topbar .icon{color:var(--blue-300)}
+@media(max-width:640px){.topbar .hide-sm{display:none}}
+
+/* header */
+.site-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:saturate(180%) blur(12px);-webkit-backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid transparent;transition:border-color .2s,box-shadow .2s}
+.site-header.scrolled{border-color:var(--line);box-shadow:0 4px 20px rgba(14,34,54,.06)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:var(--header-h);gap:16px}
+.brand{display:inline-flex;align-items:center;gap:10px;color:var(--ink)}
+.brand:hover{color:var(--ink)}
+.brand svg{width:42px;height:42px;flex:none}
+.brand-text{display:flex;flex-direction:column;line-height:1.05}
+.brand-text b{font-size:1.3rem;font-weight:800;letter-spacing:.04em;color:var(--blue-900)}
+.brand-text b span{color:var(--blue-500)}
+.brand-text small{font-size:.66rem;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:3px}
+.nav-menu{display:flex;align-items:center;gap:4px;list-style:none;margin:0;padding:0}
+.nav-item{position:relative}
+.nav-link{display:inline-flex;align-items:center;gap:4px;padding:10px 11px;border-radius:10px;color:var(--ink-2);font-weight:600;font-size:.95rem;background:none;border:0;cursor:pointer;white-space:nowrap}
+.brand-text small{white-space:nowrap}
+@media(min-width:1024px) and (max-width:1240px){.brand-text small{display:none}.nav-link{padding:10px 8px;font-size:.92rem}.nav-actions .btn{padding:11px 16px}}
+.nav-link:hover,.nav-link[aria-current="page"]{color:var(--blue-700);background:var(--blue-50)}
+.nav-link .icon{transition:transform .2s}
+.dropdown{position:absolute;top:calc(100% + 8px);left:50%;transform:translate(-50%,6px);min-width:300px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-lg);padding:8px;list-style:none;margin:0;opacity:0;visibility:hidden;transition:opacity .18s,transform .18s,visibility .18s}
+.dropdown::before{content:"";position:absolute;top:-10px;left:0;right:0;height:10px}
+.dropdown a{display:flex;gap:12px;align-items:flex-start;padding:10px 12px;border-radius:10px;color:var(--ink)}
+.dropdown a:hover{background:var(--soft);color:var(--ink)}
+.dd-icon{width:36px;height:36px;border-radius:10px;background:var(--blue-50);color:var(--blue-600);display:grid;place-items:center;flex:none}
+.dd-title{display:block;font-weight:700;font-size:.92rem}
+.dd-desc{display:block;font-size:.8rem;color:var(--muted);line-height:1.4}
+@media(min-width:1024px){
+  .nav-item:hover>.dropdown,.nav-item:focus-within>.dropdown,.nav-item.open>.dropdown{opacity:1;visibility:visible;transform:translate(-50%,0)}
+  .nav-item:hover>.nav-link .icon,.nav-item.open>.nav-link .icon{transform:rotate(180deg)}
+}
+.nav-actions{display:flex;align-items:center;gap:8px}
+.nav-toggle{display:none;width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:#fff;align-items:center;justify-content:center;cursor:pointer;color:var(--ink)}
+.mobile-cta{display:none}
+@media(max-width:1023px){
+  .site-header{backdrop-filter:none;-webkit-backdrop-filter:none;background:#fff}
+  .nav-toggle{display:inline-flex}
+  .nav-actions .btn-ghost{display:none}
+  .nav-primary{position:fixed;inset:var(--header-top,var(--header-h)) 0 0 0;background:#fff;overflow-y:auto;padding:16px 16px 32px;transform:translateX(100%);transition:transform .28s ease;border-top:1px solid var(--line)}
+  .nav-primary.open{transform:none}
+  .nav-menu{flex-direction:column;align-items:stretch;gap:2px}
+  .nav-link{width:100%;justify-content:space-between;padding:14px 12px;font-size:1.05rem}
+  .dropdown{position:static;transform:none;opacity:1;visibility:visible;box-shadow:none;border:0;padding:0 0 8px 8px;display:none;min-width:0}
+  .nav-item.open>.dropdown{display:block}
+  .nav-item.open>.nav-link .icon{transform:rotate(180deg)}
+  .mobile-cta{display:grid;gap:10px;margin-top:20px;padding-top:20px;border-top:1px solid var(--line)}
+}
+@media(max-width:480px){.nav-actions .btn-primary{display:none}}
+body.menu-open{overflow:hidden}
+
+/* sections */
+.section{padding:64px 0}
+.section-sm{padding:40px 0}
+@media(max-width:767px){.section{padding:48px 0}.section-sm{padding:32px 0}}
+.bg-soft{background:var(--soft)}
+.bg-blue{background:var(--blue-50)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-600);background:var(--blue-50);padding:6px 12px;border-radius:999px;margin-bottom:14px}
+.eyebrow.rose{color:var(--rose-600);background:var(--rose-50)}
+.section-head{max-width:720px;margin:0 auto 36px;text-align:center}
+.section-head p{color:var(--ink-2);font-size:1.06rem;margin-bottom:0}
+.lead{font-size:1.12rem;color:var(--ink-2)}
+.grid{display:grid;gap:22px}
+.grid>*{min-width:0}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:1023px){.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.grid-4,.grid-3,.grid-2{grid-template-columns:1fr}}
+
+/* hero */
+.hero{padding:48px 0 56px;background:
+  radial-gradient(800px 460px at 85% 0%,rgba(30,136,208,.14),transparent 60%),
+  radial-gradient(600px 420px at 0% 100%,rgba(217,97,76,.10),transparent 60%),#fff;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.hero-grid>*{min-width:0}
+@media(max-width:1023px){.hero-grid{grid-template-columns:1fr;gap:32px}}
+.hero h1 .hl{color:var(--blue-500)}
+.hero .lead{max-width:560px;margin-bottom:24px}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:22px}
+.hero-facts{display:flex;flex-wrap:wrap;gap:10px 22px;list-style:none;padding:0;margin:0;color:var(--ink-2);font-size:.92rem;font-weight:600}
+.hero-facts li{display:flex;align-items:center;gap:8px}
+.hero-facts .icon{color:var(--blue-500)}
+.doc-card{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);padding:28px;overflow:hidden}
+.doc-card::before{content:"";position:absolute;inset:0 0 auto 0;height:110px;background:var(--grad)}
+.doc-card>*{position:relative}
+.doc-top{display:flex;gap:16px;align-items:center;color:#fff;margin-bottom:26px}
+.doc-avatar{width:84px;height:84px;border-radius:24px;background:#fff;color:var(--blue-700);display:grid;place-items:center;font-weight:800;font-size:1.6rem;box-shadow:var(--shadow);flex:none}
+.doc-top b{display:block;font-size:1.2rem}
+.doc-top span{font-size:.88rem;color:#E3F0FB}
+.doc-rows{display:grid;gap:12px;margin-bottom:20px}
+.doc-row{display:flex;gap:12px;align-items:flex-start}
+.doc-row .ic{width:38px;height:38px;border-radius:12px;background:var(--blue-50);color:var(--blue-600);display:grid;place-items:center;flex:none}
+.doc-row b{display:block;font-size:.95rem}
+.doc-row small{color:var(--muted)}
+.open-pill{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.82rem;padding:6px 12px;border-radius:999px;background:var(--soft);color:var(--ink-2)}
+.open-pill i{width:8px;height:8px;border-radius:50%;background:#9AAAB2}
+.open-pill.open{background:#E3F6EE;color:var(--success)}.open-pill.open i{background:var(--success)}
+.float-tag{position:absolute;z-index:2;background:#fff;border:1px solid var(--line);border-radius:999px;box-shadow:var(--shadow);padding:8px 14px;font-weight:700;font-size:.82rem;display:flex;align-items:center;gap:8px;animation:float 6s ease-in-out infinite}
+.float-tag .icon{color:var(--rose-500)}
+.ft-1{left:-16px;top:-8px}.ft-2{right:-10px;bottom:-16px;animation-delay:-3s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.hero-visual{position:relative;padding:12px}
+@media(max-width:640px){.float-tag{display:none}}
+
+/* trust strip */
+.trust{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff;padding:18px 0}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:900px){.trust-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.trust-grid{grid-template-columns:1fr}}
+.trust-item{display:flex;align-items:center;gap:12px;padding:8px}
+.trust-item .ic{width:42px;height:42px;border-radius:12px;background:var(--blue-50);color:var(--blue-600);display:grid;place-items:center;flex:none}
+.trust-item b{display:block;font-size:.95rem}
+.trust-item small{color:var(--muted);font-size:.8rem}
+
+/* cards */
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);padding:26px;transition:transform .25s,box-shadow .25s,border-color .25s}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:transparent}
+.card p{color:var(--ink-2);font-size:.95rem}
+.icon-tile{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;margin-bottom:16px;background:var(--blue-50);color:var(--blue-600)}
+.icon-tile.rose{background:var(--rose-50);color:var(--rose-500)}
+.icon-tile .icon{width:26px;height:26px}
+.treat-card{display:flex;flex-direction:column}
+.treat-card ul{list-style:none;padding:0;margin:0 0 18px;display:flex;flex-wrap:wrap;gap:6px;flex:1;align-content:flex-start}
+.treat-card li{font-size:.8rem;font-weight:600;color:var(--ink-2);background:var(--soft);border:1px solid var(--line);padding:4px 10px;border-radius:999px}
+.chip-cloud{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.chip-lg{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;background:#fff;border:1px solid var(--line);font-weight:600;color:var(--ink-2);font-size:.92rem;box-shadow:var(--shadow-sm)}
+.chip-lg .icon{color:var(--blue-500);width:16px;height:16px}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;counter-reset:step}
+@media(max-width:820px){.steps{grid-template-columns:1fr}}
+.step{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);padding:26px;position:relative}
+.step-num{counter-increment:step;display:inline-grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--blue-600);color:#fff;font-weight:800;margin-bottom:14px}
+.step-num::before{content:counter(step)}
+.step p{color:var(--ink-2);margin:0}
+
+/* doctor band */
+.doctor-band{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:center}
+.doctor-band>*{min-width:0}
+@media(max-width:900px){.doctor-band{grid-template-columns:1fr}}
+.doctor-portrait{background:var(--grad);border-radius:var(--radius-xl);aspect-ratio:4/5;max-width:100%;display:grid;place-items:center;position:relative;overflow:hidden;color:#fff}
+.doctor-portrait::after{content:"";position:absolute;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.08);right:-80px;bottom:-80px}
+.doctor-portrait .initials{font-size:5rem;font-weight:800;letter-spacing:.04em;position:relative;z-index:1}
+.doctor-portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%;z-index:1}
+.doc-avatar{overflow:hidden}
+.doc-avatar img{width:100%;height:100%;object-fit:cover;transform:scale(1.9);transform-origin:50% 28%}
+.doctor-portrait small{position:absolute;bottom:18px;left:0;right:0;text-align:center;font-size:.78rem;color:#D6E6F5;z-index:1}
+.check-list{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:12px}
+.check-list li{display:flex;gap:12px;color:var(--ink-2)}
+.check-list li .icon{color:#fff;background:var(--blue-600);border-radius:50%;padding:3px;width:22px;height:22px;margin-top:1px;stroke-width:2.5}
+.check-list b{color:var(--ink)}
+
+/* app band */
+.app-band{background:linear-gradient(135deg,var(--blue-900),var(--blue-700));border-radius:var(--radius-xl);padding:44px;color:#fff;display:grid;grid-template-columns:1.2fr .8fr;gap:36px;align-items:center;overflow:hidden;position:relative}
+.app-band>*{min-width:0;position:relative}
+.app-band h2{color:#fff}
+.app-band p{color:#CFE2F3}
+.app-band .check-list li{color:#E3F0FB}
+.app-band .check-list li .icon{background:var(--rose-500)}
+@media(max-width:900px){.app-band{grid-template-columns:1fr;padding:32px 22px}}
+.phone-mock{width:230px;margin:0 auto;background:#061826;border-radius:34px;padding:10px;box-shadow:0 30px 60px rgba(0,0,0,.35)}
+.phone-screen{background:var(--soft);border-radius:26px;padding:14px;font-size:11px;color:var(--ink);min-height:380px}
+.ps-head{background:var(--grad);color:#fff;border-radius:16px;padding:12px;margin-bottom:10px}
+.ps-head b{display:block;font-size:13px}
+.ps-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:8px}
+.ps-card b{display:block;font-size:11.5px}
+.ps-card span{color:var(--muted)}
+
+/* reviews / location */
+.review-box{background:#fff;border:1px dashed var(--blue-300);border-radius:var(--radius-lg);padding:28px;text-align:center}
+.map-ph{border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--line);background:var(--soft);position:relative;aspect-ratio:16/10}
+.map-ph svg{width:100%;height:100%}
+.hours{width:100%;border-collapse:collapse;font-size:.95rem}
+.hours td{padding:10px 0;border-bottom:1px solid var(--line)}
+.hours td:last-child{text-align:right;font-weight:700}
+.hours tr.closed td:last-child{color:var(--danger)}
+.hours tr.today td{color:var(--blue-700);font-weight:800}
+
+/* faq */
+.faq{max-width:820px;margin:0 auto;display:grid;gap:12px}
+.faq-item{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:box-shadow .2s,border-color .2s}
+.faq-item.open{box-shadow:var(--shadow);border-color:transparent}
+.faq-q{width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;text-align:left;padding:18px 22px;background:none;border:0;cursor:pointer;font-weight:700;font-size:1.02rem;color:var(--ink)}
+.faq-q .plus{width:30px;height:30px;border-radius:50%;background:var(--blue-50);color:var(--blue-600);display:grid;place-items:center;flex:none;transition:transform .25s,background .25s}
+.faq-item.open .plus{transform:rotate(45deg);background:var(--blue-600);color:#fff}
+.faq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
+.faq-item.open .faq-a{grid-template-rows:1fr}
+.faq-a>div{overflow:hidden}
+.faq-a p{padding:0 22px 18px;margin:0;color:var(--ink-2)}
+
+/* booking band + forms */
+.book-band{background:var(--grad);border-radius:var(--radius-xl);padding:44px;color:#fff;display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:center;position:relative;overflow:hidden}
+.book-band::before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(253,243,239,.35),transparent 70%);left:-120px;bottom:-200px}
+.book-band>*{position:relative;min-width:0}
+.book-band h2{color:#fff}
+.book-band p{color:#E3F0FB}
+.book-list{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:12px}
+.book-list li{display:flex;gap:10px;align-items:center;font-weight:600}
+.book-list .icon{color:#fff}
+.book-list a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:960px){.book-band{grid-template-columns:1fr;padding:32px 22px}}
+.form-card{background:#fff;border-radius:var(--radius-lg);padding:26px;box-shadow:var(--shadow-lg);color:var(--ink)}
+.form-card h3{margin-bottom:4px}
+.form-sub{color:var(--muted);font-size:.9rem;margin-bottom:18px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-grid .full{grid-column:1/-1}
+@media(max-width:560px){.form-grid{grid-template-columns:1fr}}
+.field label{display:block;font-weight:700;font-size:.86rem;margin-bottom:6px}
+.field label .req{color:var(--danger)}
+.field input,.field select,.field textarea{width:100%;padding:12px 14px;border:1.5px solid #C9D7E2;border-radius:12px;background:#fff;font-size:.95rem;min-height:48px;transition:border-color .2s,box-shadow .2s}
+.field textarea{min-height:100px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue-500);box-shadow:0 0 0 4px rgba(30,136,208,.15)}
+.field.invalid input,.field.invalid select,.field.invalid textarea{border-color:var(--danger);box-shadow:0 0 0 4px rgba(194,54,43,.1)}
+.field .error{display:none;color:var(--danger);font-size:.8rem;font-weight:600;margin:6px 0 0}
+.field.invalid .error{display:block}
+.phone-wrap{display:flex}
+.phone-wrap span{display:flex;align-items:center;padding:0 12px;border:1.5px solid #C9D7E2;border-right:0;border-radius:12px 0 0 12px;background:var(--soft);font-weight:700;font-size:.92rem;color:var(--ink-2)}
+.phone-wrap input{border-radius:0 12px 12px 0}
+.form-note{font-size:.78rem;color:var(--muted);margin:14px 0}
+.form-success{display:none;text-align:center;padding:20px 8px}
+.form-success .ok{width:64px;height:64px;border-radius:50%;background:#E3F6EE;color:var(--success);display:grid;place-items:center;margin:0 auto 14px}
+.form-success .ok .icon{width:32px;height:32px}
+form.sent .form-body{display:none}
+form.sent .form-success{display:block}
+
+/* footer */
+.site-footer{background:var(--blue-900);color:#B9CDE0;padding:56px 0 24px;font-size:.93rem}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:32px}
+@media(max-width:960px){.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.footer-grid{grid-template-columns:1fr}}
+.site-footer .brand-text b{color:#fff}
+.site-footer .brand-text b span{color:var(--blue-300)}
+.site-footer .brand-text small{color:#8FB0CC}
+.site-footer h4{color:#fff;font-size:.95rem;margin-bottom:14px}
+.site-footer ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.site-footer a{color:#B9CDE0}
+.site-footer a:hover{color:#fff}
+.f-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+.f-row .icon{color:var(--blue-300);margin-top:2px}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);margin-top:36px;padding-top:20px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.85rem}
+.footer-bottom ul{display:flex;gap:20px;flex-wrap:wrap}
+
+/* inner pages */
+.page-hero{padding:56px 0 44px;background:radial-gradient(700px 400px at 90% 0%,rgba(30,136,208,.13),transparent 60%),radial-gradient(500px 360px at 0% 100%,rgba(217,97,76,.08),transparent 60%),#fff;text-align:center}
+.page-hero .lead{max-width:720px;margin:0 auto 24px}
+.page-hero .hero-ctas{justify-content:center;margin-bottom:0}
+.breadcrumb{display:flex;justify-content:center;gap:8px;font-size:.85rem;color:var(--muted);margin:0 0 16px;list-style:none;padding:0}
+.breadcrumb li+li::before{content:"/";margin-right:8px;color:#AFC0CD}
+.breadcrumb a{color:var(--muted)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.split>*{min-width:0}
+.split+.split{margin-top:64px}
+.split.reverse .split-media{order:-1}
+@media(max-width:960px){.split{grid-template-columns:1fr;gap:28px}.split.reverse .split-media{order:0}.split+.split{margin-top:48px}}
+.panel{background:var(--soft);border:1px solid var(--line);border-radius:var(--radius-xl);padding:26px}
+.panel h4{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:12px}
+.info-card{display:flex;gap:16px;align-items:flex-start}
+.info-card .icon-tile{margin:0}
+.info-card h3{margin-bottom:4px}
+.info-card p{margin:0 0 4px}
+.note{font-size:.85rem;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--ink);color:#fff;padding:12px 20px;border-radius:999px;font-weight:600;font-size:.92rem;box-shadow:var(--shadow-lg);z-index:200;transition:transform .3s;max-width:calc(100% - 32px);text-align:center}
+.toast.show{transform:translate(-50%,0)}
+
+/* reveal */
+.js .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.js .reveal.in{opacity:1;transform:none}
+.js .reveal.d1{transition-delay:.08s}.js .reveal.d2{transition-delay:.16s}.js .reveal.d3{transition-delay:.24s}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.js .reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="logo-mark" viewBox="0 0 40 40">
+    <circle cx="20" cy="20" r="19" fill="#fff" stroke="#DCEBF8" stroke-width="1"/>
+    <path d="M26.06 9.5A7 7 0 1 0 20 20" fill="none" stroke="#1E88D0" stroke-width="6" stroke-linecap="round"/>
+    <path d="M20 20A7 7 0 1 1 13.94 30.5" fill="none" stroke="#0F4C81" stroke-width="6" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M21 16.5v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 011.1 3.7 2 2 0 013.1 1.5h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L7.1 9.4a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21.5s-7-6.2-7-12a7 7 0 0114 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16.5" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></symbol>
+  <symbol id="i-stetho" viewBox="0 0 24 24"><path d="M5 3v5a5 5 0 0010 0V3"/><path d="M5 3h2M13 3h2"/><path d="M10 13v2a5 5 0 0010 0v-1.5"/><circle cx="20" cy="11" r="2"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 2.5s7 7.6 7 12.5a7 7 0 01-14 0c0-4.9 7-12.5 7-12.5z"/><path d="M9 15.5a3 3 0 003 3"/></symbol>
+  <symbol id="i-face" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5c1 1.3 2.2 2 3.5 2s2.5-.7 3.5-2M9 9.5h.01M15 9.5h.01"/></symbol>
+  <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M10 3c.7 4.3 2.7 6.3 7 7-4.3.7-6.3 2.7-7 7-.7-4.3-2.7-6.3-7-7 4.3-.7 6.3-2.7 7-7z"/><path d="M18.5 14.5c.3 2 1 2.7 3 3-2 .3-2.7 1-3 3-.3-2-1-2.7-3-3 2-.3 2.7-1 3-3z"/></symbol>
+  <symbol id="i-hair" viewBox="0 0 24 24"><path d="M5 20c0-6 1-12 7-15 6 3 7 9 7 15"/><path d="M9 20c0-5 .7-9 3-11.5M15 20c0-5-.7-9-3-11.5"/></symbol>
+  <symbol id="i-hand" viewBox="0 0 24 24"><path d="M8 13V5.5a1.5 1.5 0 013 0V11M11 10.5V4a1.5 1.5 0 013 0v6.5M14 10.5V5.5a1.5 1.5 0 013 0V14c0 4-2.7 7-6.5 7-2.6 0-4.2-1.2-5.5-3.2L3.4 15a1.5 1.5 0 012.4-1.8L8 15.5"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2.5l8 3v6c0 5-3.4 8.7-8 10-4.6-1.3-8-5-8-10v-6l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M8.5 13.8L7 21.5l5-2.5 5 2.5-1.5-7.7"/></symbol>
+  <symbol id="i-mobile" viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M11 18.5h2"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2.5H6.5a2 2 0 00-2 2v15a2 2 0 002 2h11a2 2 0 002-2V8L14 2.5z"/><path d="M14 2.5V8h5.5M8.5 13h7M8.5 17h5"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 12a8.5 8.5 0 01-12.5 7.5L3 21l1.5-5.2A8.5 8.5 0 1121 12z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-scissors" viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4L8.1 15.9M14.5 14.5L20 20M8.1 8.1L12 12"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c.9-4 4-6 8-6s7.1 2 8 6"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9L12 2.8z"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></symbol>
+</svg>
+
+<div class="topbar" role="region" aria-label="Clinic timings and contact">
+  <div class="container">
+    <span><svg class="icon icon-xs" aria-hidden="true"><use href="#i-clock"/></svg>Mon–Sat · 3:00 PM – 5:00 PM <span class="hide-sm">· Sunday closed</span></span>
+    <span class="hide-sm"><svg class="icon icon-xs" aria-hidden="true"><use href="#i-pin"/></svg>Opp. Pillar No. 100, Moghal Nagar, Mehdipatnam</span>
+    <a href="tel:+919052446842"><svg class="icon icon-xs" aria-hidden="true"><use href="#i-phone"/></svg>+91 90524 46842</a>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container nav">
+    <a href="index.html" class="brand" aria-label="Skin Shine home">
+      <svg aria-hidden="true"><use href="#logo-mark"/></svg>
+      <span class="brand-text"><b>SKIN <span>SHINE</span></b><small>Advanced Clinic for Skin, Hair &amp; Nail</small></span>
+    </a>
+    <nav class="nav-primary" id="nav-primary" aria-label="Main">
+      <ul class="nav-menu">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item has-dd">
+          <button class="nav-link" aria-expanded="false" aria-controls="dd-treat">Treatments <svg class="icon icon-sm" aria-hidden="true"><use href="#i-chev"/></svg></button>
+          <ul class="dropdown" id="dd-treat">
+            <li><a href="treatments.html#skin"><span class="dd-icon"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-drop"/></svg></span><span><span class="dd-title">Skin diseases &amp; allergies</span><span class="dd-desc">Eczema, fungal infections, psoriasis, rashes</span></span></a></li>
+            <li><a href="treatments.html#acne"><span class="dd-icon"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-face"/></svg></span><span><span class="dd-title">Acne &amp; pimples</span><span class="dd-desc">Pimples, marks, scars and pigmentation</span></span></a></li>
+            <li><a href="treatments.html#hair"><span class="dd-icon"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-hair"/></svg></span><span><span class="dd-title">Hair fall &amp; hair loss</span><span class="dd-desc">Men's and women's hair loss, dandruff</span></span></a></li>
+            <li><a href="treatments.html#transplant"><span class="dd-icon"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-scissors"/></svg></span><span><span class="dd-title">Hair transplant &amp; extensions</span><span class="dd-desc">Surgical and non-surgical options</span></span></a></li>
+            <li><a href="treatments.html#cosmetic"><span class="dd-icon"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-sparkles"/></svg></span><span><span class="dd-title">Anti-ageing &amp; warts</span><span class="dd-desc">Cosmetic treatments and wart removal</span></span></a></li>
+            <li><a href="treatments.html#nails"><span class="dd-icon"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-hand"/></svg></span><span><span class="dd-title">Nail problems &amp; surgery</span><span class="dd-desc">Fungal nails, ingrown toenails</span></span></a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="doctor.html">Our Doctor</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#app">Patient App</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
+      <div class="mobile-cta">
+        <a href="tel:+919052446842" class="btn btn-outline btn-block"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-phone"/></svg>Call +91 90524 46842</a>
+        <a href="login.html" class="btn btn-outline btn-block">Login</a>
+        <a href="contact.html#book" class="btn btn-primary btn-block">Book Appointment</a>
+      </div>
+    </nav>
+    <div class="nav-actions">
+      <a href="login.html" class="btn btn-ghost">Login</a>
+      <a href="contact.html#book" class="btn btn-primary">Book Appointment</a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-primary" aria-label="Open menu"><svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN:START -->
+<main id="main">
+  <section class="page-hero" aria-labelledby="c-title">
+    <div class="container">
+      <ol class="breadcrumb" aria-label="Breadcrumb"><li><a href="index.html">Home</a></li><li aria-current="page">Contact</li></ol>
+      <span class="eyebrow">Contact &amp; directions</span>
+      <h1 id="c-title">Visit Skin Shine</h1>
+      <p class="lead">Opposite Pillar No. 100, Moghal Nagar, Attapur Chowrasta, Mehdipatnam. Open Monday to Saturday, 3:00 – 5:00 PM.</p>
+    </div>
+  </section>
+
+  <section class="section-sm" style="padding-top:0" aria-label="Ways to reach us">
+    <div class="container">
+      <div class="grid grid-3">
+        <a class="card info-card reveal" href="tel:+919052446842" style="color:inherit">
+          <div class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg></div>
+          <div><h3>Call</h3><p style="font-weight:700;color:var(--blue-700)">+91 90524 46842</p><p class="note">Please call before you visit</p></div>
+        </a>
+        <a class="card info-card reveal d1" href="https://wa.me/919052446842" target="_blank" rel="noopener" style="color:inherit">
+          <div class="icon-tile rose"><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg></div>
+          <div><h3>WhatsApp</h3><p style="font-weight:700;color:var(--blue-700)">Message the clinic</p><p class="note">For appointments and timings</p></div>
+        </a>
+        <div class="card info-card reveal d2">
+          <div class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg></div>
+          <div><h3>Timings</h3><p style="font-weight:700">Mon–Sat · 3:00 – 5:00 PM</p><p class="note">Sunday closed</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="book" aria-labelledby="b-title">
+    <div class="container">
+      <div class="split" style="align-items:start">
+        <div class="form-card reveal" style="box-shadow:var(--shadow);border:1px solid var(--line)">
+          <form class="js-validate" novalidate aria-labelledby="b-title">
+            <div class="form-body">
+              <h2 id="b-title" style="font-size:1.6rem">Book an appointment</h2>
+              <p class="form-sub">Send your details and the clinic will call you to confirm a time between 3 and 5 PM.</p>
+              <div class="form-grid">
+                <div class="field full">
+                  <label for="b-name">Patient name <span class="req" aria-hidden="true">*</span></label>
+                  <input id="b-name" name="name" type="text" autocomplete="name" required data-min="2" aria-describedby="b-name-err">
+                  <p class="error" id="b-name-err">Please enter the patient's name.</p>
+                </div>
+                <div class="field">
+                  <label for="b-phone">Mobile number <span class="req" aria-hidden="true">*</span></label>
+                  <div class="phone-wrap"><span aria-hidden="true">+91</span><input id="b-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="98765 43210" required data-rule="phone" aria-describedby="b-phone-err"></div>
+                  <p class="error" id="b-phone-err">Enter a valid 10-digit mobile number.</p>
+                </div>
+                <div class="field">
+                  <label for="b-date">Preferred date <span class="req" aria-hidden="true">*</span></label>
+                  <select id="b-date" name="preferredDate" required data-open-dates aria-describedby="b-date-err"><option value="">Select a date</option></select>
+                  <p class="error" id="b-date-err">Please choose a date. The clinic is open Monday to Saturday.</p>
+                </div>
+                <div class="field">
+                  <label for="b-concern">Concern <span class="req" aria-hidden="true">*</span></label>
+                  <select id="b-concern" name="concern" required aria-describedby="b-concern-err">
+                    <option value="">Select</option>
+                    <option>Acne / pimples</option><option>Pigmentation / dark spots</option><option>Hair fall / hair loss</option><option>Hair transplant</option><option>Skin allergy / itching / rash</option><option>Fungal infection</option><option>Warts / skin growths</option><option>Nail problem</option><option>Anti-ageing</option><option>Review visit</option><option>Other</option>
+                  </select>
+                  <p class="error" id="b-concern-err">Please choose a concern.</p>
+                </div>
+                <div class="field">
+                  <label for="b-email">Email <span style="color:var(--muted);font-weight:500">(optional)</span></label>
+                  <input id="b-email" name="email" type="email" autocomplete="email" aria-describedby="b-email-err">
+                  <p class="error" id="b-email-err">Enter a valid email address.</p>
+                </div>
+                <div class="field full">
+                  <label for="b-msg">Anything the doctor should know? <span style="color:var(--muted);font-weight:500">(optional)</span></label>
+                  <textarea id="b-msg" name="message" placeholder="e.g. Pimples on cheeks for 6 months"></textarea>
+                </div>
+              </div>
+              <p class="form-note">This is a request, not a confirmed booking. For urgent problems, please call +91 90524 46842.</p>
+              <button type="submit" class="btn btn-primary btn-lg btn-block"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-calendar"/></svg>Request appointment</button>
+            </div>
+            <div class="form-success" role="status" tabindex="-1">
+              <div class="ok"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></div>
+              <h3>Request received</h3>
+              <p class="form-sub">The clinic will call you to confirm your appointment time.</p>
+            </div>
+          </form>
+        </div>
+        <div class="reveal d1">
+          <div class="panel">
+            <h4>Address</h4>
+            <p style="font-weight:700;margin-bottom:4px">Skin Shine – Advanced Clinic for Skin, Hair &amp; Nail</p>
+            <address style="font-style:normal;color:var(--ink-2)">Door No. 13-6-43/3, 1st Floor,<br>Opposite Pillar No. 100, Moghal Nagar,<br>Attapur Chowrasta, Gudimalkapur, Mehdipatnam,<br>Hyderabad, Telangana 500008</address>
+            <h4 style="margin-top:18px">Landmarks</h4>
+            <ul class="check-list" style="margin-top:0">
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Opposite <b>Pillar No. 100</b> (metro / flyover pillar)</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Moghal Nagar, near <b>Attapur Chowrasta</b></span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Clinic is on the <b>1st floor</b></span></li>
+            </ul>
+            <a class="btn btn-outline" style="margin-top:16px" href="https://www.google.com/maps/search/?api=1&amp;query=Skin+Shine+Advanced+Clinic+Moghal+Nagar+Attapur+Mehdipatnam+Hyderabad" target="_blank" rel="noopener"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-pin"/></svg>Get directions</a>
+          </div>
+          <div class="panel" style="margin-top:18px">
+            <h4>Clinic timings</h4>
+            <table class="hours" aria-label="Clinic timings"><tbody id="hours-body">
+              <tr data-day="1"><td>Monday</td><td>3:00 PM – 5:00 PM</td></tr><tr data-day="2"><td>Tuesday</td><td>3:00 PM – 5:00 PM</td></tr><tr data-day="3"><td>Wednesday</td><td>3:00 PM – 5:00 PM</td></tr><tr data-day="4"><td>Thursday</td><td>3:00 PM – 5:00 PM</td></tr><tr data-day="5"><td>Friday</td><td>3:00 PM – 5:00 PM</td></tr><tr data-day="6"><td>Saturday</td><td>3:00 PM – 5:00 PM</td></tr><tr data-day="0" class="closed"><td>Sunday</td><td>Closed</td></tr>
+            </tbody></table>
+            <p class="note" style="margin:12px 0 0">Timings are subject to change. Calling ahead is advised.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- MAIN:END -->
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="brand" aria-label="Skin Shine home"><svg aria-hidden="true"><use href="#logo-mark"/></svg><span class="brand-text"><b>SKIN <span>SHINE</span></b><small>Advanced Clinic for Skin, Hair &amp; Nail</small></span></a>
+        <p style="margin:16px 0;max-width:320px">Dermatology and cosmetology clinic in Mehdipatnam, Hyderabad, led by Dr. Syed Yousuf Ali (MBBS, MD-DVL).</p>
+        <div class="f-row"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-pin"/></svg><address style="font-style:normal">Door No. 13-6-43/3, 1st Floor, Opp. Pillar No. 100, Moghal Nagar, Attapur Chowrasta, Mehdipatnam, Hyderabad 500008</address></div>
+        <div class="f-row"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-phone"/></svg><a href="tel:+919052446842">+91 90524 46842</a></div>
+        <div class="f-row"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-clock"/></svg><span>Mon–Sat, 3:00 PM – 5:00 PM</span></div>
+      </div>
+      <div>
+        <h4>Treatments</h4>
+        <ul>
+          <li><a href="treatments.html#skin">Skin diseases &amp; allergies</a></li>
+          <li><a href="treatments.html#acne">Acne &amp; pimples</a></li>
+          <li><a href="treatments.html#hair">Hair fall &amp; hair loss</a></li>
+          <li><a href="treatments.html#transplant">Hair transplant</a></li>
+          <li><a href="treatments.html#cosmetic">Anti-ageing &amp; warts</a></li>
+          <li><a href="treatments.html#nails">Nail surgery</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Clinic</h4>
+        <ul>
+          <li><a href="doctor.html">Our Doctor</a></li>
+          <li><a href="index.html#faq">FAQs</a></li>
+          <li><a href="contact.html">Contact &amp; directions</a></li>
+          <li><a href="contact.html#book">Book Appointment</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>For patients &amp; staff</h4>
+        <ul>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="https://wa.me/919052446842" target="_blank" rel="noopener">WhatsApp the clinic</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p style="margin:0">© 2026 Skin Shine – Advanced Clinic for Skin, Hair &amp; Nail. All rights reserved to <a href="https://www.shabihub.com/" target="_blank" rel="noopener" style="color:#fff;font-weight:600">ShabiHub</a>.</p>
+      <p style="margin:0">Website &amp; app by ShabiHub</p>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" role="status" aria-live="polite" id="toast"></div>
+
+<script src="lumina-core.js" charset="utf-8"></script>
+<script>
+(function(){
+  "use strict";
+  var doc=document.documentElement;doc.classList.add("js");
+  var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var $=function(s,c){return (c||document).querySelector(s)},$$=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+  var page=(location.pathname.split("/").pop()||"index.html").toLowerCase();
+  $$(".nav-menu > .nav-item > a.nav-link").forEach(function(a){if(a.getAttribute("href").toLowerCase()===page)a.setAttribute("aria-current","page")});
+  if(page==="treatments.html"){var t=$(".has-dd > .nav-link");t&&t.setAttribute("aria-current","page")}
+
+  var header=$(".site-header");var onScroll=function(){header.classList.toggle("scrolled",window.scrollY>8)};window.addEventListener("scroll",onScroll,{passive:true});onScroll();
+  var toggle=$(".nav-toggle"),nav=$("#nav-primary"),desktop=window.matchMedia("(min-width:1024px)");
+  function setMenu(open){toggle.setAttribute("aria-expanded",open);toggle.setAttribute("aria-label",open?"Close menu":"Open menu");toggle.querySelector("use").setAttribute("href",open?"#i-close":"#i-menu");nav.classList.toggle("open",open);document.body.classList.toggle("menu-open",open);if(open)doc.style.setProperty("--header-top",header.getBoundingClientRect().bottom+"px")}
+  toggle.addEventListener("click",function(){setMenu(toggle.getAttribute("aria-expanded")!=="true")});
+  desktop.addEventListener&&desktop.addEventListener("change",function(e){if(e.matches)setMenu(false)});
+  var dds=$$(".has-dd");
+  function closeAll(ex){dds.forEach(function(li){if(li!==ex){li.classList.remove("open");li.querySelector(".nav-link").setAttribute("aria-expanded","false")}})}
+  dds.forEach(function(li){var b=li.querySelector(".nav-link");b.addEventListener("click",function(e){e.stopPropagation();var o=!li.classList.contains("open");closeAll(li);li.classList.toggle("open",o);b.setAttribute("aria-expanded",o)})});
+  document.addEventListener("click",function(e){if(!e.target.closest(".has-dd"))closeAll()});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeAll();if(nav.classList.contains("open")){setMenu(false);toggle.focus()}}});
+  $$("#nav-primary a").forEach(function(a){a.addEventListener("click",function(){if(!desktop.matches)setMenu(false)})});
+
+  var toast=$("#toast"),tt;function showToast(m){toast.textContent=m;toast.classList.add("show");clearTimeout(tt);tt=setTimeout(function(){toast.classList.remove("show")},3000)}
+
+  var rv=$$(".reveal");
+  if("IntersectionObserver" in window&&!reduce){var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}})},{threshold:.1,rootMargin:"0px 0px -40px 0px"});rv.forEach(function(el){io.observe(el)})}else rv.forEach(function(el){el.classList.add("in")});
+
+  // open / closed now (Mon-Sat 15:00-17:00, India time)
+  (function(){
+    var now=new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"})),day=now.getDay(),m=now.getHours()*60+now.getMinutes();
+    var row=$('#hours-body tr[data-day="'+day+'"]');if(row)row.classList.add("today");
+    var pill=$("#open-pill");if(!pill)return;
+    var open=day>=1&&day<=6&&m>=900&&m<1020;
+    pill.classList.toggle("open",open);
+    pill.querySelector("span").textContent=open?"Open now · till 5:00 PM":(day>=1&&day<=6&&m<900?"Opens today at 3:00 PM":"Closed now · Mon–Sat, 3–5 PM");
+  })();
+
+  $$("[data-accordion]").forEach(function(acc){$$(".faq-q",acc).forEach(function(b){b.addEventListener("click",function(){var it=b.closest(".faq-item"),o=!it.classList.contains("open");$$(".faq-item.open",acc).forEach(function(x){if(x!==it){x.classList.remove("open");$(".faq-q",x).setAttribute("aria-expanded","false")}});it.classList.toggle("open",o);b.setAttribute("aria-expanded",o)})})});
+
+  // appointment form: validated here, then saved for the clinic (shows in the admin's "Website leads")
+  var emailRe=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  // Clinic is open Mon–Sat until 5:00 PM (India time). Sundays, past dates, and today after closing are not bookable.
+  function istNow(){return new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}))}
+  function ymd(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+  function dateOpen(v){var n=istNow(),today=ymd(n);if(v<today)return false;if(new Date(v+"T12:00:00").getDay()===0)return false;if(v===today&&n.getHours()*60+n.getMinutes()>=17*60)return false;return true}
+  function firstOpenDate(){var d=istNow();for(var i=0;i<8;i++){var v=ymd(d);if(dateOpen(v))return v;d.setDate(d.getDate()+1)}return ymd(istNow())}
+  function check(el){var f=el.closest(".field"),v=(el.value||"").trim(),ok=true;
+    if(el.required&&!v)ok=false;
+    else if(v&&el.type==="email"&&!emailRe.test(v))ok=false;
+    else if(v&&el.getAttribute("data-rule")==="phone"){ok=/^[6-9]\d{9}$/.test(v.replace(/[\s\-()]/g,"").replace(/^(\+91|0091|91(?=\d{10}$)|0(?=\d{10}$))/,""))}
+    else if(v&&el.getAttribute("data-min")&&v.length<+el.getAttribute("data-min"))ok=false;
+    else if(v&&el.type==="date"&&!dateOpen(v))ok=false;
+    if(f)f.classList.toggle("invalid",!ok);el.setAttribute("aria-invalid",!ok);return ok}
+  $$("form.js-validate").forEach(function(form){
+    var d=$('input[type=date]',form);if(d){d.min=firstOpenDate();d.addEventListener("change",function(){check(d)})}
+    // preferred date as a DD/MM/YYYY list of open days (the browser calendar shows MM/DD on some computers)
+    var ds=$('select[data-open-dates]',form);if(ds){var WD=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],day=istNow(),today=ymd(day),added=0;for(var i=0;i<20&&added<14;i++){var v=ymd(day);if(dateOpen(v)){var o=document.createElement("option");o.value=v;o.textContent=WD[day.getDay()]+", "+v.split("-").reverse().join("/")+(v===today?" (Today)":"");ds.appendChild(o);added++}day.setDate(day.getDate()+1)}ds.addEventListener("change",function(){check(ds)})}
+    var inputs=$$("input,select,textarea",form).filter(function(el){return el.required||el.getAttribute("data-rule")||el.type==="email"||el.type==="date"});
+    inputs.forEach(function(el){el.addEventListener("blur",function(){if(el.value)check(el)});el.addEventListener("input",function(){if(el.closest(".field").classList.contains("invalid"))check(el)})});
+    form.addEventListener("submit",function(e){e.preventDefault();var bad=null;inputs.forEach(function(el){if(!check(el)&&!bad)bad=el});if(bad){bad.focus();return}
+      var btn=form.querySelector("[type=submit]"),label=btn.innerHTML;btn.disabled=true;btn.textContent="Sending…";
+      var data={};new FormData(form).forEach(function(v,k){data[k]=v});data.type="appointment";data.page=page;
+      var done=function(){form.classList.add("sent");var s=$(".form-success",form);s&&s.focus()};
+      var send=window.LuminaCore?LuminaCore.client().request("POST","/api/leads",data):Promise.resolve();
+      send.then(done).catch(function(){btn.disabled=false;btn.innerHTML=label;showToast("Sorry, that didn't go through. Please call +91 90524 46842.")});
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skin Shine App</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='19' fill='%23fff'/%3E%3Cpath d='M26.06 9.5A7 7 0 1 0 20 20' fill='none' stroke='%231E88D0' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M20 20A7 7 0 1 1 13.94 30.5' fill='none' stroke='%230F4C81' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal-800:#0B3F6B;--teal-700:#0F4C81;--teal-600:#1565A8;--teal-500:#1E88D0;--teal-300:#8CC3EC;--teal-100:#D6E8F7;--teal-50:#EEF5FC;
+  --blue-700:#1747A6;--blue-600:#1D5FD6;--blue-100:#DCE7FC;--blue-50:#F0F5FF;--amber-500:#E8960F;--amber-400:#F6B13C;--amber-100:#FFF3DC;
+  --violet-600:#6D4BD8;--violet-50:#F3EFFF;--rose-600:#D23F63;--rose-50:#FDEEF2;
+  --ink:#0B2433;--ink-2:#34505F;--muted:#56707F;--line:#E2EBEF;--soft:#F5F9FA;--bg:#F1F6F7;
+  --danger:#C2362B;--danger-50:#FDECEA;--success:#13795B;--success-50:#E3F6EE;
+  --radius:16px;--shadow-sm:0 1px 2px rgba(11,36,51,.06),0 1px 3px rgba(11,36,51,.05);--shadow:0 4px 12px rgba(11,36,51,.06),0 12px 32px rgba(11,36,51,.07);--shadow-lg:0 20px 60px rgba(11,36,51,.2);
+  --font:"Plus Jakarta Sans",Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.55;font-size:15px;-webkit-font-smoothing:antialiased}
+a{color:var(--teal-600);text-decoration:none}a:hover{color:var(--teal-700)}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3,h4{margin:0;letter-spacing:-.02em;line-height:1.25}
+:focus-visible{outline:3px solid var(--amber-400);outline-offset:2px;border-radius:6px}
+.icon{width:20px;height:20px;flex:none;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.icon-sm{width:16px;height:16px}
+[hidden]{display:none!important}
+.sr-only{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+
+/* ---------- layout ---------- */
+.app{display:grid;grid-template-columns:256px 1fr;min-height:100vh}
+.side{background:linear-gradient(180deg,#0B2B4A 0%,#0F3D66 100%);color:#C8DCE3;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;padding:20px 14px;overflow-y:auto}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:800;font-size:1.15rem;letter-spacing:-.02em;padding:4px 8px 8px}
+.brand:hover{color:#fff}
+.brand svg{width:34px;height:34px;flex:none}
+.brand .wm-light{font-weight:500;color:var(--teal-300)}
+.role-badge{margin:6px 8px 18px;display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.08);color:#fff;font-size:.78rem;font-weight:700;align-self:flex-start}
+.role-badge i{width:8px;height:8px;border-radius:50%;background:var(--amber-400)}
+.nav{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.nav a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;color:#B9CFD8;font-weight:600}
+.nav a:hover{background:rgba(255,255,255,.06);color:#fff}
+.nav a[aria-current="page"]{background:linear-gradient(135deg,#1565A8,#1E88D0);color:#fff;box-shadow:0 6px 16px rgba(14,140,153,.35)}
+.side-foot{margin-top:auto;border-top:1px solid rgba(255,255,255,.08);padding-top:14px;display:grid;gap:4px}
+.side-foot a,.side-foot button{color:#B9CFD8;font-size:.88rem;display:flex;gap:10px;align-items:center;padding:8px 12px;border-radius:10px;background:none;border:0;cursor:pointer;text-align:left;width:100%}
+.side-foot a:hover,.side-foot button:hover{color:#fff;background:rgba(255,255,255,.06)}
+.main-col{min-width:0;display:flex;flex-direction:column}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:12px 28px;min-height:66px}
+.topbar h1{font-size:1.15rem;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mode-pill{font-size:.74rem;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--amber-100);color:#8A5300;white-space:nowrap}
+.mode-pill.server{background:var(--success-50);color:var(--success)}
+.who{display:flex;align-items:center;gap:10px}
+.who .meta{text-align:right;line-height:1.2}
+.who .meta b{display:block;font-size:.9rem}
+.who .meta small{color:var(--muted);font-size:.78rem}
+.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:.85rem;color:#fff;background:linear-gradient(135deg,#0E8C99,#1D5FD6);flex:none}
+.menu-btn{display:none;width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:#fff;align-items:center;justify-content:center;cursor:pointer}
+.view{padding:28px;max-width:1320px;width:100%}
+.scrim{display:none}
+@media(max-width:960px){
+  .app{grid-template-columns:1fr}
+  .side{position:fixed;left:0;top:0;bottom:0;width:264px;z-index:50;transform:translateX(-100%);transition:transform .25s}
+  .side.open{transform:none}
+  .scrim.open{display:block;position:fixed;inset:0;background:rgba(11,36,51,.45);z-index:40}
+  .menu-btn{display:inline-flex}
+  .topbar{padding:10px 16px}
+  .view{padding:16px}
+  .who .meta{display:none}
+}
+@media(max-width:520px){.mode-pill{display:none}}
+
+/* ---------- hero & cards ---------- */
+.hero{position:relative;overflow:hidden;border-radius:22px;padding:28px 30px;color:#fff;background:linear-gradient(120deg,#0B3F6B 0%,#1565A8 50%,#1E9BD7 100%);margin-bottom:22px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%}
+.hero::before{width:300px;height:300px;right:-80px;top:-140px;background:rgba(255,255,255,.08)}
+.hero::after{width:220px;height:220px;left:30%;bottom:-150px;background:radial-gradient(circle,rgba(246,177,60,.45),transparent 70%)}
+.hero>*{position:relative;z-index:1}
+.hero h2{font-size:clamp(1.3rem,2.4vw,1.75rem);color:#fff}
+.hero p{margin:6px 0 0;color:#DDF0F3}
+.hero .actions .btn{background:#fff;color:var(--teal-700)}
+.hero .actions .btn:hover{background:#F0FAFB}
+.hero .actions .btn-amber{background:var(--amber-400);color:var(--ink)}
+.hero-ill{width:120px;height:90px;opacity:.95}
+@media(max-width:700px){.hero-ill{display:none}}
+.perm{background:#fff;border:1px solid var(--line);border-radius:var(--radius);margin-bottom:22px;overflow:hidden}
+.perm summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;padding:14px 18px;font-weight:700}
+.perm summary::-webkit-details-marker{display:none}
+.perm summary .chev{margin-left:auto;transition:transform .2s;color:var(--muted)}
+.perm[open] summary .chev{transform:rotate(180deg)}
+.perm .lock-ic{width:32px;height:32px;border-radius:10px;background:var(--violet-50);color:var(--violet-600);display:grid;place-items:center}
+.perm-body{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:0 18px 18px}
+@media(max-width:700px){.perm-body{grid-template-columns:1fr}}
+.perm-body h4{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.perm-body ul{list-style:none;margin:0;padding:0;display:grid;gap:7px;font-size:.9rem}
+.perm-body li{display:flex;gap:8px;align-items:flex-start}
+.perm-body .yes h4{color:var(--success)}.perm-body .no h4{color:var(--danger)}
+.perm-body .yes li::before{content:"✓";color:var(--success);font-weight:800}
+.perm-body .no li::before{content:"✕";color:var(--danger);font-weight:800}
+.page-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.page-head h2{font-size:1.5rem}
+.page-head p{margin:4px 0 0;color:var(--muted)}
+.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:22px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px;display:flex;gap:14px;align-items:center;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.stat:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.stat::after{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--teal-500)}
+.stat.blue::after{background:var(--blue-600)}.stat.amber::after{background:var(--amber-400)}.stat.green::after{background:var(--success)}.stat.violet::after{background:var(--violet-600)}.stat.rose::after{background:var(--rose-600)}
+.stat .ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:var(--teal-50);color:var(--teal-600);flex:none}
+.stat.blue .ic{background:var(--blue-50);color:var(--blue-600)}.stat.amber .ic{background:var(--amber-100);color:var(--amber-500)}.stat.green .ic{background:var(--success-50);color:var(--success)}.stat.violet .ic{background:var(--violet-50);color:var(--violet-600)}.stat.rose .ic{background:var(--rose-50);color:var(--rose-600)}
+.stat small{display:block;color:var(--muted);font-weight:600;font-size:.8rem}
+.stat b{font-size:1.5rem;letter-spacing:-.02em}
+.panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);margin-bottom:22px;overflow:hidden}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:15px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.panel-head h3{font-size:1rem;display:flex;align-items:center;gap:8px}
+.panel-body{padding:18px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.grid-3{display:grid;grid-template-columns:2fr 1fr;gap:22px}
+@media(max-width:1060px){.grid-2,.grid-3{grid-template-columns:1fr}}
+
+/* ---------- buttons, chips, tables ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 16px;border-radius:999px;font-weight:700;font-size:.88rem;border:1.5px solid transparent;cursor:pointer;background:var(--teal-600);color:#fff;white-space:nowrap;transition:background .2s,border-color .2s,color .2s,transform .15s}
+.btn:hover{background:var(--teal-700);color:#fff}
+.btn:active{transform:translateY(1px)}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+.btn-outline{background:#fff;border-color:var(--line);color:var(--ink-2)}
+.btn-outline:hover{background:#fff;border-color:var(--teal-500);color:var(--teal-700)}
+.btn-ghost{background:transparent;color:var(--ink-2)}
+.btn-ghost:hover{background:var(--soft);color:var(--ink)}
+.btn-danger{background:#fff;border-color:#F3C5C0;color:var(--danger)}
+.btn-danger:hover{background:var(--danger-50);color:var(--danger)}
+.btn-amber{background:var(--amber-400);color:var(--ink)}
+.btn-amber:hover{background:#F8BD57;color:var(--ink)}
+.btn-violet{background:var(--violet-600)}.btn-violet:hover{background:#5A3BC0}
+.btn-xs{padding:5px 11px;font-size:.8rem}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:999px;font-weight:700;font-size:.75rem;background:var(--soft);color:var(--ink-2);white-space:nowrap;text-transform:capitalize}
+.chip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7}
+.chip.plain::before{display:none}
+.chip.teal{background:var(--teal-50);color:var(--teal-700)}.chip.blue{background:var(--blue-50);color:var(--blue-700)}.chip.amber{background:var(--amber-100);color:#8A5300}.chip.green{background:var(--success-50);color:var(--success)}.chip.red{background:var(--danger-50);color:var(--danger)}.chip.violet{background:var(--violet-50);color:var(--violet-600)}
+.view-only{display:inline-flex;align-items:center;gap:5px;font-size:.74rem;font-weight:700;color:var(--violet-600);background:var(--violet-50);padding:3px 10px;border-radius:999px;white-space:nowrap}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th,td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font-size:.74rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--soft);font-weight:700;white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:#FAFDFD}
+td .sub{display:block;color:var(--muted);font-size:.8rem}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+.row-actions{display:grid;grid-template-columns:repeat(2,minmax(96px,max-content));gap:6px;align-items:center;justify-content:start}
+.row-actions .btn{width:100%;justify-content:center}
+/* stock & expiry */
+.stock-alerts .stat{color:inherit;text-decoration:none}
+.stock-line{margin:2px 0 4px 42px;min-height:0}.stock-line:empty{display:none}
+.stk{display:inline-flex;align-items:center;gap:5px;font-size:.78rem;font-weight:700;padding:3px 10px;border-radius:999px;line-height:1.4}
+.stk::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.stk-in{background:#E6F6EF;color:#13795B}.stk-low{background:#FFF4DC;color:#9A6200}.stk-out{background:#FDECEA;color:#B42318}
+.combo-list .stk{margin-top:4px;font-size:.72rem;padding:1px 8px}
+.scanbar{display:flex;align-items:center;gap:10px;flex:1;min-width:240px;border:2px solid var(--teal-500);border-radius:12px;padding:0 12px;background:#fff}
+.scanbar .icon{color:var(--teal-600)}
+.scanbar input{border:0;outline:0;flex:1;min-height:46px;font-size:1rem;font-weight:600;background:transparent}
+.scanbar:focus-within{box-shadow:0 0 0 4px rgba(30,136,208,.18)}
+tr.inv-expired td{background:#FDECEA!important}
+tr.inv-expiring td{background:#FFF6DD!important}
+tr.inv-low td{background:#EAF2FF!important}
+tr.inv-hit td{outline:2px solid var(--teal-500);outline-offset:-2px}
+.inv-msg{margin:0 18px 12px;padding:10px 14px;border-radius:10px;font-weight:600;font-size:.9rem;background:var(--teal-50);color:var(--teal-700)}
+.inv-msg.warn{background:var(--amber-100);color:#8A5300}
+.legend-row{display:flex;gap:14px;flex-wrap:wrap;font-size:.84rem;color:var(--muted);margin:-8px 0 20px}
+.legend-row i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.qty-btn{min-width:34px;padding:5px 0!important}
+/* patient search picker */
+.pp .combo input{font-weight:600}
+.pp-item{justify-content:flex-start!important;gap:12px!important}
+.pp-text{display:flex;flex-direction:column;min-width:0;line-height:1.3}
+.pp-text small{text-align:left!important;color:var(--muted)}
+.pp-more{cursor:default!important;color:var(--muted);font-size:.84rem;justify-content:flex-start!important}
+.pp-more:hover{background:none!important}
+.pp-chosen{display:flex;align-items:center;gap:6px;margin:8px 0 0;font-size:.86rem;font-weight:600;color:var(--success)}
+.pp.invalid .combo input{border-color:var(--danger);box-shadow:0 0 0 4px rgba(194,54,43,.1)}
+.row-actions>.muted{grid-column:1/-1}
+/* patient dashboard lists */
+.appt-list{list-style:none;margin:0;padding:6px 18px}
+.appt-list li{display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+.appt-list li:last-child{border-bottom:0}
+.appt-date{width:56px;height:56px;border-radius:14px;background:var(--teal-50);color:var(--teal-700);display:grid;place-items:center;align-content:center;text-align:center;line-height:1.05}
+.appt-date b{font-size:1.25rem}.appt-date span{font-size:.72rem;font-weight:700;text-transform:uppercase}
+.appt-info{min-width:0}.appt-info>b{display:block}
+.appt-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.appt-side .row-actions{grid-template-columns:auto}
+@media(max-width:560px){.appt-list li{grid-template-columns:48px minmax(0,1fr)}.appt-side{grid-column:2}}
+.rx-sum{margin-bottom:10px}
+.med-list{margin:0;padding-left:20px;display:grid;gap:10px}
+.med-list li b{display:block}
+.med-list li span{display:block;font-size:.86rem;color:var(--ink-2)}
+/* show / hide password */
+.pw-wrap{position:relative}
+.pw-wrap input{padding-right:64px!important}
+.pw-btn{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:0;background:none;color:var(--teal-600);font-weight:700;font-size:.82rem;cursor:pointer;padding:6px 8px;display:flex;align-items:center;gap:4px}
+.empty{padding:36px 18px;text-align:center;color:var(--muted)}
+.person{display:flex;gap:10px;align-items:center}
+.person .avatar{width:34px;height:34px;font-size:.75rem}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.input{padding:9px 12px;border:1.5px solid #CBD8DE;border-radius:10px;background:#fff;min-height:40px}
+.input:focus{outline:none;border-color:var(--teal-500);box-shadow:0 0 0 4px rgba(14,140,153,.15)}
+.search{position:relative}
+.search .icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.search .input{padding-left:36px;min-width:260px}
+@media(max-width:560px){.search .input{min-width:0;width:100%}.search{flex:1}}
+dl.kv{display:grid;grid-template-columns:130px 1fr;gap:8px 16px;margin:0}
+dl.kv dt{color:var(--muted);font-weight:600;font-size:.86rem}
+dl.kv dd{margin:0}
+.list{list-style:none;margin:0;padding:0}
+.list li{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}
+.list li:last-child{border-bottom:0}
+.muted{color:var(--muted)}
+.back{display:inline-flex;align-items:center;gap:6px;font-weight:700;margin-bottom:14px}
+.alert-chip{background:var(--danger-50);color:var(--danger);border-radius:10px;padding:8px 12px;font-weight:700;font-size:.86rem;display:flex;gap:8px;align-items:center}
+
+/* ---------- vitals ---------- */
+.vitals-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.vtile{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.vtile small{display:block;color:var(--muted);font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.vtile b{font-size:1.15rem}
+.vtile span{font-size:.78rem;color:var(--muted)}
+.vtile.high{background:var(--danger-50);border-color:#F3C5C0}.vtile.high b{color:var(--danger)}
+.vtile.ok b{color:var(--success)}
+.bmi-live{display:flex;align-items:center;gap:10px;background:var(--teal-50);border-radius:12px;padding:10px 14px;font-weight:700}
+
+/* ---------- modal & forms ---------- */
+.modal-back{position:fixed;inset:0;background:rgba(11,36,51,.55);z-index:100;display:flex;align-items:flex-start;justify-content:center;padding:36px 16px;overflow-y:auto}
+.modal{background:#fff;border-radius:20px;box-shadow:var(--shadow-lg);width:100%;max-width:580px;animation:pop .18s ease}
+.modal.wide{max-width:900px}
+@keyframes pop{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}
+.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 22px;border-bottom:1px solid var(--line)}
+.modal-head h2{font-size:1.15rem}
+.x-btn{width:36px;height:36px;border-radius:10px;border:0;background:var(--soft);cursor:pointer;display:grid;place-items:center;flex:none}
+.modal-body{padding:22px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-grid.three{grid-template-columns:repeat(3,1fr)}
+.form-grid .full{grid-column:1/-1}
+@media(max-width:620px){.form-grid,.form-grid.three{grid-template-columns:1fr 1fr}}
+@media(max-width:420px){.form-grid,.form-grid.three{grid-template-columns:1fr}}
+.field label{display:block;font-weight:700;font-size:.82rem;margin-bottom:6px}
+.field .req{color:var(--danger)}
+.field .hint{font-weight:500;color:var(--muted)}
+.field input,.field select,.field textarea{width:100%;padding:10px 12px;border:1.5px solid #CBD8DE;border-radius:10px;background:#fff;min-height:44px}
+.field textarea{resize:vertical;min-height:70px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--teal-500);box-shadow:0 0 0 4px rgba(14,140,153,.15)}
+.field input:user-invalid,.field select:user-invalid{border-color:var(--danger)}
+.form-error{background:var(--danger-50);color:var(--danger);border-radius:10px;padding:10px 14px;font-weight:600;font-size:.88rem;margin:16px 0 0}
+.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:20px;flex-wrap:wrap}
+.section-label{font-weight:800;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:20px 0 10px;display:flex;align-items:center;gap:8px}
+.quick{display:flex;flex-wrap:wrap;gap:6px}
+.quick button{border:1px dashed #B9CBD3;background:#fff;border-radius:999px;padding:5px 12px;font-size:.8rem;font-weight:600;cursor:pointer;color:var(--ink-2)}
+.quick button:hover{border-color:var(--teal-500);color:var(--teal-700);background:var(--teal-50)}
+.line-row{display:grid;grid-template-columns:2fr 1fr 36px;gap:8px;margin-bottom:8px}
+.line-row input{width:100%;padding:9px 10px;border:1.5px solid #CBD8DE;border-radius:10px;min-height:42px}
+.icon-btn{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;cursor:pointer;color:var(--danger);flex:none}
+
+/* ---------- consult / prescription writer ---------- */
+.consult{display:grid;grid-template-columns:330px 1fr;gap:22px;align-items:start}
+@media(max-width:1100px){.consult{grid-template-columns:1fr}}
+.consult aside .panel{margin-bottom:16px}
+.pt-card{padding:18px;display:flex;gap:14px;align-items:center}
+.pt-card .avatar{width:54px;height:54px;font-size:1.1rem}
+.pt-card h3{font-size:1.1rem}
+.med-card{border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px;background:linear-gradient(180deg,#FFFFFF,#FBFDFD)}
+.med-top{display:flex;gap:10px;align-items:center}
+.med-no{width:28px;height:28px;border-radius:50%;background:var(--teal-600);color:#fff;font-weight:800;font-size:.8rem;display:grid;place-items:center;flex:none}
+.combo{position:relative;flex:1}
+.combo input{width:100%;padding:10px 12px;border:1.5px solid #CBD8DE;border-radius:10px;min-height:44px;font-weight:700}
+.combo input:focus{outline:none;border-color:var(--teal-500);box-shadow:0 0 0 4px rgba(14,140,153,.15)}
+.combo-list{position:absolute;left:0;right:0;top:calc(100% + 4px);background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lg);z-index:30;list-style:none;margin:0;padding:6px;max-height:300px;overflow-y:auto}
+.combo-list li{padding:8px 10px;border-radius:8px;cursor:pointer;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.combo-list li[aria-selected="true"],.combo-list li:hover{background:var(--teal-50)}
+.combo-list li b{font-size:.9rem}
+.combo-list li small{color:var(--muted);font-size:.78rem;text-align:right}
+.combo-list mark{background:var(--amber-100);color:inherit;border-radius:3px;padding:0 1px}
+.med-comp{width:100%;margin:8px 0 10px;padding:7px 10px;border:1px dashed #CBD8DE;border-radius:8px;font-size:.84rem;color:var(--ink-2);background:var(--soft)}
+/* every column: same label height, same control height, nothing cut off */
+.med-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px 14px;align-items:start}
+.med-grid>*{min-width:0}
+.mf .lbl{display:block;height:16px;line-height:16px;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:6px;white-space:nowrap}
+.med-grid select,.med-grid input,.m-notes{width:100%;min-width:0;padding:8px 10px;border:1.5px solid #CBD8DE;border-radius:10px;height:42px;background:#fff;box-sizing:border-box}
+.dose-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.dose-3 select{text-align:center;text-align-last:center;font-weight:800;padding:8px 2px}
+.dose-cap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:4px}
+.dose-cap span{font-size:.66rem;font-weight:700;color:var(--muted);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dur{display:grid;grid-template-columns:72px minmax(0,1fr);gap:6px}
+.m-notes{margin-top:10px;font-size:.88rem}
+
+/* ---------- prescription & receipt documents ---------- */
+.rxdoc{font-family:var(--font);color:#111;font-size:13px;line-height:1.45;background:#fff}
+.rx-h{display:flex;justify-content:space-between;gap:20px;padding-bottom:12px;border-bottom:2px solid #0A7480;flex-wrap:wrap}
+.rx-h .clinic{display:flex;gap:12px;align-items:center}
+.rx-h .clinic svg{width:54px;height:54px;flex:none}
+.rx-h .clinic b{display:block;font-size:20px;color:#0A7480;letter-spacing:-.01em}
+.rx-h .clinic small{display:block;color:#1747A6;font-weight:700;font-size:11.5px}
+.rx-h .clinic span{display:block;color:#444;font-size:11.5px}
+.rx-h .doc-info{text-align:right}
+.rx-h .doc-info b{display:block;font-size:19px;color:#1747A6}
+.rx-h .doc-info .spec{color:#C2362B;font-weight:700}
+.rx-h .doc-info span{display:block;font-size:12px;color:#333}
+.rx-note{font-weight:700;font-size:12px;padding:8px 0;border-bottom:1px solid #ccc}
+.rx-pt{display:grid;grid-template-columns:auto 1fr;gap:2px 18px;padding:10px 0;border-bottom:1px solid #999;font-size:12.5px}
+.rx-pt b{font-weight:800}
+.rx-vitals{padding:8px 0;font-size:12.5px}
+.rx-vitals b{font-weight:800}
+.rx-sec{margin:6px 0;white-space:pre-line}
+.rx-sec>b{font-weight:800}
+.rx-symbol{font-family:Georgia,serif;font-size:26px;font-weight:700;margin:8px 0 2px}
+.rx-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.rx-table th{background:none;text-transform:none;letter-spacing:0;color:#111;font-size:12.5px;border-top:1.5px solid #333;border-bottom:1.5px solid #333;padding:6px 8px}
+.rx-table td{padding:7px 8px;border-bottom:1px solid #bbb;vertical-align:top}
+.rx-table td .mname{font-weight:800;text-transform:uppercase}
+.rx-table td .msub{display:block;font-size:11.5px;color:#444;padding-left:14px}
+.rx-sign{display:flex;justify-content:flex-end;margin-top:24px;text-align:center}
+.rx-sign .sig{font-family:"Brush Script MT","Segoe Script",cursive;font-size:24px;color:#1747A6}
+.rx-foot{margin-top:18px;padding-top:8px;border-top:1px solid #999;text-align:center;font-size:11px;color:#444}
+.rcpt-title{display:flex;justify-content:space-between;align-items:center;margin:14px 0;gap:12px;flex-wrap:wrap}
+.rcpt-title h3{font-size:18px;letter-spacing:.12em;color:#0A7480}
+.stamp{border:3px solid currentColor;border-radius:10px;padding:4px 14px;font-weight:800;font-size:20px;letter-spacing:.15em;transform:rotate(-8deg);display:inline-block}
+.stamp.paid{color:#13795B}.stamp.due{color:#C2362B}
+.doc-wrap{border:1px solid var(--line);border-radius:14px;padding:26px;background:#fff}
+
+/* ---------- misc ---------- */
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--ink);color:#fff;padding:12px 20px;border-radius:999px;font-weight:600;font-size:.9rem;box-shadow:var(--shadow-lg);z-index:200;transition:transform .3s;max-width:calc(100% - 32px);text-align:center}
+.toast.show{transform:translate(-50%,0)}
+.toast.err{background:var(--danger)}
+.boot{min-height:100vh;display:grid;place-items:center;text-align:center;padding:24px;color:var(--muted)}
+.chart svg{width:100%;height:auto;display:block}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:.84rem}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.bar-row{display:grid;grid-template-columns:110px 1fr 40px;gap:10px;align-items:center;margin-bottom:10px;font-size:.86rem}
+.bar-track{height:10px;border-radius:999px;background:var(--soft);overflow:hidden}
+.bar-fill{height:100%;border-radius:999px}
+table.sheet th,table.sheet td{white-space:nowrap;border-right:1px solid var(--line)}
+table.sheet td{font-size:.86rem;padding:9px 12px}
+.tabs-row{display:flex;gap:6px;flex-wrap:wrap}
+#print-area{display:none}
+@media print{
+  @page{margin:12mm}
+  body{background:#fff}
+  body>*:not(#print-area){display:none!important}
+  #print-area{display:block!important}
+  .doc-wrap{border:0;padding:0}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs><linearGradient id="lumina-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14A3A8"/><stop offset="1" stop-color="#1D5FD6"/></linearGradient></defs>
+  <symbol id="logo-mark" viewBox="0 0 40 40">
+    <circle cx="20" cy="20" r="19" fill="#fff"/>
+    <path d="M26.06 9.5A7 7 0 1 0 20 20" fill="none" stroke="#1E88D0" stroke-width="6" stroke-linecap="round"/>
+    <path d="M20 20A7 7 0 1 1 13.94 30.5" fill="none" stroke="#0F4C81" stroke-width="6" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.7-3.3 3.3-5 6.5-5s5.8 1.7 6.5 5"/><circle cx="17" cy="9" r="2.8"/><path d="M17 14.5c2.4 0 4 1.3 4.5 4"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c.9-4 4-6 8-6s7.1 2 8 6"/></symbol>
+  <symbol id="i-user-plus" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2.5 20.5c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5M19 8v6M16 11h6"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16.5" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2.5H6.5a2 2 0 00-2 2v15a2 2 0 002 2h11a2 2 0 002-2V8L14 2.5z"/><path d="M14 2.5V8h5.5M8.5 13h7M8.5 17h5"/></symbol>
+  <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M5 2.5h14v19l-2.3-1.5-2.4 1.5-2.3-1.5-2.3 1.5-2.4-1.5L5 21.5v-19z"/><path d="M9 7h6M9 10.5h6M9 14h4"/></symbol>
+  <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M3 13l2.5-8h13L21 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6z"/><path d="M3 13h5l1.5 3h5L16 13h5"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24"><path d="M4 21V7a2 2 0 012-2h12a2 2 0 012 2v14M2 21h20M12 8v6M9 11h6M9 21v-3h6v3"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M15 4h3a2 2 0 012 2v12a2 2 0 01-2 2h-3M10 17l-5-5 5-5M5 12h11"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5L16 16"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4.5h6V7M6.5 7l1 13h9l1-13"/></symbol>
+  <symbol id="i-printer" viewBox="0 0 24 24"><path d="M6 9V2.5h12V9"/><rect x="2.5" y="9" width="19" height="8.5" rx="2"/><path d="M6 14.5h12v7H6z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-rupee" viewBox="0 0 24 24"><path d="M6 4h12M6 9h12M9 4c3.5 0 6 1.6 6 5s-2.5 5-6 5H6l8 7"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.5S3 15 3 8.8A4.8 4.8 0 0112 6a4.8 4.8 0 019 2.8C21 15 12 20.5 12 20.5z"/><path d="M7 11.5h2.5l1.5-2.5 2 5 1.5-2.5H17"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 018 0v3"/></symbol>
+  <symbol id="i-pill" viewBox="0 0 24 24"><rect x="2.5" y="8.5" width="19" height="7" rx="3.5" transform="rotate(-45 12 12)"/><path d="M8.6 8.6l6.8 6.8"/></symbol>
+  <symbol id="i-stetho" viewBox="0 0 24 24"><path d="M5 3v5a5 5 0 0010 0V3"/><path d="M10 13v2a5 5 0 0010 0v-1.5"/><circle cx="20" cy="11" r="2"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3l9.5 17h-19L12 3z"/><path d="M12 10v4M12 17v.01"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 7.5l-9-5-9 5v9l9 5 9-5v-9z"/><path d="M3 7.5l9 5 9-5M12 12.5v9"/></symbol>
+  <symbol id="i-barcode" viewBox="0 0 24 24"><path d="M3 5v14M6 5v14M9.5 5v14M13 5v14M15.5 5v14M18.5 5v14M21 5v14" stroke-width="1.6"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 00-14.3-4.9L4 8M4 4v4h4M4 13a8 8 0 0014.3 4.9L20 16M20 20v-4h-4"/></symbol>
+</svg>
+
+<div class="boot" id="boot"><p>Loading Skin Shine…</p></div>
+
+<div class="app" id="app" hidden>
+  <aside class="side" id="side" aria-label="App navigation">
+    <a class="brand" href="#/dashboard" aria-label="ShabiHub app home"><svg aria-hidden="true"><use href="#logo-mark"/></svg><span>Skin<span class="wm-light"> Shine</span></span></a>
+    <span class="role-badge" id="role-badge"><i></i><span></span></span>
+    <nav aria-label="Sections"><ul class="nav" id="nav"></ul></nav>
+    <div class="side-foot">
+      <a href="index.html"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-globe"/></svg>Back to website</a>
+      <button type="button" id="reset-demo" hidden><svg class="icon icon-sm" aria-hidden="true"><use href="#i-refresh"/></svg>Reset demo data</button>
+      <button type="button" id="logout"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-logout"/></svg>Log out</button>
+    </div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <div class="main-col">
+    <header class="topbar">
+      <button class="menu-btn" id="menu-btn" aria-label="Open navigation" aria-controls="side" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
+      <h1 id="page-title">Dashboard</h1>
+      <span class="mode-pill" id="mode-pill"></span>
+      <div class="who"><div class="meta"><b id="who-name"></b><small id="who-role"></small></div><span class="avatar" id="who-avatar" aria-hidden="true"></span></div>
+    </header>
+    <main class="view" id="view" tabindex="-1"></main>
+  </div>
+</div>
+
+<div class="modal-back" id="modal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-head"><h2 id="modal-title"></h2><button class="x-btn" data-close aria-label="Close"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-close"/></svg></button></div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+<div id="print-area"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="lumina-shared.js" charset="utf-8"></script>
+<script src="lumina-core.js" charset="utf-8"></script>
+<script>
+(function(){
+"use strict";
+/* Medicine list, option lists and printable documents come from lumina-shared.js (also used by the mobile app) */
+const S=LuminaShared;
+const {MEDS,QUICK,DOSE_OPTS,WHEN_OPTS,FREQ_OPTS,DIAGNOSES,RECEIPT_ITEMS}=S;
+
+/* ================= helpers ================= */
+const $=(s,c)=>(c||document).querySelector(s);
+const $$=(s,c)=>Array.from((c||document).querySelectorAll(s));
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const money=n=>"₹"+Number(n||0).toLocaleString("en-IN",{maximumFractionDigits:2});
+const pad=n=>String(n).padStart(2,"0");
+const todayStr=()=>{const d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())};
+const fmtDate=d=>{if(!d)return "—";const p=String(d).slice(0,10).split("-");return new Date(+p[0],p[1]-1,+p[2]).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"})};
+const fmtTime=t=>{if(!t)return "";const p=t.split(":"),h=+p[0];return (h%12||12)+":"+p[1]+(h<12?" AM":" PM")};
+const initials=n=>String(n||"?").replace(/^(Dr|Sr)\.?\s*/i,"").split(/\s+/).map(w=>w[0]).join("").slice(0,2).toUpperCase();
+const icon=(id,cls)=>`<svg class="icon ${cls||""}" aria-hidden="true"><use href="#${id}"/></svg>`;
+const AV_COLORS=["#0E8C99","#1D5FD6","#E8960F","#6D4BD8","#D23F63","#13795B"];
+const avColor=s=>AV_COLORS[[...String(s)].reduce((a,c)=>a+c.charCodeAt(0),0)%AV_COLORS.length];
+const avatar=(name,size)=>`<span class="avatar" style="background:${avColor(name)};${size?`width:${size}px;height:${size}px`:""}" aria-hidden="true">${esc(initials(name))}</span>`;
+const inWords=S.inWords;
+
+const client=LuminaCore.client();
+function api(method,url,body){
+  return client.request(method,url,body).catch(e=>{if(e.status===401&&url!=="/api/me/password"){location.replace("login.html")}throw e});
+}
+const toastEl=$("#toast");let toastT;
+function toast(msg,isErr){toastEl.textContent=msg;toastEl.classList.toggle("err",!!isErr);toastEl.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>toastEl.classList.remove("show"),3200)}
+const safe=fn=>(...args)=>Promise.resolve().then(()=>fn(...args)).catch(e=>toast(e.message,true));
+
+const TONE={requested:"amber",booked:"blue","checked-in":"teal",completed:"green",cancelled:"red","no-show":"red",paid:"green",unpaid:"amber",new:"amber",contacted:"blue",converted:"green",closed:"",active:"green",inactive:"red"};
+const chip=(s,label)=>`<span class="chip ${TONE[s]||""}">${esc(label||s)}</span>`;
+const ROLE_LABEL={admin:"Admin",doctor:"Doctor",nurse:"Nurse",reception:"Reception",pharmacy:"Pharmacy",patient:"Patient"};
+const viewOnly=`<span class="view-only">${icon("i-lock","icon-sm")}View only</span>`;
+
+function table(cols,rows,emptyMsg){
+  if(!rows.length)return `<div class="empty">${esc(emptyMsg||"Nothing here yet.")}</div>`;
+  return `<div class="table-wrap"><table><thead><tr>${cols.map(c=>`<th scope="col"${c.num?' style="text-align:right"':""}>${esc(c.h)}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr>${cols.map(c=>`<td${c.num?' class="num"':""}>${c.f(r)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+}
+const statCards=items=>`<div class="cards">${items.map(s=>`<div class="stat ${s.tone||""}"><span class="ic">${icon(s.icon)}</span><div><small>${esc(s.label)}</small><b>${esc(s.value)}</b></div></div>`).join("")}</div>`;
+const pageHead=(title,sub,actions)=>`<div class="page-head"><div><h2>${esc(title)}</h2>${sub?`<p>${esc(sub)}</p>`:""}</div><div class="actions">${actions||""}</div></div>`;
+const panel=(title,body,actions,id)=>`<section class="panel"${id?` id="${id}"`:""}><div class="panel-head"><h3>${title}</h3><div class="actions">${actions||""}</div></div>${body}</section>`;
+function greeting(){const h=new Date().getHours();return h<12?"Good morning":h<17?"Good afternoon":"Good evening"}
+const HERO_ILL=`<svg class="hero-ill" viewBox="0 0 120 90" aria-hidden="true"><rect x="14" y="10" width="70" height="74" rx="10" fill="rgba(255,255,255,.16)"/><rect x="24" y="22" width="40" height="6" rx="3" fill="#fff"/><rect x="24" y="36" width="50" height="5" rx="2.5" fill="rgba(255,255,255,.6)"/><rect x="24" y="47" width="36" height="5" rx="2.5" fill="rgba(255,255,255,.6)"/><rect x="24" y="58" width="44" height="5" rx="2.5" fill="rgba(255,255,255,.6)"/><circle cx="90" cy="58" r="22" fill="#F6B13C"/><rect x="87" y="47" width="6" height="22" rx="3" fill="#fff"/><rect x="79" y="55" width="22" height="6" rx="3" fill="#fff"/></svg>`;
+const hero=(title,sub,actions)=>`<div class="hero"><div><h2>${esc(title)}</h2><p>${esc(sub)}</p>${actions?`<div class="actions" style="margin-top:16px">${actions}</div>`:""}</div>${HERO_ILL}</div>`;
+
+const ROLE_INFO={
+  admin:{can:["Add, edit, deactivate & delete staff and patient logins","Edit clinic details printed on prescriptions & receipts","Track demo requests & messages from the website","View every patient, appointment, prescription, vitals record & receipt","Download the Excel sheet of patients, payments & visits"],cannot:["Write prescriptions (doctors only)","Record vitals (nurses only)","Register patients, book appointments or issue receipts (reception only)"]},
+  doctor:{can:["See your queue and full patient history","See vitals recorded by the nurse","Write medicines with smart search, dosage & timing","Print prescriptions and mark visits completed"],cannot:["Edit patient details (reception)","Edit vitals (nurse)","See billing or manage users"]},
+  nurse:{can:["Record and correct vitals: BP, pulse, temperature, SpO₂, height, weight, sugar","See today's queue for all doctors","View patient details and allergies"],cannot:["Edit patient details","Write prescriptions","See billing or manage users"]},
+  reception:{can:["Register patients and update their general details","Book, confirm, check in, reschedule and cancel appointments","Create receipts, record payments and see the last payments","Open and download the Excel sheet"],cannot:["See or edit prescriptions and vitals","Manage users or clinic settings"]},
+  pharmacy:{can:["View today's and past prescriptions (view only)","Manage stock & expiry: scan barcodes, add batches, record sales and stock received","Import or download the stock Excel sheet"],cannot:["Edit prescriptions or patient details","See billing, vitals or users"]},
+  patient:{can:["See your appointments, prescriptions, vitals and receipts","Request or cancel an appointment","Print your prescriptions and receipts"],cannot:["See other patients' information","Change medical records"]}
+};
+const permCard=()=>{const i=ROLE_INFO[me.role];return `<details class="perm"><summary><span class="lock-ic">${icon("i-lock","icon-sm")}</span>What you can do as ${ROLE_LABEL[me.role]}<svg class="icon icon-sm chev" aria-hidden="true"><use href="#i-chev"/></svg></summary><div class="perm-body"><div class="yes"><h4>You can</h4><ul>${i.can.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div><div class="no"><h4>Locked for your role</h4><ul>${i.cannot.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></div></details>`};
+
+/* ================= modal & forms ================= */
+const modalEl=$("#modal");let lastFocus=null,fid=0;
+function openModal(title,html,wide){
+  if(modalEl.hidden)lastFocus=document.activeElement;
+  $("#modal-title").textContent=title;$("#modal-body").innerHTML=html;
+  modalEl.querySelector(".modal").classList.toggle("wide",!!wide);
+  modalEl.hidden=false;document.body.style.overflow="hidden";modalEl.scrollTop=0;
+  setTimeout(()=>{const f=$("#modal-body").querySelector("input:not([type=hidden]),select,textarea");(f||$(".x-btn")).focus()},30);
+  return $("#modal-body");
+}
+function closeModal(){modalEl.hidden=true;$("#modal-body").innerHTML="";document.body.style.overflow="";if(lastFocus&&lastFocus.focus)lastFocus.focus()}
+// popups close only with the X (or Cancel/Close) button, never by clicking outside or pressing Esc, so typed data isn't lost
+modalEl.addEventListener("click",e=>{if(e.target.closest("[data-close]"))closeModal()});
+
+function fld(name,label,o){
+  o=o||{};const id="f"+(++fid),v=o.value==null?"":o.value,req=o.required?" required":"";let input;
+  if(o.options){
+    input=`<select id="${id}" name="${name}"${req}>${o.options.map(op=>{const val=Array.isArray(op)?op[0]:op,lab=Array.isArray(op)?op[1]:op;return `<option value="${esc(val)}"${String(val)===String(v)?" selected":""}>${esc(lab)}</option>`}).join("")}</select>`;
+  }else if(o.type==="textarea"){
+    input=`<textarea id="${id}" name="${name}" rows="${o.rows||3}"${req} placeholder="${esc(o.placeholder||"")}">${esc(v)}</textarea>`;
+  }else{
+    const attrs=["min","max","minlength","pattern","step","autocomplete","list","inputmode"].filter(k=>o[k]!=null).map(k=>` ${k}="${esc(o[k])}"`).join("");
+    input=`<input id="${id}" name="${name}" type="${o.type||"text"}" value="${esc(v)}"${req}${attrs} placeholder="${esc(o.placeholder||"")}">`;
+  }
+  return `<div class="field${o.full?" full":""}"${o.wrapId?` id="${o.wrapId}"`:""}${o.hidden?" hidden":""}><label for="${id}">${esc(label)}${o.hint?` <span class="hint">${esc(o.hint)}</span>`:""}${o.required?' <span class="req" aria-hidden="true">*</span>':""}</label>${input}</div>`;
+}
+function pwToggles(root){
+  $$("input[type=password]",root).forEach(inp=>{
+    if(inp.parentElement.classList.contains("pw-wrap"))return;
+    const w=document.createElement("div");w.className="pw-wrap";inp.parentNode.insertBefore(w,inp);w.appendChild(inp);
+    const b=document.createElement("button");b.type="button";b.className="pw-btn";b.setAttribute("aria-label","Show password");b.setAttribute("aria-pressed","false");
+    b.innerHTML=icon("i-eye","icon-sm")+"<span>Show</span>";w.appendChild(b);
+    b.addEventListener("click",()=>{const show=inp.type==="password";inp.type=show?"text":"password";b.querySelector("span").textContent=show?"Hide":"Show";b.setAttribute("aria-pressed",show);b.setAttribute("aria-label",show?"Hide password":"Show password")});
+  });
+}
+function formData(f){const o={};new FormData(f).forEach((v,k)=>{o[k]=typeof v==="string"?v.trim():v});return o}
+function formModal(title,inner,submitLabel,onSubmit,opts){
+  opts=opts||{};
+  const body=openModal(title,`<form class="mform"><div class="form-grid${opts.three?" three":""}">${inner}</div><p class="form-error" role="alert" hidden></p><div class="modal-actions"><button type="button" class="btn btn-ghost" data-close>Cancel</button><button type="submit" class="btn">${esc(submitLabel)}</button></div></form>`,opts.wide);
+  const form=$("form",body),err=$(".form-error",form);
+  form.addEventListener("submit",e=>{
+    e.preventDefault();err.hidden=true;const btn=$("[type=submit]",form);btn.disabled=true;
+    Promise.resolve().then(()=>onSubmit(formData(form),form)).catch(x=>{err.textContent=x.message;err.hidden=false}).then(()=>{btn.disabled=false});
+  });
+  return form;
+}
+const PHONE_PATTERN="(\\+91[\\s-]?)?[6-9]\\d{4}[\\s-]?\\d{5}";
+
+/* ================= state & routing ================= */
+let me=null,doctors=[],settings={},mode="demo";
+const NAV={
+  admin:[["dashboard","Dashboard","i-grid"],["users","Users & roles","i-users"],["leads","Website requests","i-inbox"],["patients","Patients","i-user"],["appointments","Appointments","i-calendar"],["vitals","Vitals records","i-heart"],["prescriptions","Prescriptions","i-file"],["billing","Receipts & payments","i-receipt"],["sheet","Excel sheet","i-grid"],["inventory","Pharmacy stock","i-box"],["settings","Clinic settings","i-building"],["profile","My profile","i-settings"]],
+  doctor:[["dashboard","My queue","i-grid"],["appointments","Appointments","i-calendar"],["patients","Patients","i-user"],["prescriptions","My prescriptions","i-file"],["profile","My profile","i-settings"]],
+  nurse:[["dashboard","Vitals desk","i-heart"],["vitals","Vitals log","i-file"],["patients","Patients","i-user"],["profile","My profile","i-settings"]],
+  reception:[["dashboard","Front desk","i-grid"],["appointments","Appointments","i-calendar"],["patients","Patients","i-user"],["billing","Receipts & payments","i-receipt"],["sheet","Excel sheet","i-grid"],["profile","My profile","i-settings"]],
+  pharmacy:[["dashboard","Today's prescriptions","i-file"],["inventory","Stock & expiry","i-box"],["prescriptions","All prescriptions","i-file"],["medicines","Medicines","i-pill"],["profile","My profile","i-settings"]],
+  patient:[["dashboard","Home","i-grid"],["appointments","My appointments","i-calendar"],["prescriptions","My prescriptions","i-file"],["vitals","My vitals","i-heart"],["billing","My receipts","i-receipt"],["profile","My profile","i-settings"]]
+};
+const HIDDEN={doctor:{consult:"Consultation"}};
+const view=$("#view");
+function parseRoute(){
+  const parts=location.hash.replace(/^#\/?/,"").split("?")[0].split("/").filter(Boolean);
+  const r=parts[0]||"dashboard";
+  if(NAV[me.role].some(n=>n[0]===r)||(HIDDEN[me.role]&&HIDDEN[me.role][r]))return {r,args:parts.slice(1)};
+  return {r:"dashboard",args:[]};
+}
+function render(){
+  const {r,args}=parseRoute();
+  const item=NAV[me.role].find(n=>n[0]===r);const title=item?item[1]:HIDDEN[me.role][r];
+  $$("#nav a").forEach(a=>{if(a.dataset.route===r)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
+  $("#page-title").textContent=title;document.title=title+" — "+((settings&&settings.clinicName)||"Skin Shine");
+  setSide(false);closeComboLists();
+  view.innerHTML='<p class="muted">Loading…</p>';
+  safe(VIEWS[r])(args).then(()=>window.scrollTo(0,0));
+}
+const rerender=()=>render();
+function setSide(open){$("#side").classList.toggle("open",open);$("#scrim").classList.toggle("open",open);$("#menu-btn").setAttribute("aria-expanded",open)}
+
+/* ================= documents: prescription & receipt ================= */
+const vitalsLine=v=>S.vitalsLine(v);
+const clinicHeader=right=>S.clinicHeader(settings,right);
+const rxDoc=rx=>S.rxDoc(rx,settings);
+const doseText=S.doseText;
+const receiptDoc=inv=>S.receiptDoc(inv,settings);
+function docModal(title,html,extra){
+  const body=openModal(title,`<div class="doc-wrap">${html}</div><div class="modal-actions">${extra||""}<button class="btn btn-ghost" data-close>Close</button><button class="btn" id="print-btn">${icon("i-printer","icon-sm")}Print</button></div>`,true);
+  $("#print-btn",body).addEventListener("click",()=>{$("#print-area").innerHTML=`<div class="doc-wrap">${html}</div>`;window.print()});
+  return body;
+}
+const rxViewModal=rx=>docModal("Prescription "+(rx.number||""),rxDoc(rx));
+const receiptModal=inv=>docModal("Receipt "+inv.number,receiptDoc(inv));
+
+/* ================= vitals helpers ================= */
+function vitalsTiles(v){
+  if(!v)return `<div class="empty" style="padding:18px">No vitals recorded yet.</div>`;
+  const t=(label,val,unit,high)=>val==null||val===""?"":`<div class="vtile${high?" high":""}"><small>${label}</small><b>${esc(val)}</b> <span>${unit}</span></div>`;
+  return `<div class="vitals-grid">${t("BP",v.bpSys?v.bpSys+"/"+v.bpDia:null,"mmHg",v.bpSys>=140||v.bpDia>=90)}${t("Pulse",v.pulse,"bpm",v.pulse>100||v.pulse<50)}${t("Temp",v.temp,"°F",v.temp>=100)}${t("SpO₂",v.spo2,"%",v.spo2<94)}${t("Resp. rate",v.resp,"/min",v.resp>24)}${t("Height",v.height,"cm")}${t("Weight",v.weight,"kg")}${t("BMI",v.bmi,"kg/m²",v.bmi>=30)}${t(v.sugarType||"Sugar",v.sugar,"mg/dL",v.sugar>=200||(v.sugarType==="FBS"&&v.sugar>=126))}</div>${v.notes?`<p style="margin:10px 0 0"><b>Nurse notes:</b> ${esc(v.notes)}</p>`:""}<p class="muted" style="margin:8px 0 0;font-size:.82rem">Recorded ${fmtDate(v.date)} ${fmtTime(v.time)}${v.recordedByName?" by "+esc(v.recordedByName):""}</p>`;
+}
+function vitalsModal(ctx,existing,done){
+  // ctx: {patientId, patientName, appointmentId}
+  const v=existing||{};
+  const inner=`<div class="full"><b>Patient:</b> ${esc(ctx.patientName)}</div>`+
+    fld("bpSys","BP systolic",{type:"number",min:50,max:260,value:v.bpSys,placeholder:"120",hint:"mmHg"})+fld("bpDia","BP diastolic",{type:"number",min:30,max:160,value:v.bpDia,placeholder:"80",hint:"mmHg"})+fld("pulse","Pulse",{type:"number",min:20,max:250,value:v.pulse,placeholder:"72",hint:"bpm"})+
+    fld("temp","Temperature",{type:"number",min:90,max:110,step:"0.1",value:v.temp,placeholder:"98.4",hint:"°F"})+fld("spo2","SpO₂",{type:"number",min:50,max:100,value:v.spo2,placeholder:"98",hint:"%"})+fld("resp","Resp. rate",{type:"number",min:5,max:80,value:v.resp,placeholder:"16",hint:"/min"})+
+    fld("height","Height",{type:"number",min:30,max:250,step:"0.1",value:v.height,placeholder:"170",hint:"cm"})+fld("weight","Weight",{type:"number",min:1,max:350,step:"0.1",value:v.weight,placeholder:"70",hint:"kg"})+
+    `<div class="field"><label>BMI <span class="hint">auto</span></label><div class="bmi-live" id="bmi-live">—</div></div>`+
+    fld("sugar","Blood sugar",{type:"number",min:20,max:800,value:v.sugar,placeholder:"110",hint:"mg/dL"})+fld("sugarType","Sugar test",{options:[["RBS","RBS (random)"],["FBS","FBS (fasting)"],["PPBS","PPBS (post-meal)"]],value:v.sugarType||"RBS"})+
+    `<div></div>`+fld("notes","Nurse notes",{type:"textarea",full:true,value:v.notes,placeholder:"e.g. Patient anxious, BP rechecked after 5 min"});
+  const form=formModal(existing?"Edit vitals":"Record vitals",inner,existing?"Save changes":"Save vitals",d=>{
+    d.patientId=ctx.patientId;d.appointmentId=ctx.appointmentId||"";
+    return api(existing?"PUT":"POST","/api/vitals"+(existing?"/"+existing.id:""),d).then(()=>{closeModal();toast("Vitals saved");done&&done()});
+  },{wide:true,three:true});
+  const upd=()=>{const h=+$("[name=height]",form).value,w=+$("[name=weight]",form).value,el=$("#bmi-live",form);
+    if(h&&w){const b=w/Math.pow(h/100,2);el.textContent=b.toFixed(1)+" kg/m² · "+(b<18.5?"Underweight":b<23?"Normal (Asian)":b<25?"Overweight":"Obese");el.style.background=b>=25||b<18.5?"var(--amber-100)":"var(--success-50)"}else{el.textContent="—";el.style.background=""}};
+  form.addEventListener("input",upd);upd();
+}
+
+/* ================= shared actions ================= */
+const patientOptions=list=>[["","Select patient"]].concat(list.map(p=>[p.id,p.name+" · UHID "+p.uhid+(p.phone?" · "+p.phone:"")]));
+/* Patient search picker: type a name, UHID or mobile number. Works with hundreds of patients and
+   shows UHID, age, gender and mobile so patients with the same name can be told apart. */
+const ppLabel=p=>p.name+" · UHID "+p.uhid;
+const ppDetail=p=>["UHID "+p.uhid,p.age!=null?p.age+" yrs":"",p.gender,p.phone].filter(Boolean).join(" · ");
+function searchPatients(list,q){
+  q=String(q||"").trim().toLowerCase();if(!q)return [];
+  const digits=q.replace(/\D/g,""),words=q.split(/\s+/).filter(Boolean);
+  return list.map(p=>{
+    const name=p.name.toLowerCase(),phone=String(p.phone||""),uhid=String(p.uhid||"");
+    let score=-1;
+    if(digits&&digits===q.replace(/\s/g,"")){ // numbers only: UHID or mobile
+      if(uhid===digits)score=0;else if(uhid.startsWith(digits))score=1;else if(phone.includes(digits))score=2;else if(String(p.abha||"").replace(/\D/g,"").includes(digits))score=3;
+    }else if(words.every(w=>name.includes(w)||uhid.includes(w)||phone.includes(w))){
+      score=name.startsWith(q)?0:name.split(/\s+/).some(n=>n.startsWith(words[0]))?1:2;
+    }
+    return [score,p];
+  }).filter(x=>x[0]>=0).sort((a,b)=>a[0]-b[0]||a[1].name.localeCompare(b[1].name)).map(x=>x[1]);
+}
+function patientPicker(patients,presetId){
+  const pre=patients.find(p=>p.id===presetId);
+  return `<div class="field full pp" data-pp>
+    <label for="pp-input">Patient <span class="req" aria-hidden="true">*</span> <span class="hint">search by name, UHID or mobile</span></label>
+    <div class="combo">
+      <input id="pp-input" class="pp-input" type="search" autocomplete="off" placeholder="e.g. Bilal, 25013 or 98765…" value="${pre?esc(ppLabel(pre)):""}" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="pp-list">
+      <ul class="combo-list" id="pp-list" role="listbox" hidden></ul>
+    </div>
+    <input type="hidden" name="patientId" value="${pre?esc(pre.id):""}">
+    <p class="pp-chosen"${pre?"":" hidden"}>${pre?`${icon("i-check","icon-sm")}<span>${esc(ppDetail(pre))}</span>`:""}</p>
+  </div>`;
+}
+function wirePatientPicker(form,patients){
+  const box=$("[data-pp]",form);if(!box)return;
+  const input=$(".pp-input",box),list=$(".combo-list",box),hidden=$("[name=patientId]",box),chosen=$(".pp-chosen",box);
+  let items=[],active=-1;
+  const close=()=>{list.hidden=true;input.setAttribute("aria-expanded","false")};
+  const choose=p=>{hidden.value=p.id;input.value=ppLabel(p);chosen.innerHTML=`${icon("i-check","icon-sm")}<span>${esc(ppDetail(p))}</span>`;chosen.hidden=false;close();box.classList.remove("invalid")};
+  const draw=()=>{
+    hidden.value="";chosen.hidden=true;
+    const q=input.value.trim();const all=searchPatients(patients,q);items=all.slice(0,8);active=items.length?0:-1;
+    if(!q){close();return}
+    list.innerHTML=items.map((p,i)=>`<li role="option" id="pp-o${i}" data-i="${i}" aria-selected="${i===active}" class="pp-item"><span class="avatar" style="width:32px;height:32px;font-size:.72rem;background:${avColor(p.name)}" aria-hidden="true">${esc(initials(p.name))}</span><span class="pp-text"><b>${esc(p.name)}</b><small>${esc(ppDetail(p))}</small></span></li>`).join("")
+      +(all.length>items.length?`<li class="pp-more" aria-disabled="true">Showing ${items.length} of ${all.length} matches. Type more to narrow down.</li>`:"")
+      +(all.length?"":`<li class="pp-more" aria-disabled="true">No patient found for “${esc(q)}”.${me.role==="reception"?" Register them first from Patients.":""}</li>`);
+    list.hidden=false;input.setAttribute("aria-expanded","true");input.setAttribute("aria-activedescendant",active>=0?"pp-o"+active:"");
+  };
+  input.addEventListener("input",draw);
+  input.addEventListener("focus",()=>{if(input.value&&!hidden.value)draw()});
+  input.addEventListener("keydown",e=>{
+    if(list.hidden)return;
+    if(e.key==="ArrowDown"||e.key==="ArrowUp"){e.preventDefault();if(!items.length)return;active=(active+(e.key==="ArrowDown"?1:-1)+items.length)%items.length;$$(".pp-item",list).forEach((li,i)=>li.setAttribute("aria-selected",i===active));input.setAttribute("aria-activedescendant","pp-o"+active);const li=$$(".pp-item",list)[active];li&&li.scrollIntoView({block:"nearest"})}
+    else if(e.key==="Enter"){e.preventDefault();if(items[active])choose(items[active])}
+    else if(e.key==="Escape"){e.stopPropagation();close()}
+  });
+  list.addEventListener("mousedown",e=>{const li=e.target.closest(".pp-item");if(!li)return;e.preventDefault();choose(items[+li.dataset.i])});
+  document.addEventListener("click",e=>{if(!box.contains(e.target))close()});
+}
+const requirePatient=(form,d)=>{if(!d.patientId){const b=$("[data-pp]",form);b&&b.classList.add("invalid");$(".pp-input",form).focus();throw new Error("Search and select a patient from the list.")}};
+const doctorOptions=()=>[["","Select doctor"]].concat(doctors.map(d=>[d.id,d.name+(d.specialty?" · "+d.specialty:"")]));
+
+/* Booking slots: only inside clinic hours, never on closed days, never earlier than "now" for today,
+   and (for staff) never a slot that is already booked. The server checks the same rules again. */
+const toMin=t=>{const p=String(t||"").split(":");return (+p[0])*60+(+p[1]||0)};
+const fromMin=m=>pad(Math.floor(m/60))+":"+pad(m%60);
+const nowHM=()=>{const d=new Date();return pad(d.getHours())+":"+pad(d.getMinutes())};
+const isClosedDay=date=>(settings.closedDays||[]).includes(new Date(date+"T12:00:00").getDay());
+function clinicSlots(date){
+  if(isClosedDay(date))return [];
+  const from=toMin(settings.openTime||"09:00"),to=toMin(settings.closeTime||"21:00"),step=Number(settings.slotMinutes)||15,out=[];
+  for(let m=from;m<to;m+=step)out.push(fromMin(m));
+  return date===todayStr()?out.filter(s=>s>nowHM()):out;
+}
+const ddmmyyyy=s=>String(s).slice(0,10).split("-").reverse().join("/");
+const WD=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+function openDateOptions(days){
+  const out=[];
+  for(let i=0;i<days;i++){const d=new Date();d.setDate(d.getDate()+i);const s=d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+    if(clinicSlots(s).length)out.push([s,WD[d.getDay()]+", "+ddmmyyyy(s)+(i===0?" (Today)":i===1?" (Tomorrow)":"")])}
+  return out;
+}
+function firstOpenDate(){
+  for(let i=0;i<14;i++){const d=new Date();d.setDate(d.getDate()+i);const s=d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());if(clinicSlots(s).length)return s}
+  return todayStr();
+}
+async function bookModal(done,presetPatientId){
+  const patients=me.role==="patient"?[]:await api("GET","/api/patients");
+  const start=firstOpenDate();
+  const inner=(me.role==="patient"?"":patientPicker(patients,presetPatientId))+
+    fld("doctorId","Doctor",{required:true,options:doctorOptions(),value:doctors.length===1?doctors[0].id:"",full:true})+
+    fld("date","Date",{required:true,options:openDateOptions(30),value:start,hint:"DD/MM/YYYY"})+
+    fld("time","Time",{required:true,options:[["","Loading slots…"]],hint:settings.timings||""})+
+    fld("type","Consultation type",{options:["In-clinic","Video"]})+
+    fld("reason","Reason for visit",{placeholder:"e.g. Fever, follow-up"});
+  const form=formModal(me.role==="patient"?"Request an appointment":"Book appointment",inner,me.role==="patient"?"Send request":"Book appointment",d=>{
+    if(me.role!=="patient")requirePatient(form,d);
+    if(!d.time)throw new Error("Please pick a free time slot.");
+    return api("POST","/api/appointments",d).then(()=>{closeModal();toast(me.role==="patient"?"Request sent. The clinic will confirm shortly.":"Appointment booked");done&&done()});
+  });
+  if(me.role!=="patient")wirePatientPicker(form,patients);
+  const dateEl=$("[name=date]",form),timeEl=$("[name=time]",form),docEl=$("[name=doctorId]",form);
+  const refresh=async()=>{
+    const date=dateEl.value;let slots=date&&date>=todayStr()?clinicSlots(date):[];
+    if(slots.length&&me.role!=="patient"&&docEl.value){
+      try{const booked=(await api("GET","/api/appointments?date="+date)).filter(a=>a.doctorId===docEl.value&&!["cancelled","no-show"].includes(a.status)).map(a=>a.time);slots=slots.filter(s=>!booked.includes(s))}catch(e){}
+    }
+    const why=!date||date<todayStr()?"Pick today or a later date":isClosedDay(date)?"Clinic closed on this day — pick another date":date===todayStr()&&!slots.length?"No more slots today — pick another date":"No free slots — pick another date";
+    timeEl.innerHTML=slots.length?`<option value="">Select a time</option>`+slots.map(s=>`<option value="${s}">${fmtTime(s)}</option>`).join(""):`<option value="">${esc(why)}</option>`;
+  };
+  dateEl.addEventListener("change",refresh);docEl.addEventListener("change",refresh);refresh();
+}
+function patientFormModal(existing,done){
+  const p=existing||{};
+  const inner=fld("name","Full name",{required:true,value:p.name,full:true,autocomplete:"off"})+
+    fld("age","Age",{type:"number",min:0,max:130,value:p.age,hint:"years"})+
+    fld("gender","Gender",{options:[["","Select"],"Male","Female","Other"],value:p.gender})+
+    fld("phone","Mobile number",{type:"tel",value:p.phone,pattern:PHONE_PATTERN,placeholder:"98765 43210"})+
+    fld("email","Email",{type:"email",value:p.email,placeholder:"Optional"})+
+    fld("bloodGroup","Blood group",{options:[["","Unknown"],"A+","A-","B+","B-","AB+","AB-","O+","O-"],value:p.bloodGroup})+
+    fld("city","City",{value:p.city,placeholder:"e.g. Hyderabad"})+
+    fld("address","Address",{value:p.address,full:true})+
+    fld("abha","ABHA number",{value:p.abha,placeholder:"Optional"})+
+    fld("emergencyContact","Emergency contact",{value:p.emergencyContact,placeholder:"Name & phone"})+
+    fld("allergies","Known allergies (as told by patient)",{value:p.allergies,full:true,placeholder:"e.g. Penicillin, none known"});
+  formModal(existing?"Edit patient details":"Register new patient",inner,existing?"Save changes":"Register patient",d=>
+    api(existing?"PUT":"POST","/api/patients"+(existing?"/"+existing.id:""),d).then(saved=>{closeModal();toast(existing?"Patient details updated":"Patient registered · UHID "+saved.uhid);done&&done(saved)}),{wide:true});
+}
+
+async function patientModal(id){
+  const p=await api("GET","/api/patients/"+id);
+  const canEdit=me.role==="reception";
+  let html=`<div class="pt-card" style="padding:0 0 16px">${avatar(p.name,54)}<div><h3>${esc(p.name)}</h3><div class="muted">UHID ${esc(p.uhid)} · ${esc(p.age!=null?p.age+" yrs":"")}${p.gender?" · "+esc(p.gender):""}${p.bloodGroup?" · "+esc(p.bloodGroup):""}</div></div><div style="margin-left:auto">${canEdit?"":viewOnly}</div></div>`;
+  if(p.allergies&&!/^none/i.test(p.allergies))html+=`<div class="alert-chip" style="margin-bottom:14px">${icon("i-alert","icon-sm")}Allergy: ${esc(p.allergies)}</div>`;
+  html+=`<dl class="kv"><dt>Mobile</dt><dd>${esc(p.phone||"—")}</dd><dt>Email</dt><dd>${esc(p.email||"—")}</dd><dt>Address</dt><dd>${esc([p.address,p.city].filter(Boolean).join(", ")||"—")}</dd><dt>ABHA</dt><dd>${esc(p.abha||"—")}</dd><dt>Emergency</dt><dd>${esc(p.emergencyContact||"—")}</dd><dt>Allergies</dt><dd>${esc(p.allergies||"—")}</dd></dl>`;
+  if(["admin","doctor","nurse","patient"].includes(me.role))html+=`<div class="section-label">${icon("i-heart","icon-sm")}Latest vitals</div>${vitalsTiles(p.vitals[0])}`;
+  html+=`<div class="section-label">${icon("i-calendar","icon-sm")}Appointments</div>${p.appointments.length?`<ul class="list">${p.appointments.slice(0,6).map(a=>`<li><span>${fmtDate(a.date)} ${fmtTime(a.time)} <span class="muted">· ${esc(a.doctorName)}</span></span>${chip(a.status)}</li>`).join("")}</ul>`:'<p class="muted">No appointments yet.</p>'}`;
+  if(["admin","doctor","patient"].includes(me.role))html+=`<div class="section-label">${icon("i-file","icon-sm")}Prescriptions</div>${p.prescriptions.length?`<ul class="list">${p.prescriptions.map(r=>`<li><span>${fmtDate(r.date)} · ${esc(r.diagnosis||r.medicines.length+" medicines")} <span class="muted">· ${esc(r.doctorName)}</span></span><button class="btn btn-outline btn-xs" data-rx="${r.id}">View</button></li>`).join("")}</ul>`:'<p class="muted">No prescriptions yet.</p>'}`;
+  if(["admin","reception","patient"].includes(me.role))html+=`<div class="section-label">${icon("i-receipt","icon-sm")}Receipts</div>${p.invoices.length?`<ul class="list">${p.invoices.map(i=>`<li><span>${esc(i.number)} · ${fmtDate(i.date)} · <b>${money(i.total)}</b></span><span class="row-actions">${chip(i.status)}<button class="btn btn-outline btn-xs" data-inv="${i.id}">View</button></span></li>`).join("")}</ul>`:'<p class="muted">No receipts yet.</p>'}`;
+  html+=`<div class="modal-actions">${canEdit?'<button class="btn btn-outline" id="pm-edit">Edit details</button><button class="btn" id="pm-book">Book appointment</button>':""}${me.role==="doctor"?`<a class="btn" href="#/consult/${p.id}">${icon("i-pill","icon-sm")}Write prescription</a>`:""}</div>`;
+  const body=openModal("Patient record",html,true);
+  $$("[data-rx]",body).forEach(b=>b.addEventListener("click",()=>rxViewModal(p.prescriptions.find(r=>r.id===b.dataset.rx))));
+  $$("[data-inv]",body).forEach(b=>b.addEventListener("click",()=>receiptModal(p.invoices.find(i=>i.id===b.dataset.inv))));
+  const e=$("#pm-edit",body);if(e)e.addEventListener("click",()=>patientFormModal(p,rerender));
+  const bk=$("#pm-book",body);if(bk)bk.addEventListener("click",safe(()=>bookModal(rerender,p.id)));
+  const w=$("a.btn",body);if(w)w.addEventListener("click",closeModal);
+}
+
+/* ---- appointment rows ---- */
+function apptActions(a){
+  const b=(act,label,cls)=>`<button class="btn ${cls||"btn-outline"} btn-xs" data-act="${act}" data-id="${a.id}">${label}</button>`;
+  const open=["requested","booked","checked-in"].includes(a.status);let out="";
+  if(me.role==="doctor"){if(open)out+=`<a class="btn btn-xs" href="#/consult/${a.patientId}/${a.id}">${icon("i-pill","icon-sm")}Consult</a>`+b("noshow","No-show");out+=b("patient","Record")}
+  else if(me.role==="nurse"){if(open)out+=a.vitalsDone?b("vitals-edit","Vitals ✓ Edit"):b("vitals","Record vitals","btn-violet");out+=b("patient","Record")}
+  else if(me.role==="patient"){if((a.status==="requested"||a.status==="booked")&&a.date>=todayStr())out+=b("cancel","Cancel","btn-danger")}
+  else if(me.role==="reception"){
+    if(a.status==="requested")out+=b("confirm","Confirm","");
+    if(a.status==="booked")out+=b("checkin","Check in","");
+    if(a.status==="completed")out+=b("receipt","Receipt","btn-amber");
+    if(open)out+=b("noshow","No-show")+b("cancel","Cancel","btn-danger");
+    out+=b("patient","Patient");
+  }else out+=b("patient","Record");
+  return `<div class="row-actions">${out||'<span class="muted">—</span>'}</div>`;
+}
+function bindApptActions(root,list){
+  $$("[data-act]",root).forEach(btn=>btn.addEventListener("click",safe(async()=>{
+    const a=list.find(x=>x.id===btn.dataset.id),act=btn.dataset.act;
+    if(act==="patient")return patientModal(a.patientId);
+    if(act==="receipt")return newReceiptModal(a.patientId,a.doctorName);
+    if(act==="vitals")return vitalsModal({patientId:a.patientId,patientName:a.patientName,appointmentId:a.id},null,rerender);
+    if(act==="vitals-edit"){const vs=await api("GET","/api/vitals?patientId="+a.patientId);return vitalsModal({patientId:a.patientId,patientName:a.patientName,appointmentId:a.id},vs.find(v=>v.appointmentId===a.id)||vs[0],rerender)}
+    if(act==="cancel"&&!confirm("Cancel this appointment?"))return;
+    const status={checkin:"checked-in",confirm:"booked",cancel:"cancelled",noshow:"no-show"}[act];
+    await api("PUT","/api/appointments/"+a.id,{status});toast("Appointment updated");rerender();
+  })));
+}
+function apptTable(list,opts){
+  opts=opts||{};
+  const cols=[];
+  if(me.role!=="patient")cols.push({h:"Patient",f:a=>`<div class="person">${avatar(a.patientName)}<span><b>${esc(a.patientName)}</b><span class="sub">UHID ${esc(a.patientUhid)}${a.reason?" · "+esc(a.reason):""}</span></span></div>`});
+  cols.push({h:"Appointment time",f:a=>`<b style="white-space:nowrap">${fmtTime(a.time)}</b><span class="sub" style="white-space:nowrap">${ddmmyyyy(a.date)}</span>`});
+  if(me.role!=="doctor")cols.push({h:"Doctor",f:a=>`<span style="white-space:nowrap">${esc(a.doctorName)}</span>`});
+  if(me.role==="patient")cols.push({h:"Reason",f:a=>esc(a.reason||"—")});
+  cols.push({h:"Type",f:a=>chip(a.type==="Video"?"booked":"",a.type)});
+  if(["doctor","nurse","admin"].includes(me.role))cols.push({h:"Vitals",f:a=>a.vitalsDone?'<span class="chip green">Recorded</span>':'<span class="chip">Pending</span>'});
+  cols.push({h:"Status",f:a=>chip(a.status)},{h:"Actions",f:apptActions});
+  return table(cols,list,opts.empty||"No appointments.");
+}
+
+/* ---- charts ---- */
+function barChart(data){
+  const W=600,H=220,L=36,R=12,T=24,B=34,max=Math.max(1,...data.map(d=>d.value)),bw=(W-L-R)/data.length;
+  const nice=Math.ceil(max/1000)*1000||1000;
+  let g="";for(let i=0;i<=4;i++){const y=T+(H-T-B)*i/4,v=nice*(1-i/4);g+=`<line x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" stroke="#E2EBEF"/><text x="${L-6}" y="${y+4}" font-size="10" text-anchor="end" fill="#56707F">${v>=1000?(v/1000)+"k":v}</text>`}
+  const bars=data.map((d,i)=>{const h=(H-T-B)*d.value/nice,x=L+i*bw+bw*.22,y=H-B-h,w=bw*.56;return `<rect x="${x}" y="${y}" width="${w}" height="${Math.max(h,1)}" rx="6" fill="url(#bar-g)"><title>${esc(d.label)}: ${money(d.value)}</title></rect>${d.value?`<text x="${x+w/2}" y="${y-6}" font-size="10" font-weight="700" text-anchor="middle" fill="#0B2433">${d.value>=1000?(d.value/1000).toFixed(1)+"k":d.value}</text>`:""}<text x="${x+w/2}" y="${H-12}" font-size="11" text-anchor="middle" fill="#56707F">${esc(d.label)}</text>`}).join("");
+  return `<div class="chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Collections over the last 7 days"><defs><linearGradient id="bar-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0E8C99"/><stop offset="1" stop-color="#1D5FD6"/></linearGradient></defs>${g}${bars}</svg></div>`;
+}
+function hBars(rows){const max=Math.max(1,...rows.map(r=>r.value));return rows.map(r=>`<div class="bar-row"><span>${esc(r.label)}</span><div class="bar-track"><div class="bar-fill" style="width:${r.value/max*100}%;background:${r.color}"></div></div><b style="text-align:right">${r.value}</b></div>`).join("")}
+
+/* ================= medicine combobox ================= */
+let comboSeq=0;
+function closeComboLists(except){$$(".combo-list").forEach(l=>{if(l!==except){l.hidden=true;const i=l.parentNode.querySelector("input");i&&i.setAttribute("aria-expanded","false")}})}
+document.addEventListener("click",e=>{if(!e.target.closest(".combo"))closeComboLists()});
+const searchMeds=q=>S.searchMeds(q);
+function hl(text,q){const i=text.toLowerCase().indexOf(q.toLowerCase());return i<0?esc(text):esc(text.slice(0,i))+"<mark>"+esc(text.slice(i,i+q.length))+"</mark>"+esc(text.slice(i+q.length))}
+/* pharmacy stock shown while prescribing (no prices, only how much is available) */
+const STOCK_ROLES=["doctor","nurse","admin","pharmacy"];let AVAIL=null,availP=null,availAt=0;
+const normName=x=>String(x||"").toLowerCase().replace(/\s+/g," ").trim();
+function loadAvail(){
+  if(!STOCK_ROLES.includes(me.role))return Promise.resolve(null);
+  if(!availP||Date.now()-availAt>30000){availAt=Date.now();availP=api("GET","/api/inventory/availability").then(r=>{AVAIL={};r.forEach(a=>{AVAIL[normName(a.name)]=a});return AVAIL}).catch(()=>{availP=null;return null})}
+  return availP;
+}
+function availFor(name){
+  const k=normName(name);if(!AVAIL||!k)return null;
+  if(AVAIL[k])return AVAIL[k];
+  const hit=Object.keys(AVAIL).find(x=>x.startsWith(k+" ")||k.startsWith(x+" "));
+  return hit?AVAIL[hit]:undefined;
+}
+function stockTagHtml(a){
+  if(a===null)return "";
+  if(!a)return `<span class="stk stk-out">Not in pharmacy stock</span>`;
+  if(a.status==="out")return `<span class="stk stk-out">Out of stock in pharmacy${a.expiredQty?" (only expired)":""}</span>`;
+  if(a.status==="low")return `<span class="stk stk-low">Low stock · ${a.qty} left in pharmacy</span>`;
+  return `<span class="stk stk-in">In pharmacy · ${a.qty} available</span>`;
+}
+function medCardHtml(n){
+  const id="lb"+(++comboSeq);
+  const LBL={"d-m":"Morning dose","d-a":"Afternoon dose","d-n":"Night dose","m-when":"When to take","m-freq":"Frequency","m-dur-u":"Duration unit"};
+  const sel=(cls,opts,v)=>`<select class="${cls}" aria-label="${LBL[cls]||cls}">${opts.map(o=>`<option${o===v?" selected":""}>${esc(o)}</option>`).join("")}</select>`;
+  return `<div class="med-card">
+    <div class="med-top"><span class="med-no">${n}</span>
+      <div class="combo"><input class="m-name" placeholder="Type medicine, e.g. dolo, pan, azithral…" autocomplete="off" role="combobox" aria-label="Medicine name" aria-autocomplete="list" aria-expanded="false" aria-controls="${id}"><ul class="combo-list" role="listbox" id="${id}" hidden></ul></div>
+      <button type="button" class="icon-btn" data-remove aria-label="Remove medicine">${icon("i-trash","icon-sm")}</button></div>
+    <div class="stock-line" aria-live="polite"></div>
+    <input class="med-comp m-comp" placeholder="Composition (fills in automatically)" aria-label="Composition">
+    <div class="med-grid">
+      <div class="mf mf-dose"><span class="lbl">Dosage</span><div class="dose-3">${sel("d-m",DOSE_OPTS,"1")}${sel("d-a",DOSE_OPTS,"0")}${sel("d-n",DOSE_OPTS,"1")}</div><div class="dose-cap" aria-hidden="true"><span>Morning</span><span>Afternoon</span><span>Night</span></div></div>
+      <div class="mf"><span class="lbl">When</span>${sel("m-when",WHEN_OPTS,"After food")}</div>
+      <div class="mf"><span class="lbl">Frequency</span>${sel("m-freq",FREQ_OPTS,"Daily")}</div>
+      <div class="mf"><span class="lbl">Duration</span><div class="dur"><input type="number" class="m-dur-n" min="1" max="365" value="5" aria-label="Duration number">${sel("m-dur-u",["Days","Weeks","Months"],"Days")}</div></div>
+    </div>
+    <input class="m-notes" placeholder="Notes (optional), e.g. with milk, after breakfast" aria-label="Notes">
+  </div>`;
+}
+function applyMed(card,m){
+  $(".m-name",card).value=m.name;$(".m-comp",card).value=m.comp;
+  const d=m.dose.split("-");
+  if(d.length===3)[".d-m",".d-a",".d-n"].forEach((c,i)=>{const s=$(c,card);if(DOSE_OPTS.includes(d[i]))s.value=d[i]});
+  if(WHEN_OPTS.includes(m.when))$(".m-when",card).value=m.when;
+  if(FREQ_OPTS.includes(m.freq))$(".m-freq",card).value=m.freq;
+  $(".m-dur-n",card).value=m.durN;$(".m-dur-u",card).value=m.durU;
+  $(".m-notes",card).value=m.notes||"";
+}
+function wireMedCard(card){
+  const input=$(".m-name",card),list=$(".combo-list",card);let items=[],active=-1;
+  const updStock=()=>{const el=$(".stock-line",card);if(el)el.innerHTML=stockTagHtml(availFor(input.value))};
+  loadAvail().then(updStock);input.addEventListener("input",updStock);
+  const draw=()=>{
+    const q=input.value;items=searchMeds(q);active=items.length?0:-1;
+    if(!q.trim()){list.hidden=true;input.setAttribute("aria-expanded","false");return}
+    list.innerHTML=items.map((m,i)=>`<li role="option" id="${list.id}-${i}" aria-selected="${i===active}" data-i="${i}"><b>${hl(m.name,q)}</b><small>${hl(m.comp,q)}</small>${AVAIL?stockTagHtml(availFor(m.name)):""}</li>`).join("")+(items.length?"":`<li role="option" aria-selected="false" data-custom><b>Use “${esc(q)}”</b><small>Not in list, add as typed</small></li>`);
+    list.hidden=false;input.setAttribute("aria-expanded","true");closeComboLists(list);
+    input.setAttribute("aria-activedescendant",active>=0?list.id+"-"+active:"");
+  };
+  const pick=i=>{if(items[i])applyMed(card,items[i]);updStock();list.hidden=true;input.setAttribute("aria-expanded","false");$(".m-comp",card).focus()};
+  input.addEventListener("input",draw);
+  input.addEventListener("focus",()=>{if(input.value)draw()});
+  input.addEventListener("keydown",e=>{
+    if(list.hidden)return;
+    if(e.key==="ArrowDown"||e.key==="ArrowUp"){e.preventDefault();if(!items.length)return;active=(active+(e.key==="ArrowDown"?1:-1)+items.length)%items.length;$$("li",list).forEach((li,i)=>li.setAttribute("aria-selected",i===active));input.setAttribute("aria-activedescendant",list.id+"-"+active);const li=$$("li",list)[active];li&&li.scrollIntoView({block:"nearest"})}
+    else if(e.key==="Enter"){e.preventDefault();if(active>=0)pick(active);else{list.hidden=true}}
+    else if(e.key==="Escape"){list.hidden=true;input.setAttribute("aria-expanded","false")}
+  });
+  list.addEventListener("mousedown",e=>{e.preventDefault();const li=e.target.closest("li");if(!li)return;if(li.hasAttribute("data-custom")){list.hidden=true;$(".m-comp",card).focus()}else pick(+li.dataset.i)});
+}
+function readMeds(root){
+  return $$(".med-card",root).map(c=>{
+    const n=+$(".m-dur-n",c).value,u=$(".m-dur-u",c).value;
+    return {name:$(".m-name",c).value.trim(),composition:$(".m-comp",c).value.trim(),dosage:[".d-m",".d-a",".d-n"].map(s=>$(s,c).value).join("-"),timing:$(".m-when",c).value,frequency:$(".m-freq",c).value,duration:n?n+" "+(n===1?u.replace(/s$/,""):u):"",notes:$(".m-notes",c).value.trim()};
+  }).filter(m=>m.name);
+}
+
+/* ================= views ================= */
+const VIEWS={};
+
+VIEWS.dashboard=async()=>{
+  const t=todayStr();
+  if(me.role==="admin"){
+    const [s,leads,appts]=await Promise.all([api("GET","/api/stats"),api("GET","/api/leads"),api("GET","/api/appointments?date="+t)]);
+    const days=s.revenue7.map(r=>({label:new Date(r.date+"T00:00").toLocaleDateString("en-IN",{weekday:"short"}),value:r.amount}));
+    const st=s.todayByStatus,stColors={requested:"#F6B13C",booked:"#1D5FD6","checked-in":"#0E8C99",completed:"#13795B","no-show":"#C2362B",cancelled:"#9AAAB2"};
+    view.innerHTML=hero(greeting()+", "+me.name.split(" ")[0],"Here's your clinic at a glance for "+fmtDate(t)+".",`<a class="btn" href="#/users">${icon("i-user-plus","icon-sm")}Add staff</a><a class="btn btn-amber" href="#/leads">${icon("i-inbox","icon-sm")}${s.newLeads} new lead${s.newLeads===1?"":"s"}</a>`)+permCard()+
+      statCards([{label:"Today's appointments",value:s.todayAppointments,icon:"i-calendar"},{label:"Registered patients",value:s.patients,icon:"i-user",tone:"blue"},{label:"Prescriptions written",value:s.prescriptions,icon:"i-file",tone:"violet"},{label:"Collected",value:money(s.revenuePaid),icon:"i-rupee",tone:"green"},{label:"Pending dues",value:money(s.revenueDue),icon:"i-receipt",tone:"amber"},{label:"Staff & users",value:s.users,icon:"i-users",tone:"rose"}])+
+      `<div class="grid-3">${panel(icon("i-rupee","icon-sm")+"Collections · last 7 days",`<div class="panel-body">${barChart(days)}</div>`)}${panel(icon("i-calendar","icon-sm")+"Today by status",`<div class="panel-body">${Object.keys(st).length?hBars(Object.keys(stColors).filter(k=>st[k]).map(k=>({label:k[0].toUpperCase()+k.slice(1),value:st[k],color:stColors[k]}))):'<p class="muted">No appointments today.</p>'}<div class="section-label">Users by role</div>${hBars(["doctor","nurse","reception","patient","admin"].map((r,i)=>({label:ROLE_LABEL[r],value:s.usersByRole[r]||0,color:AV_COLORS[i]})))}</div>`)}</div>`+
+      `<div class="grid-2">${panel(icon("i-inbox","icon-sm")+"Latest website leads",table([{h:"Name",f:l=>`<b>${esc(l.name)}</b><span class="sub">${esc(l.email)}</span>`},{h:"Type",f:l=>esc(l.type==="demo"?"Demo":"Contact")},{h:"Status",f:l=>chip(l.status)}],leads.slice(0,5),"No leads yet."),'<a class="btn btn-outline btn-xs" href="#/leads">View all</a>')}
+      ${panel(icon("i-calendar","icon-sm")+"Today's appointments "+viewOnly,table([{h:"Time",f:a=>fmtTime(a.time)},{h:"Patient",f:a=>esc(a.patientName)},{h:"Doctor",f:a=>esc(a.doctorName)},{h:"Status",f:a=>chip(a.status)}],appts,"No appointments today."),'<a class="btn btn-outline btn-xs" href="#/appointments">View all</a>')}</div>`;
+    return;
+  }
+  if(me.role==="doctor"){
+    const list=await api("GET","/api/appointments?date="+t);
+    const active=list.filter(a=>!["cancelled","no-show"].includes(a.status));
+    const waiting=active.filter(a=>a.status==="checked-in"),done=active.filter(a=>a.status==="completed");
+    const next=waiting[0]||active.find(a=>a.status==="booked");
+    view.innerHTML=hero(greeting()+", "+me.name,(me.specialty||"Doctor")+" · "+fmtDate(t)+" · "+waiting.length+" patient"+(waiting.length===1?"":"s")+" waiting",next?`<a class="btn btn-amber" href="#/consult/${next.patientId}/${next.id}">${icon("i-pill","icon-sm")}Consult next: ${esc(next.patientName)}</a><a class="btn" href="#/patients">${icon("i-search","icon-sm")}Find patient</a>`:`<a class="btn" href="#/patients">${icon("i-search","icon-sm")}Find patient</a>`)+permCard()+
+      statCards([{label:"Appointments today",value:active.length,icon:"i-calendar"},{label:"Waiting now",value:waiting.length,icon:"i-clock",tone:"amber"},{label:"Vitals ready",value:active.filter(a=>a.vitalsDone&&a.status!=="completed").length,icon:"i-heart",tone:"violet"},{label:"Completed",value:done.length,icon:"i-check",tone:"green"}])+
+      panel(icon("i-users","icon-sm")+"Today's queue",apptTable(active,{empty:"No patients scheduled today."}));
+    bindApptActions(view,list);return;
+  }
+  if(me.role==="nurse"){
+    const list=await api("GET","/api/appointments?date="+t);
+    const open=list.filter(a=>["requested","booked","checked-in"].includes(a.status));
+    const pending=open.filter(a=>!a.vitalsDone);
+    view.innerHTML=hero(greeting()+", "+me.name,"Vitals desk · "+fmtDate(t)+" · "+pending.length+" patient"+(pending.length===1?"":"s")+" waiting for vitals",pending[0]?`<button class="btn btn-amber" id="next-v">${icon("i-heart","icon-sm")}Record next: ${esc(pending[0].patientName)}</button>`:"")+permCard()+
+      statCards([{label:"Waiting for vitals",value:pending.length,icon:"i-clock",tone:"amber"},{label:"Vitals recorded today",value:list.filter(a=>a.vitalsDone).length,icon:"i-heart",tone:"violet"},{label:"Checked in",value:list.filter(a=>a.status==="checked-in").length,icon:"i-users"},{label:"Completed",value:list.filter(a=>a.status==="completed").length,icon:"i-check",tone:"green"}])+
+      panel(icon("i-heart","icon-sm")+"Today's patients",apptTable(open,{empty:"No patients waiting."}));
+    bindApptActions(view,list);
+    const n=$("#next-v");if(n)n.addEventListener("click",()=>vitalsModal({patientId:pending[0].patientId,patientName:pending[0].patientName,appointmentId:pending[0].id},null,rerender));
+    return;
+  }
+  if(me.role==="pharmacy"){
+    const [rxs,st]=await Promise.all([api("GET","/api/prescriptions"),api("GET","/api/inventory/summary")]);
+    const today=rxs.filter(r=>r.date===t);
+    view.innerHTML=hero(greeting()+", "+me.name.split(" ")[0],"Pharmacy · "+fmtDate(t)+" · view only",`<a class="btn" href="#/prescriptions">${icon("i-search","icon-sm")}Search prescriptions</a><a class="btn btn-amber" href="#/medicines">${icon("i-pill","icon-sm")}Medicines</a>`)+permCard()+
+      statCards([{label:"Prescriptions today",value:today.length,icon:"i-file"},{label:"Medicines to give today",value:today.reduce((a,r)=>a+r.medicines.length,0),icon:"i-pill",tone:"violet"},{label:"Last 7 days",value:rxs.filter(r=>(new Date(t)-new Date(r.date))/864e5<7).length,icon:"i-calendar",tone:"blue"},{label:"All prescriptions",value:rxs.length,icon:"i-check",tone:"green"}])+
+      `<div class="cards stock-alerts"><a class="stat rose" href="#/inventory?f=expired"><span class="ic">${icon("i-alert")}</span><div><small>Expired batches</small><b>${st.expired}</b></div></a><a class="stat amber" href="#/inventory?f=expiring"><span class="ic">${icon("i-clock")}</span><div><small>Expiring in 90 days</small><b>${st.expiring}</b></div></a><a class="stat blue" href="#/inventory?f=low"><span class="ic">${icon("i-box")}</span><div><small>Low stock</small><b>${st.lowStock}</b></div></a><a class="stat green" href="#/inventory"><span class="ic">${icon("i-rupee")}</span><div><small>Stock value</small><b>${money(st.stockValue)}</b></div></a></div>`+
+      panel(icon("i-file","icon-sm")+"Today's prescriptions "+viewOnly,rxTable(today,"No prescriptions written today yet. They appear here as soon as the doctor saves them."));
+    bindRx(view,today);return;
+  }
+  if(me.role==="reception"){
+    const [list,invs]=await Promise.all([api("GET","/api/appointments?date="+t),api("GET","/api/invoices")]);
+    const c=s=>list.filter(a=>a.status===s).length;
+    const todayPaid=invs.filter(i=>i.date===t&&i.status==="paid").reduce((s,i)=>s+i.total,0);
+    view.innerHTML=hero(greeting()+", "+me.name.split(" ")[0],"Front desk · "+fmtDate(t),`<button class="btn" id="reg">${icon("i-user-plus","icon-sm")}Register patient</button><button class="btn" id="book">${icon("i-calendar","icon-sm")}Book appointment</button><button class="btn btn-amber" id="rcpt">${icon("i-receipt","icon-sm")}New receipt</button><a class="btn" href="#/sheet">${icon("i-grid","icon-sm")}Excel sheet</a>`)+permCard()+
+      statCards([{label:"Appointments today",value:list.length,icon:"i-calendar"},{label:"Requests to confirm",value:c("requested"),icon:"i-inbox",tone:"amber"},{label:"Checked in",value:c("checked-in"),icon:"i-users",tone:"blue"},{label:"Completed",value:c("completed"),icon:"i-check",tone:"green"},{label:"Collected today",value:money(todayPaid),icon:"i-rupee",tone:"violet"}])+
+      panel(icon("i-calendar","icon-sm")+"Today's appointments",apptTable(list,{empty:"No appointments today."}))+panel(icon("i-rupee","icon-sm")+"Last payments",paymentsList(lastPayments(invs).slice(0,6)),'<a class="btn btn-outline btn-xs" href="#/billing">View all</a>');
+    bindApptActions(view,list);bindPayView(view,invs);
+    $("#book").addEventListener("click",safe(()=>bookModal(rerender)));
+    $("#reg").addEventListener("click",()=>patientFormModal(null,rerender));
+    $("#rcpt").addEventListener("click",safe(()=>newReceiptModal()));
+    return;
+  }
+  // patient
+  const [appts,rxs,invs,vit]=await Promise.all([api("GET","/api/appointments"),api("GET","/api/prescriptions"),api("GET","/api/invoices"),api("GET","/api/vitals")]);
+  const upcoming=appts.filter(a=>a.date>=t&&["requested","booked","checked-in"].includes(a.status)),rx=rxs[0],due=invs.filter(i=>i.status!=="paid");
+  view.innerHTML=hero("Hello, "+me.name.split(" ")[0]+" 👋","Your health records, all in one place.",`<button class="btn btn-amber" id="book">${icon("i-plus","icon-sm")}Request appointment</button>`)+
+    statCards([{label:"Upcoming appointments",value:upcoming.length,icon:"i-calendar"},{label:"Prescriptions",value:rxs.length,icon:"i-file",tone:"violet"},{label:"Amount due",value:money(due.reduce((s,i)=>s+i.total,0)),icon:"i-rupee",tone:"amber"}])+
+    `<div class="grid-2">${panel(icon("i-calendar","icon-sm")+"Upcoming appointments",upcoming.length?`<ul class="appt-list">${upcoming.map(a=>{const p=a.date.split("-");return `<li><div class="appt-date"><b>${+p[2]}</b><span>${new Date(a.date+"T12:00:00").toLocaleDateString("en-IN",{month:"short"})}</span></div><div class="appt-info"><b>${WD[new Date(a.date+"T12:00:00").getDay()]}, ${ddmmyyyy(a.date)} · ${fmtTime(a.time)}</b><span class="sub">${esc(a.doctorName)}${a.reason?" · "+esc(a.reason):""}</span><span class="appt-meta">${chip(a.status)} <span class="chip plain">${esc(a.type)}</span></span></div><div class="appt-side">${apptActions(a)}</div></li>`}).join("")}</ul>`:'<div class="empty">No upcoming appointments.</div>')}
+    ${panel(icon("i-file","icon-sm")+"Latest prescription",rx?`<div class="panel-body"><div class="rx-sum"><b>${ddmmyyyy(rx.date)}</b> · ${esc(rx.doctorName)}${rx.diagnosis?`<div class="muted">${esc(rx.diagnosis)}</div>`:""}</div><ol class="med-list">${rx.medicines.map(m=>`<li><b>${esc(m.name)}</b><span>${esc(doseText(m.dosage))} · ${esc(m.timing)} · ${esc(m.frequency)} · ${esc(m.duration)}</span>${m.notes?`<span class="muted">${esc(m.notes)}</span>`:""}</li>`).join("")}</ol><button class="btn btn-outline btn-xs" id="view-rx" style="margin-top:14px">${icon("i-printer","icon-sm")}View &amp; print</button></div>`:'<div class="empty">No prescriptions yet.</div>')}</div>`+
+    panel(icon("i-heart","icon-sm")+"Latest vitals",`<div class="panel-body">${vitalsTiles(vit[0])}</div>`);
+  bindApptActions(view,upcoming);
+  $("#book").addEventListener("click",safe(()=>bookModal(rerender)));
+  const v=$("#view-rx");if(v)v.addEventListener("click",()=>rxViewModal(rx));
+};
+
+/* ---- doctor: consultation & prescription writer ---- */
+VIEWS.consult=async args=>{
+  const [pid,aid]=args;if(!pid){location.hash="#/dashboard";return}
+  const p=await api("GET","/api/patients/"+pid);
+  const appt=aid?p.appointments.find(a=>a.id===aid):null;
+  const vit=(aid&&p.vitals.find(v=>v.appointmentId===aid))||p.vitals.find(v=>v.date===todayStr())||null;
+  const last=p.prescriptions[0];
+  view.innerHTML=`<a class="back" href="#/dashboard">← Back to queue</a>
+  <div class="consult"><aside>
+    <section class="panel"><div class="pt-card">${avatar(p.name,54)}<div><h3>${esc(p.name)}</h3><div class="muted">UHID ${esc(p.uhid)} · ${esc(p.age!=null?p.age+" yrs":"")}${p.gender?" · "+esc(p.gender):""}${p.bloodGroup?" · "+esc(p.bloodGroup):""}</div>${appt?`<div style="margin-top:6px">${chip(appt.status)} <span class="muted" style="font-size:.84rem">${esc(appt.reason||"")}</span></div>`:""}</div></div>
+      ${p.allergies&&!/^none/i.test(p.allergies)?`<div style="padding:0 18px 16px"><div class="alert-chip">${icon("i-alert","icon-sm")}Allergy: ${esc(p.allergies)}</div></div>`:""}</section>
+    ${panel(icon("i-heart","icon-sm")+"Vitals "+viewOnly,`<div class="panel-body">${vitalsTiles(vit)}</div>`)}
+    ${panel(icon("i-file","icon-sm")+"Previous prescriptions",p.prescriptions.length?`<ul class="list" style="padding:0 18px">${p.prescriptions.slice(0,5).map(r=>`<li><span><b>${ddmmyyyy(r.date)}</b><span class="sub muted" style="display:block">${esc(r.diagnosis||"")} · ${esc(r.doctorName)}</span></span><button class="btn btn-outline btn-xs" data-rx="${r.id}">View</button></li>`).join("")}</ul>`:'<div class="empty">First visit. No previous prescriptions.</div>')}
+  </aside>
+  <section class="panel"><div class="panel-head"><h3>${icon("i-pill","icon-sm")}Write prescription</h3><div class="actions">${last?'<button class="btn btn-outline btn-xs" id="repeat">Repeat last Rx</button>':""}</div></div>
+   <form class="panel-body" id="rx-form" novalidate>
+    <div class="form-grid">
+      ${fld("complaints","Quick notes / complaints",{type:"textarea",rows:2,full:true,placeholder:"e.g. Fever x 3 days, body ache"})}
+      ${fld("examination","General examination",{type:"textarea",rows:2,placeholder:"e.g. Throat congested, chest clear"})}
+      ${fld("diagnosis","Diagnosis",{list:"dx-list",placeholder:"Start typing…"})}
+      ${fld("diet","Diet and exercise",{type:"textarea",rows:2,full:true,placeholder:"e.g. 1500 kcal diabetic diet, 45 min walk daily"})}
+    </div>
+    <datalist id="dx-list">${DIAGNOSES.map(d=>`<option value="${esc(d)}">`).join("")}</datalist>
+    <div class="section-label">${icon("i-pill","icon-sm")}Medicines <span style="font-weight:600;text-transform:none;letter-spacing:0">· tap a quick pick or type a name</span></div>
+    <div class="quick" style="margin-bottom:12px">${QUICK.map(q=>`<button type="button" data-quick="${esc(q)}">+ ${esc(q)}</button>`).join("")}</div>
+    <div id="meds"></div>
+    <button type="button" class="btn btn-outline btn-xs" id="add-med">${icon("i-plus","icon-sm")}Add another medicine</button>
+    <div class="form-grid" style="margin-top:18px">
+      ${fld("advice","Advice",{type:"textarea",rows:3,full:true,placeholder:"Precautions, warning signs, lifestyle advice…"})}
+      ${fld("tests","Tests prescribed",{placeholder:"e.g. FBS, PPBS, HbA1c"})}
+      ${fld("testsAfter","Tests after",{options:[["","—"],"1 Week","2 Weeks","1 Month","2 Months","3 Months","6 Months"]})}
+      ${fld("followUp","Follow-up",{options:[["","No follow-up"]].concat([[3,"3 days"],[7,"1 week"],[14,"2 weeks"],[30,"1 month"],[60,"2 months"],[90,"3 months"]].map(([n,l])=>{const d=new Date();d.setDate(d.getDate()+n);const s=d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());return [s,l+" · "+WD[d.getDay()]+", "+ddmmyyyy(s)]}))})}
+    </div>
+    <p class="form-error" role="alert" hidden></p>
+    <div class="modal-actions"><button type="button" class="btn btn-outline" id="preview">${icon("i-eye","icon-sm")}Preview</button><button type="submit" class="btn">${icon("i-check","icon-sm")}Save &amp; print</button></div>
+   </form></section></div>`;
+  const form=$("#rx-form"),meds=$("#meds",form),err=$(".form-error",form);
+  const renumber=()=>$$(".med-no",meds).forEach((n,i)=>n.textContent=i+1);
+  const addCard=m=>{meds.insertAdjacentHTML("beforeend",medCardHtml($$(".med-card",meds).length+1));const c=$$(".med-card",meds).pop();wireMedCard(c);if(m)applyMed(c,m);return c};
+  addCard();
+  $("#add-med",form).addEventListener("click",()=>{$(".m-name",addCard()).focus()});
+  meds.addEventListener("click",e=>{const b=e.target.closest("[data-remove]");if(!b)return;if($$(".med-card",meds).length>1){b.closest(".med-card").remove();renumber()}else{const c=b.closest(".med-card");$$("input",c).forEach(i=>{if(!i.classList.contains("m-dur-n"))i.value=""})}});
+  $$("[data-quick]",form).forEach(b=>b.addEventListener("click",()=>{
+    const m=MEDS.find(x=>x.brand===b.dataset.quick);const empty=$$(".med-card",meds).find(c=>!$(".m-name",c).value.trim());
+    if(empty)applyMed(empty,m);else addCard(m);toast(m.name+" added");
+  }));
+  $$("[data-rx]",view).forEach(b=>b.addEventListener("click",()=>rxViewModal(p.prescriptions.find(r=>r.id===b.dataset.rx))));
+  const rep=$("#repeat",form);
+  if(rep)rep.addEventListener("click",()=>{
+    meds.innerHTML="";last.medicines.forEach(m=>{const c=addCard();$(".m-name",c).value=m.name;$(".m-comp",c).value=m.composition||"";const d=String(m.dosage).split("-");[".d-m",".d-a",".d-n"].forEach((s,i)=>{if(DOSE_OPTS.includes(d[i]))$(s,c).value=d[i]});if(WHEN_OPTS.includes(m.timing))$(".m-when",c).value=m.timing;if(FREQ_OPTS.includes(m.frequency))$(".m-freq",c).value=m.frequency;const du=String(m.duration).match(/(\d+)\s*(\w+)/);if(du){$(".m-dur-n",c).value=du[1];const u=du[2][0].toUpperCase()+du[2].slice(1).replace(/s?$/,"s");if(["Days","Weeks","Months"].includes(u))$(".m-dur-u",c).value=u}$(".m-notes",c).value=m.notes||""});
+    ["diagnosis","diet","advice","tests"].forEach(k=>{if(last[k]&&!form.elements[k].value)form.elements[k].value=last[k]});
+    toast("Last prescription copied. Review before saving.");
+  });
+  const collect=()=>{const d=formData(form);d.medicines=readMeds(meds);d.patientId=p.id;d.appointmentId=aid||"";return d};
+  $("#preview",form).addEventListener("click",()=>{
+    const d=collect();if(!d.medicines.length){err.textContent="Add at least one medicine to preview.";err.hidden=false;return}err.hidden=true;
+    const n=new Date();
+    rxViewModal(Object.assign({},d,{number:"Draft (not saved)",date:todayStr(),time:pad(n.getHours())+":"+pad(n.getMinutes()),vitals:vit,patientName:p.name,patientUhid:p.uhid,patientAge:p.age,patientGender:p.gender,doctorName:me.name,doctorSpecialty:me.specialty,doctorQualification:me.qualification,doctorRegNo:me.regNo}));
+  });
+  form.addEventListener("submit",e=>{
+    e.preventDefault();err.hidden=true;const d=collect();
+    if(!d.medicines.length){err.textContent="Add at least one medicine.";err.hidden=false;return}
+    const btn=$("[type=submit]",form);btn.disabled=true;
+    api("POST","/api/prescriptions",d).then(rx=>{toast("Prescription saved");location.hash="#/dashboard";setTimeout(()=>rxViewModal(rx),150)})
+      .catch(x=>{err.textContent=x.message;err.hidden=false;btn.disabled=false});
+  });
+};
+
+VIEWS.appointments=async()=>{
+  const all=await api("GET","/api/appointments");
+  const t=todayStr();let filter;try{filter=sessionStorage.getItem("apptFilter")}catch(e){}filter=filter||(me.role==="patient"?"upcoming":"today");
+  const canBook=["reception","patient"].includes(me.role);
+  const draw=()=>{
+    let list=all.filter(a=>filter==="today"?a.date===t:filter==="upcoming"?a.date>=t:filter==="past"?a.date<t:true);
+    if(filter==="past"||filter==="all")list=list.slice().reverse();
+    view.innerHTML=pageHead(me.role==="patient"?"My appointments":"Appointments",me.role==="admin"?"Read-only view for admins. Reception manages bookings.":null,(me.role==="admin"?viewOnly:"")+(canBook?`<button class="btn" id="book">${icon("i-plus","icon-sm")}${me.role==="patient"?"Request appointment":"Book appointment"}</button>`:""))+
+      panel(list.length+" appointment"+(list.length===1?"":"s"),apptTable(list),`<label class="sr-only" for="af">Show</label><select class="input" id="af"><option value="today">Today</option><option value="upcoming">Upcoming</option><option value="past">Past</option><option value="all">All</option></select>`);
+    $("#af").value=filter;
+    $("#af").addEventListener("change",function(){filter=this.value;try{sessionStorage.setItem("apptFilter",filter)}catch(e){}draw()});
+    bindApptActions(view,list);
+    const b=$("#book");if(b)b.addEventListener("click",safe(()=>bookModal(rerender)));
+  };
+  draw();
+};
+
+VIEWS.patients=async()=>{
+  const all=await api("GET","/api/patients");
+  const canReg=me.role==="reception";
+  view.innerHTML=pageHead("Patients",all.length+" registered"+(canReg?"":" · patient details are managed by reception"),canReg?`<button class="btn" id="reg">${icon("i-user-plus","icon-sm")}Register patient</button>`:viewOnly)+
+    `<section class="panel"><div class="panel-head"><div class="toolbar search"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-search"/></svg><label class="sr-only" for="q">Search patients</label><input class="input" id="q" type="search" placeholder="Search by name, UHID, phone or ABHA"></div></div><div id="ptable"></div></section>`;
+  const draw=q=>{
+    q=(q||"").toLowerCase();
+    const list=all.filter(p=>!q||(p.name+" "+p.uhid+" "+p.phone+" "+p.abha).toLowerCase().includes(q));
+    $("#ptable").innerHTML=table([
+      {h:"Patient",f:p=>`<div class="person">${avatar(p.name)}<span><b>${esc(p.name)}</b><span class="sub">UHID ${esc(p.uhid)} · ${esc(p.age!=null?p.age+" yrs":"")}${p.gender?" · "+esc(p.gender):""}</span></span></div>`},
+      {h:"Mobile",f:p=>esc(p.phone||"—")},{h:"City",f:p=>esc(p.city||"—")},{h:"Blood",f:p=>esc(p.bloodGroup||"—")},
+      {h:"Allergies",f:p=>p.allergies&&!/^none/i.test(p.allergies)?`<span class="chip red">${esc(p.allergies)}</span>`:`<span class="muted">${esc(p.allergies||"—")}</span>`},
+      {h:"Actions",f:p=>`<div class="row-actions"><button class="btn btn-outline btn-xs" data-view="${p.id}">View</button>${me.role==="doctor"?`<a class="btn btn-xs" href="#/consult/${p.id}">Prescribe</a>`:""}${canReg?`<button class="btn btn-outline btn-xs" data-edit="${p.id}">Edit</button><button class="btn btn-outline btn-xs" data-book="${p.id}">Book</button>`:""}${me.role==="nurse"?`<button class="btn btn-violet btn-xs" data-vit="${p.id}">Vitals</button>`:""}</div>`}
+    ],list,q?"No patients match your search.":"No patients yet.");
+    $$("[data-view]").forEach(b=>b.addEventListener("click",safe(()=>patientModal(b.dataset.view))));
+    $$("[data-edit]").forEach(b=>b.addEventListener("click",()=>patientFormModal(all.find(x=>x.id===b.dataset.edit),rerender)));
+    $$("[data-book]").forEach(b=>b.addEventListener("click",safe(()=>bookModal(null,b.dataset.book))));
+    $$("[data-vit]").forEach(b=>b.addEventListener("click",()=>{const p=all.find(x=>x.id===b.dataset.vit);vitalsModal({patientId:p.id,patientName:p.name},null,rerender)}));
+  };
+  draw();
+  $("#q").addEventListener("input",function(){draw(this.value)});
+  const r=$("#reg");if(r)r.addEventListener("click",()=>patientFormModal(null,rerender));
+};
+
+VIEWS.vitals=async()=>{
+  const list=await api("GET","/api/vitals");
+  view.innerHTML=pageHead(me.role==="patient"?"My vitals":"Vitals records",me.role==="nurse"?"All readings you and other nurses have recorded.":me.role==="admin"?"Read-only. Nurses record vitals.":null,me.role==="admin"?viewOnly:"")+
+    panel(list.length+" records",table([
+      {h:"Date",f:v=>`<b>${fmtDate(v.date)}</b><span class="sub">${fmtTime(v.time)}</span>`},
+      ...(me.role!=="patient"?[{h:"Patient",f:v=>`<div class="person">${avatar(v.patientName)}<span><b>${esc(v.patientName)}</b><span class="sub">UHID ${esc(v.patientUhid)}</span></span></div>`}]:[]),
+      {h:"BP",f:v=>v.bpSys?`<b style="color:${v.bpSys>=140||v.bpDia>=90?"var(--danger)":"inherit"}">${v.bpSys}/${v.bpDia}</b>`:"—"},
+      {h:"Pulse",f:v=>esc(v.pulse||"—")},{h:"Temp °F",f:v=>esc(v.temp||"—")},{h:"SpO₂",f:v=>v.spo2?v.spo2+"%":"—"},
+      {h:"Wt / BMI",f:v=>v.weight?`${v.weight} kg${v.bmi?`<span class="sub">BMI ${v.bmi}</span>`:""}`:"—"},
+      {h:"Sugar",f:v=>v.sugar?`${v.sugar}<span class="sub">${esc(v.sugarType)}</span>`:"—"},
+      {h:"By",f:v=>esc(v.recordedByName||"—")},
+      ...(me.role==="nurse"?[{h:"",f:v=>`<button class="btn btn-outline btn-xs" data-edit="${v.id}">Edit</button>`}]:[])
+    ],list,"No vitals recorded yet."));
+  $$("[data-edit]").forEach(b=>b.addEventListener("click",()=>{const v=list.find(x=>x.id===b.dataset.edit);vitalsModal({patientId:v.patientId,patientName:v.patientName,appointmentId:v.appointmentId},v,rerender)}));
+};
+
+VIEWS.prescriptions=async()=>{
+  const all=await api("GET","/api/prescriptions");
+  if(me.role!=="patient"){
+    view.innerHTML=pageHead(me.role==="doctor"?"My prescriptions":"Prescriptions",me.role==="doctor"?"To write a new prescription, click Consult in your queue or Prescribe on a patient.":me.role==="pharmacy"?"View only. Prescriptions appear here as soon as the doctor saves them.":"Read-only. Only doctors can write prescriptions.",["admin","pharmacy"].includes(me.role)?viewOnly:"")+
+      `<section class="panel"><div class="panel-head"><div class="toolbar"><div class="search"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-search"/></svg><label class="sr-only" for="rq">Search prescriptions</label><input class="input" id="rq" type="search" placeholder="Patient, UHID, Rx no. or medicine"></div><label class="sr-only" for="rp">Period</label><select class="input" id="rp"><option value="today">Today</option><option value="7">Last 7 days</option><option value="all" selected>All</option></select></div><span class="muted" id="rcount"></span></div><div id="rtable"></div></section>`;
+    const draw=()=>{const q=$("#rq").value.toLowerCase(),per=$("#rp").value,t=todayStr();
+      const list=all.filter(r=>per==="all"||(per==="today"?r.date===t:(new Date(t)-new Date(r.date))/864e5<7)).filter(r=>!q||(r.patientName+" "+r.patientUhid+" "+r.number+" "+r.diagnosis+" "+r.medicines.map(m=>m.name).join(" ")).toLowerCase().includes(q));
+      $("#rcount").textContent=list.length+" prescription"+(list.length===1?"":"s");$("#rtable").innerHTML=rxTable(list,q?"No prescriptions match your search.":"No prescriptions in this period.");bindRx($("#rtable"),list)};
+    $("#rq").addEventListener("input",draw);$("#rp").addEventListener("change",draw);draw();return;
+  }
+  const list=all;
+  const cols=[{h:"Date",f:r=>`<b>${fmtDate(r.date)}</b><span class="sub">${esc(r.number||"")}</span>`}];
+  if(me.role!=="patient")cols.push({h:"Patient",f:r=>`<div class="person">${avatar(r.patientName)}<span><b>${esc(r.patientName)}</b><span class="sub">UHID ${esc(r.patientUhid)}</span></span></div>`});
+  if(me.role!=="doctor")cols.push({h:"Doctor",f:r=>`${esc(r.doctorName)}<span class="sub">${esc(r.doctorSpecialty||"")}</span>`});
+  cols.push({h:"Diagnosis",f:r=>esc(r.diagnosis||"—")},{h:"Medicines",f:r=>`<span class="chip violet plain">${r.medicines.length}</span>`},{h:"",f:r=>`<button class="btn btn-outline btn-xs" data-rx="${r.id}">${icon("i-printer","icon-sm")}View / print</button>`});
+  view.innerHTML=pageHead(me.role==="patient"?"My prescriptions":me.role==="doctor"?"My prescriptions":"Prescriptions",me.role==="doctor"?"To write a new prescription, click Consult in your queue or Prescribe on a patient.":me.role==="admin"?"Read-only. Only doctors can write prescriptions.":null,me.role==="admin"?viewOnly:"")+panel(list.length+" prescription"+(list.length===1?"":"s"),table(cols,list,"No prescriptions yet."));
+  $$("[data-rx]").forEach(b=>b.addEventListener("click",()=>rxViewModal(list.find(r=>r.id===b.dataset.rx))));
+};
+
+VIEWS.billing=async()=>{
+  const staff=me.role==="reception";
+  const list=await api("GET","/api/invoices");
+  const paid=list.filter(i=>i.status==="paid").reduce((s,i)=>s+i.total,0),due=list.filter(i=>i.status!=="paid").reduce((s,i)=>s+i.total,0);
+  const cols=[{h:"Receipt",f:i=>`<b>${esc(i.number)}</b><span class="sub">${fmtDate(i.date)} ${fmtTime(i.time)}</span>`}];
+  if(me.role!=="patient")cols.push({h:"Patient",f:i=>`<div class="person">${avatar(i.patientName)}<span><b>${esc(i.patientName)}</b><span class="sub">UHID ${esc(i.patientUhid)}</span></span></div>`});
+  cols.push({h:"Items",f:i=>esc(i.items.map(x=>x.description).join(", "))},{h:"Amount",num:true,f:i=>`<b>${money(i.total)}</b>${i.discount?`<span class="sub">incl. ${money(i.discount)} off</span>`:""}`},{h:"Status",f:i=>chip(i.status)+(i.mode?`<span class="sub">${esc(i.mode)}</span>`:"")},
+    {h:"Actions",f:i=>`<div class="row-actions"><button class="btn btn-outline btn-xs" data-inv="${i.id}">${icon("i-printer","icon-sm")}View</button>${staff&&i.status!=="paid"?`<button class="btn btn-xs" data-pay="${i.id}">Mark paid</button>`:""}</div>`});
+  view.innerHTML=pageHead(me.role==="patient"?"My receipts":"Receipts",me.role==="admin"?"Read-only. Reception issues receipts and records payments.":null,staff?`<button class="btn btn-amber" id="new-inv">${icon("i-plus","icon-sm")}New receipt</button>`:(me.role==="admin"?viewOnly:""))+
+    statCards([{label:"Paid",value:money(paid),icon:"i-check",tone:"green"},{label:"Due",value:money(due),icon:"i-receipt",tone:"amber"},{label:"Receipts",value:list.length,icon:"i-file",tone:"blue"}])+
+    (me.role==="patient"?"":`<section class="panel"><div class="panel-head"><h3>${icon("i-rupee","icon-sm")}Last payments</h3><div class="actions"><label class="sr-only" for="pp">Period</label><select class="input" id="pp"><option value="1">Today</option><option value="7" selected>Last 7 days</option><option value="30">Last 30 days</option><option value="all">All</option></select></div></div><div id="pay-sum" class="panel-body" style="padding-bottom:0"></div><div id="pay-list"></div></section>`)+
+    panel("All receipts",table(cols,list,"No receipts yet."));
+  $$("[data-inv]").forEach(b=>b.addEventListener("click",()=>receiptModal(list.find(i=>i.id===b.dataset.inv))));
+  if(me.role!=="patient"){
+    const drawPay=()=>{const per=$("#pp").value,t=todayStr(),from=(()=>{const d=new Date();d.setDate(d.getDate()-(Number(per)-1));return ymdOf(d.toISOString())})();
+      const pays=lastPayments(list).filter(i=>per==="all"||(per==="1"?ymdOf(paidStamp(i))===t:ymdOf(paidStamp(i))>=from));
+      const byMode={};pays.forEach(i=>{const m=i.mode||"Other";byMode[m]=(byMode[m]||0)+i.total});
+      $("#pay-sum").innerHTML=`<div class="toolbar" style="gap:10px"><span class="chip green plain" style="font-size:.9rem;padding:6px 14px">Collected ${money(pays.reduce((a,i)=>a+i.total,0))} · ${pays.length} payment${pays.length===1?"":"s"}</span>${Object.keys(byMode).map(m=>`<span class="chip plain">${esc(m)} ${money(byMode[m])}</span>`).join("")}</div>`;
+      $("#pay-list").innerHTML=paymentsList(pays);bindPayView($("#pay-list"),list)};
+    $("#pp").addEventListener("change",drawPay);drawPay();
+  }
+  $$("[data-pay]").forEach(b=>b.addEventListener("click",()=>{
+    formModal("Record payment",fld("mode","Payment mode",{options:["UPI","Cash","Card","Net banking"],full:true}),"Mark as paid",d=>
+      api("PUT","/api/invoices/"+b.dataset.pay,{status:"paid",mode:d.mode}).then(inv=>{closeModal();toast("Payment recorded");rerender();setTimeout(()=>receiptModal(inv),150)}));
+  }));
+  const n=$("#new-inv");if(n)n.addEventListener("click",safe(()=>newReceiptModal()));
+};
+async function newReceiptModal(presetPatientId,doctorName){
+  const patients=await api("GET","/api/patients");
+  const row=(desc,amt)=>`<div class="line-row"><input name="i_desc" placeholder="Description" aria-label="Item description" value="${esc(desc||"")}"><input name="i_amt" type="number" min="0" step="0.01" placeholder="Amount ₹" aria-label="Amount in rupees" value="${esc(amt||"")}"><button type="button" class="icon-btn" data-remove aria-label="Remove item">${icon("i-trash","icon-sm")}</button></div>`;
+  const inner=patientPicker(patients,presetPatientId)+
+    `<div class="full"><div class="section-label" style="margin-top:4px">Items · quick add</div><div class="quick" style="margin-bottom:10px">${RECEIPT_ITEMS.map(([d,a])=>`<button type="button" data-item="${esc(d)}" data-amt="${a}">+ ${esc(d)} ₹${a}</button>`).join("")}</div><div id="items">${row(doctorName?"Consultation - "+doctorName:"Consultation",settings.consultFee||500)}</div><button type="button" class="btn btn-outline btn-xs" id="add-item">${icon("i-plus","icon-sm")}Add item</button></div>`+
+    fld("discount","Discount ₹",{type:"number",min:0,step:"0.01",value:0})+`<div class="field"><label>Total</label><div class="bmi-live" id="inv-total">${money(settings.consultFee||500)}</div></div>`+
+    fld("status","Payment",{options:[["paid","Paid now"],["unpaid","Pay later (due)"]]})+fld("mode","Payment mode",{options:["UPI","Cash","Card","Net banking"]});
+  const form=formModal("New receipt",inner,"Create receipt",d=>{
+    requirePatient(form,d);
+    const items=$$("#items .line-row",form).map(r=>({description:$("[name=i_desc]",r).value.trim(),amount:Number($("[name=i_amt]",r).value)})).filter(i=>i.description&&i.amount>0);
+    if(!items.length)throw new Error("Add at least one item with an amount.");
+    return api("POST","/api/invoices",{patientId:d.patientId,status:d.status,mode:d.mode,discount:d.discount,items}).then(inv=>{toast("Receipt "+inv.number+" created");if(location.hash.indexOf("billing")>=0||location.hash.indexOf("dashboard")>=0||!location.hash)rerender();setTimeout(()=>receiptModal(inv),150)});
+  },{wide:true});
+  wirePatientPicker(form,patients);
+  const total=()=>{const s=$$("[name=i_amt]",form).reduce((a,i)=>a+(Number(i.value)||0),0)-(Number($("[name=discount]",form).value)||0);$("#inv-total",form).textContent=money(Math.max(0,s))};
+  $("#add-item",form).addEventListener("click",()=>{$("#items",form).insertAdjacentHTML("beforeend",row());$$("#items .line-row",form).pop().querySelector("input").focus()});
+  $$("[data-item]",form).forEach(b=>b.addEventListener("click",()=>{const empty=$$("#items .line-row",form).find(r=>!$("[name=i_desc]",r).value.trim());if(empty){$("[name=i_desc]",empty).value=b.dataset.item;$("[name=i_amt]",empty).value=b.dataset.amt}else $("#items",form).insertAdjacentHTML("beforeend",row(b.dataset.item,b.dataset.amt));total()}));
+  form.addEventListener("input",total);
+  form.addEventListener("click",e=>{const b=e.target.closest("[data-remove]");if(b&&$$("#items .line-row",form).length>1){b.closest(".line-row").remove();total()}});
+}
+
+VIEWS.users=async()=>{
+  const list=await api("GET","/api/users");
+  view.innerHTML=pageHead("Users & roles","Create logins for doctors, nurses, reception staff and patients. Each role only sees what it's allowed to.",`<button class="btn" id="add-user">${icon("i-user-plus","icon-sm")}Add user</button>`)+
+    panel(list.length+" users",table([
+      {h:"Name",f:u=>`<div class="person">${avatar(u.name)}<span><b>${esc(u.name)}</b><span class="sub">${esc(u.email)}</span></span></div>`},
+      {h:"Role",f:u=>`<span class="chip ${({admin:"red",doctor:"blue",nurse:"violet",reception:"amber",pharmacy:"green",patient:"teal"})[u.role]}">${esc(ROLE_LABEL[u.role])}</span>${u.specialty?`<span class="sub">${esc(u.specialty)}</span>`:""}`},
+      {h:"Status",f:u=>chip(u.active?"active":"inactive")},
+      {h:"Last login",f:u=>u.lastLogin?fmtDate(u.lastLogin):'<span class="muted">Never</span>'},
+      {h:"Actions",f:u=>`<div class="row-actions"><button class="btn btn-outline btn-xs" data-edit="${u.id}">Edit</button>${u.id!==me.id?`<button class="btn btn-danger btn-xs" data-del="${u.id}">Delete</button>`:""}</div>`}
+    ],list));
+  $("#add-user").addEventListener("click",()=>userModal(null));
+  $$("[data-edit]").forEach(b=>b.addEventListener("click",()=>userModal(list.find(u=>u.id===b.dataset.edit))));
+  $$("[data-del]").forEach(b=>b.addEventListener("click",safe(async()=>{
+    const u=list.find(x=>x.id===b.dataset.del);
+    if(!confirm("Delete "+u.name+"? They will no longer be able to log in. This can't be undone."))return;
+    await api("DELETE","/api/users/"+u.id);toast("User deleted");rerender();
+  })));
+};
+function userModal(u){
+  const isDoc=!u||u.role==="doctor";
+  const inner=fld("name","Full name",{required:true,value:u&&u.name,full:true})+
+    fld("email","Email (login ID)",{type:"email",required:true,value:u&&u.email,autocomplete:"off"})+
+    fld("role","Role",{required:true,options:[["doctor","Doctor"],["nurse","Nurse"],["reception","Reception"],["pharmacy","Pharmacy"],["patient","Patient"],["admin","Admin"]],value:u?u.role:"doctor"})+
+    fld("qualification","Qualification",{value:u&&u.qualification,placeholder:"e.g. MBBS, MD",wrapId:"w-qual",hidden:!isDoc})+
+    fld("specialty","Specialty",{value:u&&u.specialty,placeholder:"e.g. Cardiologist",wrapId:"w-spec",hidden:!isDoc})+
+    fld("regNo","Medical registration no.",{value:u&&u.regNo,wrapId:"w-reg",hidden:!isDoc})+
+    fld("phone","Mobile number",{type:"tel",value:u&&u.phone,pattern:PHONE_PATTERN})+
+    (u?fld("active","Status",{options:[["true","Active"],["false","Deactivated"]],value:String(u.active)}):"")+
+    fld("password",u?"New password (leave blank to keep)":"Password",{type:"password",required:!u,minlength:8,full:true,autocomplete:"new-password",placeholder:"At least 8 characters"});
+  const form=formModal(u?"Edit user":"Add user",inner,u?"Save changes":"Create user",d=>{
+    if(u&&!d.password)delete d.password;
+    return api(u?"PUT":"POST","/api/users"+(u?"/"+u.id:""),d).then(()=>{closeModal();toast(u?"User updated":"User created");rerender()});
+  },{wide:true});
+  const role=$("[name=role]",form);pwToggles(form);
+  role.addEventListener("change",()=>["#w-qual","#w-spec","#w-reg"].forEach(s=>$(s,form).hidden=role.value!=="doctor"));
+}
+
+VIEWS.leads=async()=>{
+  const list=await api("GET","/api/leads");
+  view.innerHTML=pageHead("Website requests","Appointment requests and messages sent from the clinic website. Call the patient back to confirm.")+
+    panel(list.length+" leads",table([
+      {h:"Received",f:l=>fmtDate(l.createdAt)},
+      {h:"Name",f:l=>`<b>${esc(l.name)}</b><span class="sub">${esc(l.email)}${l.phone?" · "+esc(l.phone):""}</span>`},
+      {h:"Type",f:l=>`<span class="chip ${({demo:"blue",contact:"violet",appointment:"green"})[l.type]||""}">${({demo:"Demo",contact:"Contact",appointment:"Appointment"})[l.type]||esc(l.type)}</span>`},
+      {h:"Details",f:l=>esc(l.type==="appointment"?[l.concern,l.preferredDate?"for "+fmtDate(l.preferredDate):""].filter(Boolean).join(" · "):l.type==="demo"?[l.specialty,l.city].filter(Boolean).join(" · "):[l.organisation,l.topic].filter(Boolean).join(" · "))},
+      {h:"Status",f:l=>`<label class="sr-only" for="ls-${l.id}">Status</label><select class="input" style="min-height:34px;padding:5px 8px" id="ls-${l.id}" data-status="${l.id}">${["new","contacted","converted","closed"].map(s=>`<option value="${s}"${s===l.status?" selected":""}>${s[0].toUpperCase()+s.slice(1)}</option>`).join("")}</select>`},
+      {h:"Actions",f:l=>`<div class="row-actions"><button class="btn btn-outline btn-xs" data-open="${l.id}">Open</button><button class="btn btn-danger btn-xs" data-del="${l.id}">Delete</button></div>`}
+    ],list,"No leads yet. Demo and contact form submissions from the website will appear here."));
+  $$("[data-status]").forEach(s=>s.addEventListener("change",safe(async()=>{await api("PUT","/api/leads/"+s.dataset.status,{status:s.value});toast("Lead updated")})));
+  $$("[data-open]").forEach(b=>b.addEventListener("click",()=>{
+    const l=list.find(x=>x.id===b.dataset.open);
+    openModal(l.name,`<dl class="kv"><dt>Type</dt><dd>${({demo:"Demo request",contact:"Contact message",appointment:"Appointment request"})[l.type]||esc(l.type)}</dd>${l.concern?`<dt>Concern</dt><dd>${esc(l.concern)}</dd>`:""}${l.preferredDate?`<dt>Preferred date</dt><dd>${fmtDate(l.preferredDate)}</dd>`:""}<dt>Email</dt><dd><a href="mailto:${esc(l.email)}">${esc(l.email)}</a></dd><dt>Mobile</dt><dd>${esc(l.phone||"—")}</dd>${l.specialty?`<dt>Specialty</dt><dd>${esc(l.specialty)}</dd>`:""}${l.city?`<dt>City</dt><dd>${esc(l.city)}</dd>`:""}${l.organisation?`<dt>I am a</dt><dd>${esc(l.organisation)}</dd>`:""}${l.topic?`<dt>Topic</dt><dd>${esc(l.topic)}</dd>`:""}<dt>Received</dt><dd>${new Date(l.createdAt).toLocaleString("en-IN")}</dd><dt>From page</dt><dd>${esc(l.page||"—")}</dd></dl>${l.message?`<div class="section-label">Message</div><p style="white-space:pre-wrap">${esc(l.message)}</p>`:""}<div class="modal-actions"><button class="btn btn-ghost" data-close>Close</button></div>`);
+  }));
+  $$("[data-del]").forEach(b=>b.addEventListener("click",safe(async()=>{if(!confirm("Delete this lead?"))return;await api("DELETE","/api/leads/"+b.dataset.del);toast("Lead deleted");rerender()})));
+};
+
+VIEWS.settings=async()=>{
+  const s=await api("GET","/api/settings");
+  view.innerHTML=pageHead("Clinic settings","These details appear on every prescription and receipt.")+
+    `<div class="grid-2">${panel("Clinic details",`<form class="panel-body" id="set-form"><div class="form-grid">${fld("clinicName","Clinic name",{required:true,value:s.clinicName,full:true})}${fld("tagline","Tagline / specialities",{value:s.tagline,full:true})}${fld("address","Address",{value:s.address,full:true})}${fld("phone","Phone",{value:s.phone})}${fld("email","Email",{type:"email",value:s.email})}${fld("timings","Timings (shown to patients)",{value:s.timings,full:true})}${fld("openTime","Opens at",{type:"time",value:s.openTime})}${fld("closeTime","Closes at",{type:"time",value:s.closeTime})}${fld("slotMinutes","Appointment slot",{type:"number",min:5,max:120,value:s.slotMinutes,hint:"minutes"})}${fld("consultFee","Consultation fee",{type:"number",min:0,value:s.consultFee,hint:"₹"})}${fld("rxNote","Note printed on prescriptions",{type:"textarea",value:s.rxNote,full:true})}</div><p class="form-error" role="alert" hidden></p><div class="modal-actions"><button class="btn" type="submit">Save settings</button></div></form>`)}
+    ${panel("Preview",`<div class="panel-body"><div class="doc-wrap" id="set-prev"></div></div>`)}</div>`;
+  const f=$("#set-form"),err=$(".form-error",f);
+  const prev=()=>{const d=formData(f);$("#set-prev").innerHTML=`<div class="rxdoc">${(()=>{const keep=settings;settings=Object.assign({},s,d);const h=clinicHeader(`<b>Dr. Sample Doctor</b><span>MBBS, MD</span><span class="spec">Specialty</span><span>Contact: ${esc(d.phone)}</span>`)+(d.rxNote?`<div class="rx-note">${esc(d.rxNote)}</div>`:"");settings=keep;return h})()}</div>`};
+  f.addEventListener("input",prev);prev();
+  f.addEventListener("submit",e=>{e.preventDefault();err.hidden=true;api("PUT","/api/settings",formData(f)).then(ns=>{settings=ns;toast("Settings saved")}).catch(x=>{err.textContent=x.message;err.hidden=false})});
+};
+
+VIEWS.profile=async()=>{
+  view.innerHTML=pageHead("My profile")+`<div class="grid-2">`+
+    panel("Account details",`<div class="panel-body"><div class="pt-card" style="padding:0 0 16px">${avatar(me.name,54)}<div><h3>${esc(me.name)}</h3><span class="chip blue">${esc(ROLE_LABEL[me.role])}</span></div></div><dl class="kv"><dt>Email</dt><dd>${esc(me.email)}</dd>${me.qualification?`<dt>Qualification</dt><dd>${esc(me.qualification)}</dd>`:""}${me.specialty?`<dt>Specialty</dt><dd>${esc(me.specialty)}</dd>`:""}${me.regNo?`<dt>Regn No.</dt><dd>${esc(me.regNo)}</dd>`:""}${me.phone?`<dt>Mobile</dt><dd>${esc(me.phone)}</dd>`:""}</dl><p class="muted" style="margin:16px 0 0;font-size:.88rem">To change these details, ask your clinic administrator.</p></div>`)+
+    panel("Change password",`<form class="panel-body" id="pw-form"><div class="form-grid">${fld("current","Current password",{type:"password",required:true,full:true,autocomplete:"current-password"})}${fld("password","New password",{type:"password",required:true,minlength:8,autocomplete:"new-password",placeholder:"At least 8 characters"})}${fld("confirm","Confirm new password",{type:"password",required:true,minlength:8,autocomplete:"new-password"})}</div><p class="form-error" role="alert" hidden></p><div class="modal-actions"><button class="btn" type="submit">Update password</button></div></form>`)+`</div>`+permCard();
+  const f=$("#pw-form"),err=$(".form-error",f);
+  pwToggles(f);
+  f.addEventListener("submit",e=>{
+    e.preventDefault();err.hidden=true;const d=formData(f);
+    if(d.password!==d.confirm){err.textContent="The new passwords don't match.";err.hidden=false;return}
+    api("POST","/api/me/password",{current:d.current,password:d.password}).then(()=>{f.reset();toast("Password updated")}).catch(x=>{err.textContent=x.message;err.hidden=false});
+  });
+};
+
+/* ================= payments, prescriptions table, medicines, Excel sheet ================= */
+const paidStamp=i=>i.paidAt||(i.date+"T"+(i.time||"00:00")+":00");
+const ymdOf=iso=>{const d=new Date(iso);return isNaN(d)?String(iso).slice(0,10):d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())};
+const hmOf=iso=>{const d=new Date(iso);return isNaN(d)?"":pad(d.getHours())+":"+pad(d.getMinutes())};
+const lastPayments=list=>list.filter(i=>i.status==="paid").sort((a,b)=>paidStamp(b).localeCompare(paidStamp(a)));
+function paymentsList(pays){
+  return table([
+    {h:"Paid on",f:i=>`<b style="white-space:nowrap">${fmtDate(ymdOf(paidStamp(i)))}</b><span class="sub">${fmtTime(hmOf(paidStamp(i)))}</span>`},
+    {h:"Patient",f:i=>`<b>${esc(i.patientName)}</b><span class="sub">UHID ${esc(i.patientUhid)} · ${esc(i.number)}</span>`},
+    {h:"Services",f:i=>esc(i.items.map(x=>x.description).join(", "))},
+    {h:"Mode",f:i=>`<span class="chip ${i.mode==="Cash"?"amber":i.mode==="Card"?"violet":"teal"}">${esc(i.mode||"—")}</span>`},
+    {h:"Amount",num:true,f:i=>`<b>${money(i.total)}</b>`},
+    {h:"",f:i=>`<button class="btn btn-outline btn-xs" data-payview="${i.id}">View</button>`}
+  ],pays,"No payments in this period.");
+}
+function bindPayView(root,list){$$("[data-payview]",root).forEach(b=>b.addEventListener("click",()=>receiptModal(list.find(i=>i.id===b.dataset.payview))))}
+function rxTable(list,empty){
+  return table([
+    ...(me.role!=="patient"?[{h:"Patient",f:r=>`<div class="person">${avatar(r.patientName)}<span><b>${esc(r.patientName)}</b><span class="sub">UHID ${esc(r.patientUhid)}</span></span></div>`}]:[]),
+    {h:"Prescription date",f:r=>`<b style="white-space:nowrap">${ddmmyyyy(r.date)}</b><span class="sub">${fmtTime(r.time)} · ${esc(r.number||"")}</span>`},
+    ...(me.role!=="doctor"?[{h:"Doctor",f:r=>esc(r.doctorName)}]:[]),
+    {h:"Medicines",f:r=>r.medicines.map(m=>`<div><b>${esc(m.name)}</b> <span class="muted">${esc(m.dosage)} · ${esc(m.duration)}</span></div>`).join("")},
+    {h:"",f:r=>`<button class="btn btn-outline btn-xs" data-rxv="${r.id}">${icon("i-eye","icon-sm")}View</button>`}
+  ],list,empty);
+}
+function bindRx(root,list){$$("[data-rxv]",root).forEach(b=>b.addEventListener("click",()=>rxViewModal(list.find(r=>r.id===b.dataset.rxv))))}
+
+VIEWS.medicines=async()=>{
+  view.innerHTML=pageHead("Medicines","The medicine list doctors pick from when writing prescriptions.",viewOnly)+
+    `<section class="panel"><div class="panel-head"><div class="toolbar search"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-search"/></svg><label class="sr-only" for="mq">Search medicines</label><input class="input" id="mq" type="search" placeholder="Brand or composition, e.g. mintop, itraconazole"></div><span class="muted" id="mcount"></span></div><div id="mtable"></div></section>`;
+  const draw=()=>{const q=$("#mq").value.trim(),list=q?S.searchMeds(q,80):MEDS;$("#mcount").textContent=list.length+" medicines";
+    $("#mtable").innerHTML=table([{h:"Medicine",f:m=>`<b>${esc(m.name)}</b>`},{h:"Composition",f:m=>esc(m.comp)},{h:"Usual dose",f:m=>`${esc(m.dose)}<span class="sub">${esc(doseText(m.dose))}</span>`},{h:"When · how long",f:m=>`${esc(m.when)} · ${esc(m.freq)}<span class="sub">${esc(m.durN+" "+m.durU)}</span>`},{h:"Note",f:m=>esc(m.notes||"")}],list,"No medicines match.")};
+  $("#mq").addEventListener("input",draw);draw();
+};
+
+const SHEET_COLS={
+  patients:[["UHID","uhid"],["Patient name","name"],["Age","age"],["Gender","gender"],["Mobile","phone"],["Area","city"],["Registered","registered","date"],["Visits","visits"],["Last visit","lastVisit","date"],["Billed (₹)","billed","money"],["Paid (₹)","paid","money"],["Due (₹)","due","money"],["Last payment","lastPayment","date"]],
+  payments:[["Date","date","date"],["Time","time","time"],["Receipt no.","number"],["UHID","uhid"],["Patient","name"],["Mobile","phone"],["Services","services"],["Amount (₹)","amount","money"],["Discount (₹)","discount","money"],["Total (₹)","total","money"],["Mode","mode"],["Status","status"],["Received by","receivedBy"]],
+  visits:[["Date","date","date"],["Time","time","time"],["UHID","uhid"],["Patient","name"],["Doctor","doctor"],["Type","type"],["Reason","reason"],["Status","status"]]
+};
+const SHEET_TITLES={patients:"Patients",payments:"Payments",visits:"Visits"};
+VIEWS.sheet=async()=>{
+  const data=await api("GET","/api/report");
+  let tab="patients";
+  const tot=k=>data.patients.reduce((a,p)=>a+p[k],0);
+  view.innerHTML=pageHead("Excel sheet","All patients with amounts and dates, plus every payment and visit. Download it as an Excel file any time.",`<button class="btn" id="xl">${icon("i-file","icon-sm")}Download Excel (.xlsx)</button>`)+
+    statCards([{label:"Patients",value:data.patients.length,icon:"i-users"},{label:"Total billed",value:money(tot("billed")),icon:"i-receipt",tone:"blue"},{label:"Collected",value:money(tot("paid")),icon:"i-rupee",tone:"green"},{label:"Due",value:money(tot("due")),icon:"i-clock",tone:"amber"}])+
+    `<section class="panel"><div class="panel-head"><div class="tabs-row" role="tablist" aria-label="Sheet">${Object.keys(SHEET_COLS).map(k=>`<button class="btn ${k===tab?"":"btn-outline"} btn-xs" role="tab" data-tab="${k}" aria-selected="${k===tab}">${SHEET_TITLES[k]}</button>`).join(" ")}</div><div class="toolbar search"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-search"/></svg><label class="sr-only" for="sq">Search sheet</label><input class="input" id="sq" type="search" placeholder="Search"></div></div><div id="sheet-table" class="table-wrap"></div></section><p class="muted" style="font-size:.84rem">Updated ${new Date(data.generatedAt).toLocaleString("en-IN")}</p>`;
+  const cellOf=(r,[,k,kind])=>{const v=r[k];if(v===""||v==null)return "";return kind==="date"?fmtDate(v):kind==="time"?fmtTime(v):kind==="money"?money(v):esc(v)};
+  const draw=()=>{const q=$("#sq").value.toLowerCase(),cols=SHEET_COLS[tab],rows=data[tab].filter(r=>!q||Object.values(r).join(" ").toLowerCase().includes(q));
+    $("#sheet-table").innerHTML=rows.length?`<table class="sheet"><thead><tr><th>#</th>${cols.map(c=>`<th${c[2]==="money"?' style="text-align:right"':""}>${esc(c[0])}</th>`).join("")}</tr></thead><tbody>${rows.map((r,i)=>`<tr><td class="muted">${i+1}</td>${cols.map(c=>`<td${c[2]==="money"?' class="num"':""}${c[1]==="due"&&r.due>0?' style="color:var(--danger);font-weight:700"':""}>${cellOf(r,c)}</td>`).join("")}</tr>`).join("")}</tbody></table>`:'<div class="empty">No rows match.</div>';
+    $$("[data-tab]").forEach(b=>{const on=b.dataset.tab===tab;b.classList.toggle("btn-outline",!on);b.setAttribute("aria-selected",on)})};
+  $$("[data-tab]").forEach(b=>b.addEventListener("click",()=>{tab=b.dataset.tab;draw()}));
+  $("#sq").addEventListener("input",draw);draw();
+  $("#xl").addEventListener("click",()=>{
+    const name=(settings.clinicName||"Clinic").replace(/[^\w]+/g,"-")+"-records-"+todayStr();
+    const aoa=k=>[SHEET_COLS[k].map(c=>c[0]),...data[k].map(r=>SHEET_COLS[k].map(([,key,kind])=>kind==="money"?Number(r[key]||0):(r[key]==null?"":r[key])))];
+    if(window.XLSX){
+      const wb=XLSX.utils.book_new();
+      Object.keys(SHEET_COLS).forEach(k=>{const ws=XLSX.utils.aoa_to_sheet(aoa(k));ws["!cols"]=SHEET_COLS[k].map(c=>({wch:Math.max(10,c[0].length+4)}));XLSX.utils.book_append_sheet(wb,ws,SHEET_TITLES[k])});
+      XLSX.writeFile(wb,name+".xlsx");toast("Excel file downloaded");
+    }else{ // offline fallback: CSV opens in Excel too
+      const csv=aoa(tab).map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(",")).join("\r\n");
+      const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+csv],{type:"text/csv"}));a.download=name+"-"+tab+".csv";a.click();toast("Downloaded as CSV (opens in Excel)");
+    }
+  });
+};
+
+/* ================= pharmacy: stock & expiry ================= */
+const ST_LABEL={expired:"Expired",expiring:"Expiring soon",low:"Low stock",ok:"In stock"};
+const ST_TONE={expired:"red",expiring:"amber",low:"blue",ok:"green"};
+const MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const lastDayOf=(y,m)=>{const d=new Date(+y,+m,0);return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())};
+const expLabel=e=>{const p=String(e||"").split("-");return p.length===3?p[1]+"/"+p[0]:"—"};
+/* Indian medicine boxes: the normal 1D barcode (EAN-13) holds only the product number.
+   The 2D code (GS1 DataMatrix / QR) on many boxes also holds batch, expiry and manufacturing date: read those when scanned. */
+function parseGS1(raw){
+  let s=String(raw||"").replace(/^\][A-Za-z]\d/,"").replace(/^\x1d/,"").trim();const GS="\x1d",out={};
+  if(/^\(\d{2,4}\)/.test(s))s.replace(/\((\d{2,4})\)([^(]*)/g,(_,ai,v)=>{out[ai]=v.trim();return ""});
+  else if(/^01\d{14}/.test(s)){
+    const FIX={"01":14,"02":14,"11":6,"13":6,"15":6,"16":6,"17":6};let i=0,guard=0;
+    while(i<s.length&&guard++<20){
+      if(s[i]===GS){i++;continue}
+      const ai=s.substr(i,2);i+=2;
+      if(FIX[ai]){out[ai]=s.substr(i,FIX[ai]);i+=FIX[ai]}
+      else if(["10","21","22","30","90","91","92"].includes(ai)){let j=s.indexOf(GS,i);if(j<0)j=s.length;out[ai]=s.slice(i,j);i=j}
+      else break;
+    }
+  }else return null;
+  if(!out["01"]||!/^\d{14}$/.test(out["01"]))return null;
+  const ymd=v=>{if(!/^\d{6}$/.test(v||""))return "";const y=2000+(+v.slice(0,2)),m=v.slice(2,4),d=v.slice(4,6);return d==="00"?lastDayOf(String(y),m):y+"-"+m+"-"+d};
+  const gt=out["01"];
+  return {code:gt[0]==="0"?gt.slice(1):gt,batch:(out["10"]||"").replace(/[^0-9A-Za-z\-\/]/g,"").slice(0,40),expiry:ymd(out["17"]),mfg:ymd(out["11"])};
+}
+function stockFormModal(existing,prefill,done){
+  const it=existing||Object.assign({qty:0,minQty:5},prefill||{});
+  const y0=new Date().getFullYear(),ep=(it.expiry||"").split("-");
+  const inner=fld("barcode","Barcode",{value:it.barcode,placeholder:"Scan the box now",hint:"scan or type",autocomplete:"off"})+
+    fld("name","Medicine name",{required:true,value:it.name,list:"med-names",placeholder:"e.g. Gel Adaferin"})+
+    fld("company","Company",{value:it.company,placeholder:"e.g. Galderma"})+
+    fld("batch","Batch no.",{required:true,value:it.batch,placeholder:"e.g. AD2312"})+
+    fld("expMonth","Expiry month",{required:true,options:[["","Month"]].concat(MONTHS.map((m,i)=>[pad(i+1),pad(i+1)+" · "+m])),value:ep[1]||""})+
+    fld("expYear","Expiry year",{required:true,options:[["","Year"]].concat(Array.from({length:13},(_,i)=>String(y0-2+i))),value:ep[0]||""})+
+    fld("mrp","MRP ₹",{type:"number",min:0,step:"0.01",required:true,value:it.mrp})+
+    fld("purchaseRate","Purchase rate ₹",{type:"number",min:0,step:"0.01",required:true,value:it.purchaseRate})+
+    fld("qty","Quantity in stock",{type:"number",min:0,step:1,required:true,value:it.qty})+
+    fld("minQty","Minimum quantity",{type:"number",min:0,step:1,required:true,value:it.minQty,hint:"alert at or below"})+
+    `<datalist id="med-names">${MEDS.map(m=>`<option value="${esc(m.name)}">`).join("")}</datalist>`;
+  const form=formModal(existing?"Edit stock":"Add medicine to stock",inner,existing?"Save changes":"Add to stock",d=>{
+    const body={barcode:d.barcode,name:d.name,company:d.company,batch:d.batch,expiry:lastDayOf(d.expYear,d.expMonth),mrp:d.mrp,purchaseRate:d.purchaseRate,qty:d.qty,minQty:d.minQty};
+    return api(existing?"PUT":"POST","/api/inventory"+(existing?"/"+existing.id:""),body).then(r=>{closeModal();toast(existing?"Stock updated":r.name+" added to stock");done&&done(r)});
+  },{wide:true});
+  const bc=$("[name=barcode]",form),F=n=>$("[name="+n+"]",form);
+  const note=document.createElement("p");note.className="inv-msg full";note.hidden=true;$(".form-grid",form).prepend(note);
+  const say=(h,warn)=>{note.innerHTML=h;note.classList.toggle("warn",!!warn);note.hidden=!h};
+  const setYM=iso=>{const p=iso.split("-"),ys=F("expYear");if(![...ys.options].some(o=>o.value===p[0]))ys.add(new Option(p[0],p[0]));ys.value=p[0];F("expMonth").value=p[1]};
+  let looked="";
+  const fill=async()=>{
+    let v=bc.value.trim();if(!v||v===looked)return;
+    const g=parseGS1(v),got=[];
+    if(g){v=g.code;bc.value=v;
+      if(g.batch&&!F("batch").value){F("batch").value=g.batch;got.push("batch")}
+      if(g.expiry&&!F("expYear").value){setYM(g.expiry);got.push("expiry")}
+    }
+    looked=v;
+    let last=null;
+    if(!existing){try{last=(await api("GET","/api/inventory?barcode="+encodeURIComponent(v))).sort((a,b)=>String(b.createdAt||"").localeCompare(String(a.createdAt||"")))[0]||null}catch(e){}}
+    if(last){
+      [["name","name"],["company","company"],["mrp","MRP"],["purchaseRate","purchase rate"]].forEach(([k,l])=>{if(!F(k).value&&last[k]!=null&&last[k]!==""){F(k).value=last[k];got.push(l)}});
+      if(F("minQty").value==="5"||!F("minQty").value)F("minQty").value=last.minQty;
+    }
+    const need=["batch","expMonth","expYear","name","mrp","purchaseRate"].filter(k=>!F(k).value);
+    const nice={batch:"batch",expMonth:"expiry",expYear:"expiry",name:"name",mrp:"MRP",purchaseRate:"purchase rate"};
+    const left=[...new Set(need.map(k=>nice[k]))];
+    say(got.length?`Filled in automatically: <b>${[...new Set(got)].join(", ")}</b>${last?` (from earlier batch ${esc(last.batch)})`:" (from the box's 2D code)"}.${left.length?" Please enter: "+left.join(", ")+", and quantity.":" Check them and enter the quantity."}`
+      :`New barcode. A normal barcode only carries the product number, so enter the name, batch, expiry and prices from the box. Next time this barcode is scanned, the name, company and prices fill in by themselves.`,!got.length);
+    const nxt=need[0]?F(need[0]):F("qty");setTimeout(()=>{nxt.focus();nxt.select&&nxt.select()},20);
+  };
+  // the scanner presses Enter after the code: look it up instead of submitting
+  bc.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();if(bc.value.trim()&&bc.value.trim()!==looked)fill();else F("name").focus()}});
+  bc.addEventListener("change",fill);
+  if(!it.barcode)setTimeout(()=>bc.focus(),60);
+  else if(!existing)fill();
+  else setTimeout(()=>F("name").focus(),60);
+}
+function adjustModal(item,dir,done){
+  const out=dir<0;
+  const inner=`<div class="full"><b>${esc(item.name)}</b> · Batch ${esc(item.batch)} · Exp ${expLabel(item.expiry)} · In stock: <b>${item.qty}</b></div>`+
+    fld("qty",out?"Quantity sold / removed":"Quantity received",{type:"number",min:1,step:1,required:true,value:1})+
+    fld("reason","Reason",{options:out?["Sold / dispensed","Damaged","Returned to supplier","Expired - removed","Correction"]:["Stock received","Correction"]})+
+    fld("note","Note",{full:true,placeholder:out?"e.g. Patient UHID 25001":"e.g. Invoice no. from supplier"});
+  formModal(out?"Record sale / remove stock":"Add stock (received)",inner,out?"Remove from stock":"Add to stock",d=>{
+    const q=Math.round(Number(d.qty));if(!(q>0))throw new Error("Enter a quantity of 1 or more.");
+    return api("POST","/api/inventory/"+item.id+"/adjust",{change:out?-q:q,reason:d.reason,note:d.note}).then(r=>{closeModal();toast(r.name+": now "+r.qty+" in stock");done&&done(r)});
+  });
+}
+function parseExpiry(v){
+  if(v==null||v==="")return "";
+  if(typeof v==="number"&&v>20000){const d=new Date(Math.round((v-25569)*864e5));return d.getUTCFullYear()+"-"+pad(d.getUTCMonth()+1)+"-"+pad(d.getUTCDate())} // Excel date number
+  const s=String(v).trim();let m;
+  if((m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/)))return m[1]+"-"+pad(m[2])+"-"+pad(m[3]);
+  if((m=s.match(/^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{4})$/)))return m[3]+"-"+pad(m[2])+"-"+pad(m[1]); // DD/MM/YYYY
+  if((m=s.match(/^(\d{1,2})[\/\-.](\d{4})$/)))return lastDayOf(m[2],m[1]); // MM/YYYY
+  return s;
+}
+function importStock(file,done){
+  if(!window.XLSX){toast("Excel import needs an internet connection to load the Excel reader. Try again when online.",true);return}
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      const wb=XLSX.read(new Uint8Array(r.result),{type:"array"});
+      const ws=wb.Sheets[wb.SheetNames.find(n=>/medicine/i.test(n))||wb.SheetNames[0]];
+      const grid=XLSX.utils.sheet_to_json(ws,{header:1,raw:true,defval:""});
+      const hi=grid.findIndex(row=>row.some(c=>/barcode|medicine|name/i.test(String(c))));
+      if(hi<0)throw new Error("Couldn't find the header row (Barcode, Name, Batch…).");
+      const H=grid[hi].map(h=>String(h).toLowerCase());
+      const col=(...keys)=>H.findIndex(h=>keys.some(k=>h.includes(k)));
+      const ix={barcode:col("barcode"),name:col("medicine","name","product","item"),company:col("company","manufacturer","mfr","brand"),batch:col("batch"),expiry:col("expiry","exp"),mrp:col("mrp"),purchaseRate:col("purchase","rate","cost","ptr"),qty:H.findIndex(h=>/qty|quantity|stock/.test(h)&&!/min|value/.test(h)),minQty:H.findIndex(h=>/min/.test(h))};
+      const rows=grid.slice(hi+1).map((row,k)=>({_row:hi+k+2,barcode:ix.barcode>=0?String(row[ix.barcode]).trim():"",name:ix.name>=0?String(row[ix.name]).trim():"",company:ix.company>=0?String(row[ix.company]).trim():"",batch:ix.batch>=0?String(row[ix.batch]).trim():"",expiry:ix.expiry>=0?parseExpiry(row[ix.expiry]):"",mrp:ix.mrp>=0?row[ix.mrp]:0,purchaseRate:ix.purchaseRate>=0?row[ix.purchaseRate]:0,qty:ix.qty>=0?row[ix.qty]:0,minQty:ix.minQty>=0?row[ix.minQty]:0})).filter(x=>x.name);
+      if(!rows.length)throw new Error("No medicine rows found under the header.");
+      api("POST","/api/inventory/import",{rows}).then(res=>{
+        openModal("Import finished",`<p><b>${res.added}</b> added · <b>${res.skipped}</b> already in stock (skipped) · <b>${res.failed-res.skipped>0?res.failed-res.skipped:0}</b> with problems</p>${res.errors.length?`<div class="section-label">Rows to fix in the sheet</div><ul class="list">${res.errors.map(e=>`<li><span>Row ${e.row}</span><span class="muted">${esc(e.error)}</span></li>`).join("")}</ul>`:""}<div class="modal-actions"><button class="btn" data-close>Done</button></div>`);
+        done&&done();
+      }).catch(e=>toast(e.message,true));
+    }catch(e){toast("Couldn't read that file: "+e.message,true)}
+  };
+  r.readAsArrayBuffer(file);
+}
+function exportStock(items){
+  const head=["Barcode","Medicine name","Company","Batch","Expiry (MM/YYYY)","MRP (₹)","Purchase rate (₹)","Qty","Min qty","Stock value (₹)","Days to expiry","Status"];
+  const rows=items.map(i=>[i.barcode,i.name,i.company,i.batch,expLabel(i.expiry),i.mrp,i.purchaseRate,i.qty,i.minQty,i.stockValue,i.daysToExpiry,ST_LABEL[i.status]]);
+  const name=(settings.clinicName||"Clinic").replace(/[^\w]+/g,"-")+"-stock-"+todayStr();
+  if(window.XLSX){
+    const wb=XLSX.utils.book_new(),ws=XLSX.utils.aoa_to_sheet([head,...rows]);ws["!cols"]=head.map(h=>({wch:Math.max(10,h.length+3)}));
+    XLSX.utils.book_append_sheet(wb,ws,"Medicines");
+    const v=items,cnt=s=>v.filter(i=>i.status===s).length;
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet([["Summary",""],["Total batches",v.length],["Total quantity",v.reduce((a,i)=>a+i.qty,0)],["Stock value at purchase rate (₹)",v.reduce((a,i)=>a+i.stockValue,0)],["Stock value at MRP (₹)",v.reduce((a,i)=>a+i.mrpValue,0)],["Expired",cnt("expired")],["Expiring within 90 days",cnt("expiring")],["Low stock",v.filter(i=>i.lowStock&&i.status!=="expired").length],["Generated",new Date().toLocaleString("en-IN")]]),"Summary");
+    XLSX.writeFile(wb,name+".xlsx");toast("Stock sheet downloaded");
+  }else{
+    const csv=[head,...rows].map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(",")).join("\r\n");
+    const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+csv],{type:"text/csv"}));a.download=name+".csv";a.click();
+  }
+}
+VIEWS.inventory=async()=>{
+  const canEdit=me.role==="pharmacy";
+  let items=await api("GET","/api/inventory");
+  const qs=(location.hash.split("?")[1]||"").match(/f=(\w+)/);
+  let filter=qs?qs[1]:"all",hits=null,msg="",msgWarn=false;
+  view.innerHTML=pageHead(canEdit?"Stock & expiry":"Pharmacy stock",canEdit?"Scan a medicine box with the barcode scanner, or type a name. Unknown barcodes open “Add medicine”.":"Read-only. The pharmacy manages stock.",
+      (canEdit?`<button class="btn btn-outline" id="inv-import">${icon("i-upload","icon-sm")}Import Excel</button><button class="btn" id="inv-add">${icon("i-plus","icon-sm")}Add medicine</button>`:viewOnly)+`<button class="btn btn-outline" id="inv-export">${icon("i-file","icon-sm")}Download Excel</button>`)+
+    `<div id="inv-cards"></div>
+    <div class="legend-row"><span><i style="background:#F5B5AE"></i>Expired</span><span><i style="background:#F6D680"></i>Expiring within 90 days</span><span><i style="background:#A9C8F5"></i>At or below minimum quantity</span></div>
+    <section class="panel"><div class="panel-head" style="gap:12px">
+      <label class="scanbar" for="inv-scan">${icon("i-barcode")}<span class="sr-only">Scan barcode or search</span><input id="inv-scan" type="search" autocomplete="off" placeholder="Scan barcode or type medicine, company, batch…"></label>
+      <label class="sr-only" for="inv-filter">Show</label><select class="input" id="inv-filter"><option value="all">All stock</option><option value="expired">Expired</option><option value="expiring">Expiring ≤ 90 days</option><option value="low">Low stock</option><option value="ok">In stock</option></select>
+    </div><div id="inv-msg"></div><div id="inv-table"></div></section>
+    <input type="file" id="inv-file" accept=".xlsx,.xls,.csv" hidden>`;
+  const scan=$("#inv-scan"),fsel=$("#inv-filter");fsel.value=filter;
+  const reload=async(keepHits)=>{items=await api("GET","/api/inventory");if(!keepHits)hits=null;draw()};
+  const draw=()=>{
+    const cnt=s=>items.filter(i=>i.status===s).length,low=items.filter(i=>i.lowStock&&i.status!=="expired").length;
+    $("#inv-cards").innerHTML=`<div class="cards">${[["all","Batches in stock",items.length,"i-box",""],["expired","Expired",cnt("expired"),"i-alert","rose"],["expiring","Expiring ≤ 90 days",cnt("expiring"),"i-clock","amber"],["low","Low stock",low,"i-box","blue"]].map(([f,l,v,ic,t])=>`<button type="button" class="stat ${t}" data-f="${f}" style="text-align:left;cursor:pointer;font:inherit${filter===f?";outline:2px solid var(--teal-500)":""}"><span class="ic">${icon(ic)}</span><div><small>${l}</small><b>${v}</b></div></button>`).join("")}<div class="stat green"><span class="ic">${icon("i-rupee")}</span><div><small>Stock value (purchase)</small><b>${money(items.reduce((a,i)=>a+i.stockValue,0))}</b></div></div></div>`;
+    $$("[data-f]").forEach(b=>b.addEventListener("click",()=>{filter=b.dataset.f;fsel.value=filter;hits=null;draw()}));
+    const q=scan.value.trim().toLowerCase();
+    let list=hits?items.filter(i=>hits.includes(i.id)):items.filter(i=>!q||(i.name+" "+i.company+" "+i.batch+" "+i.barcode).toLowerCase().includes(q));
+    if(!hits&&filter!=="all")list=list.filter(i=>filter==="low"?(i.lowStock&&i.status!=="expired"):i.status===filter);
+    $("#inv-msg").innerHTML=msg?`<p class="inv-msg${msgWarn?" warn":""}">${msg}</p>`:"";
+    $("#inv-table").innerHTML=list.length?`<div class="table-wrap"><table><thead><tr><th>Medicine</th><th>Barcode</th><th>Batch</th><th>Expiry</th><th style="text-align:right">MRP</th><th style="text-align:right">Purchase</th><th style="text-align:right">Qty</th><th style="text-align:right">Min</th><th style="text-align:right">Stock value</th><th>Days left</th><th>Status</th>${canEdit?"<th>Actions</th>":""}</tr></thead><tbody>${list.map(i=>`<tr class="inv-${i.status}${hits&&hits.includes(i.id)?" inv-hit":""}"><td><b>${esc(i.name)}</b><span class="sub">${esc(i.company||"")}</span></td><td style="font-family:ui-monospace,monospace;font-size:.84rem">${esc(i.barcode||"—")}</td><td>${esc(i.batch)}</td><td style="white-space:nowrap">${expLabel(i.expiry)}</td><td class="num">${money(i.mrp)}</td><td class="num">${money(i.purchaseRate)}</td><td class="num"><b>${i.qty}</b></td><td class="num">${i.minQty}</td><td class="num">${money(i.stockValue)}</td><td style="white-space:nowrap">${i.daysToExpiry<0?`<b style="color:var(--danger)">${-i.daysToExpiry} days ago</b>`:i.daysToExpiry+" days"}</td><td>${chip(ST_TONE[i.status]==="green"?"paid":ST_TONE[i.status]==="red"?"cancelled":ST_TONE[i.status]==="amber"?"unpaid":"booked",ST_LABEL[i.status])}${i.lowStock&&i.status!=="low"&&i.status!=="expired"?`<span class="sub" style="color:var(--blue-700)">Low stock</span>`:""}</td>${canEdit?`<td><div class="row-actions" style="grid-template-columns:repeat(2,minmax(40px,max-content))"><button class="btn btn-outline btn-xs qty-btn" data-out="${i.id}" title="Record sale / remove" aria-label="Remove stock for ${esc(i.name)}">−</button><button class="btn btn-outline btn-xs qty-btn" data-in="${i.id}" title="Add stock received" aria-label="Add stock for ${esc(i.name)}">+</button><button class="btn btn-outline btn-xs" data-edit="${i.id}">Edit</button><button class="btn btn-danger btn-xs" data-del="${i.id}">Delete</button></div></td>`:""}</tr>`).join("")}</tbody></table></div>`
+      :`<div class="empty">${q?"No stock matches “"+esc(scan.value)+"”.":filter!=="all"?"Nothing in this list.":"No medicines in stock yet."}${canEdit?" Use <b>Add medicine</b> or scan a box.":""}</div>`;
+    const find=id=>items.find(i=>i.id===id);
+    $$("[data-out]").forEach(b=>b.addEventListener("click",()=>adjustModal(find(b.dataset.out),-1,()=>reload(true))));
+    $$("[data-in]").forEach(b=>b.addEventListener("click",()=>adjustModal(find(b.dataset.in),1,()=>reload(true))));
+    $$("[data-edit]").forEach(b=>b.addEventListener("click",()=>stockFormModal(find(b.dataset.edit),null,()=>reload(true))));
+    $$("[data-del]").forEach(b=>b.addEventListener("click",safe(async()=>{const i=find(b.dataset.del);if(!confirm("Delete "+i.name+" (batch "+i.batch+") from stock?"))return;await api("DELETE","/api/inventory/"+i.id);toast("Deleted from stock");reload()})));
+  };
+  scan.addEventListener("input",()=>{hits=null;msg="";draw()});
+  // barcode scanners type the code and press Enter
+  scan.addEventListener("keydown",e=>{
+    if(e.key!=="Enter")return;e.preventDefault();
+    let v=scan.value.trim();if(!v)return;
+    const g=parseGS1(v);
+    if(g){v=g.code;scan.value=v;
+      const same=items.filter(i=>i.barcode===v);
+      if(g.batch&&!same.some(i=>i.batch===g.batch.toUpperCase())){
+        hits=same.map(i=>i.id);msg=canEdit?`New batch <b>${esc(g.batch)}</b>${same.length?` of <b>${esc(same[0].name)}</b>`:""}. Check the details and enter the quantity.`:`Batch <b>${esc(g.batch)}</b> isn't in stock.`;msgWarn=true;draw();
+        if(canEdit)stockFormModal(null,{barcode:v,batch:g.batch,expiry:g.expiry},r=>{scan.value=r.barcode;reload().then(()=>{hits=[r.id];msg=`Added <b>${esc(r.name)}</b> batch ${esc(r.batch)}.`;msgWarn=false;draw()})});
+        return;
+      }
+    }
+    const found=items.filter(i=>i.barcode&&i.barcode===v);
+    if(found.length){
+      hits=found.map(i=>i.id);
+      const best=found.filter(i=>i.status!=="expired").sort((a,b)=>a.expiry.localeCompare(b.expiry))[0];
+      msg=`Found ${found.length} batch${found.length>1?"es":""} of <b>${esc(found[0].name)}</b>. Total in stock: <b>${found.reduce((a,i)=>a+i.qty,0)}</b>.${best?` Sell first: batch ${esc(best.batch)} (exp ${expLabel(best.expiry)}).`:" All batches are expired."}`;msgWarn=!best;
+      scan.select();draw();
+    }else if(/^[0-9A-Za-z\-]{6,}$/.test(v)&&!items.some(i=>(i.name+" "+i.batch).toLowerCase().includes(v.toLowerCase()))){
+      hits=null;msg=canEdit?`Barcode <b>${esc(v)}</b> isn't in stock yet. Fill in the details to add it.`:`Barcode <b>${esc(v)}</b> isn't in stock.`;msgWarn=true;draw();
+      if(canEdit)stockFormModal(null,{barcode:v},r=>{scan.value=r.barcode;reload().then(()=>{hits=[r.id];msg=`Added <b>${esc(r.name)}</b>.`;msgWarn=false;draw()})});
+    }
+  });
+  fsel.addEventListener("change",()=>{filter=fsel.value;hits=null;draw()});
+  $("#inv-export").addEventListener("click",()=>exportStock(items));
+  if(canEdit){
+    $("#inv-add").addEventListener("click",()=>stockFormModal(null,null,()=>reload()));
+    $("#inv-import").addEventListener("click",()=>$("#inv-file").click());
+    $("#inv-file").addEventListener("change",e=>{const f=e.target.files[0];if(f)importStock(f,()=>reload());e.target.value=""});
+  }
+  draw();setTimeout(()=>scan.focus(),50);
+};
+
+/* ================= boot ================= */
+async function boot(){
+  document.head.insertAdjacentHTML("beforeend","<style>"+S.DOC_CSS+"</style>");
+  try{
+    mode=await client.mode();
+    me=(await api("GET","/api/me")).user;
+  }catch(e){location.replace("login.html");return}
+  [doctors,settings]=await Promise.all([api("GET","/api/doctors"),api("GET","/api/settings")]);
+  $("#nav").innerHTML=NAV[me.role].map(n=>`<li><a href="#/${n[0]}" data-route="${n[0]}">${icon(n[2])}${esc(n[1])}</a></li>`).join("");
+  $("#who-name").textContent=me.name;$("#who-role").textContent=ROLE_LABEL[me.role]+(me.specialty?" · "+me.specialty:"");
+  const av=$("#who-avatar");av.textContent=initials(me.name);av.style.background=avColor(me.name);
+  $("#role-badge span").textContent=ROLE_LABEL[me.role]+" workspace";
+  if(settings.clinicName){$(".side .brand > span").innerHTML=esc(settings.clinicName)+'<small style="display:block;font-size:.66rem;font-weight:600;color:var(--teal-300);letter-spacing:.02em">by ShabiHub</small>';document.title=settings.clinicName}
+  const mp=$("#mode-pill");mp.textContent=mode==="server"?"● Live database":"● Demo mode · saved in this browser";mp.classList.toggle("server",mode==="server");
+  mp.title=mode==="server"?"Connected to the clinic server (data.json)":"Run start.bat to use the shared database";
+  if(mode==="demo"){const r=$("#reset-demo");r.hidden=false;r.addEventListener("click",()=>{if(confirm("Reset all demo data back to the original sample data?")){client.resetDemo();location.replace("login.html")}})}
+  $("#boot").hidden=true;$("#app").hidden=false;
+  $("#menu-btn").addEventListener("click",()=>setSide(!$("#side").classList.contains("open")));
+  $("#scrim").addEventListener("click",()=>setSide(false));
+  $("#logout").addEventListener("click",()=>api("POST","/api/logout").then(()=>location.replace("login.html")));
+  window.addEventListener("hashchange",render);
+  render();
+}
+boot();
+})();
+</script>
+</body>
+</html>
